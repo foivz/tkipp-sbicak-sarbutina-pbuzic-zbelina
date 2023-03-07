@@ -33,6 +33,14 @@ ZMG Desktop će biti buduće rješenje za navedene probleme privatnog obrta. Apl
 
 
 ## Projektni tim
+Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
+------------  | ------------------- | ----- | ---------------------
+Sebastijan Bičak | sbicak20@student.foi.hr | 0016150730 | sbicak20
+Sebastian Arbutina | sarbutina20@student.foi.hr | 0016147707 | sarbutina20
+Zvonimir Belina | zbelina20@student.foi.hr | 0016149673 | zbelina20
+Patrik Bužić | pbuzic20@student.foi.hr | 0016146757 | puzic20
+
+## Specifikacija projekta
 
 Oznaka | Naziv | Kratki opis | Odgovorni član tima
 ------ | ----- | ----------- | -------------------
