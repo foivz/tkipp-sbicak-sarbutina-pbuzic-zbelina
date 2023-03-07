@@ -20,7 +20,7 @@ Povratnu informaciju na samu prijavu tima i projekta, kao i na završnu predaju 
 ZMG Desktop
 
 ## Model rada na projektu
-(1) Nastavak rada na projektu iz kolegija "Naziv kolegija"
+(1) Nastavak rada na projektu iz kolegija "Razvoj programskih proizvoda (RPP)"
 <!-- (Ovdje navedite model rada na projektu, pri čemu su dostupne opcije: , (2) Rad na projektu u suradnji s nastavnicima, (3) Rad na projektu u suradnji s industrijom. -->
 
 ## Opis projekta
