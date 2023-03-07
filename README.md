@@ -19,6 +19,14 @@ Povratnu informaciju na samu prijavu tima i projekta, kao i na završnu predaju 
 # Naziv projekta
 ZMG Desktop
 
+## Projektni tim
+Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
+------------  | ------------------- | ----- | ---------------------
+Sebastijan Bičak | sbicak20@student.foi.hr | 0016150730 | sbicak20
+Sebastian Arbutina | sarbutina20@student.foi.hr | 0016147707 | sarbutina20
+Zvonimir Belina | zbelina20@student.foi.hr | 0016149673 | zbelina20
+Patrik Bužić | pbuzic20@student.foi.hr | 0016146757 | puzic20
+
 ## Model rada na projektu
 (1) Nastavak rada na projektu iz kolegija "Razvoj programskih proizvoda (RPP)"
 <!-- (Ovdje navedite model rada na projektu, pri čemu su dostupne opcije: , (2) Rad na projektu u suradnji s nastavnicima, (3) Rad na projektu u suradnji s industrijom. -->
@@ -31,14 +39,6 @@ Problem s kojim se poslodavac suočava je ručno izvođenje izdavanja računa po
 
 ZMG Desktop će biti buduće rješenje za navedene probleme privatnog obrta. Aplikacija će omogućiti lakši način rada, automatizirati će slanje poruke klijentima da je roba koja se obrađuje gotova, printanje i izadavanje računa preko aplikacije. ZMG Desktop će imati bazu podataka u kojoj su spremljeni računi i klijenti za koje privatni obrt radi. Obrađivanje podataka će se vršiti pomoće te baze podataka. Poslodavac će imati mogućnost pregledavanja obračuna kroz cijeli tjedan, nekoliko mjeseci ili godinu dana.
 
-
-## Projektni tim
-Ime i prezime | E-mail adresa (FOI) | JMBAG | Github korisničko ime
-------------  | ------------------- | ----- | ---------------------
-Sebastijan Bičak | sbicak20@student.foi.hr | 0016150730 | sbicak20
-Sebastian Arbutina | sarbutina20@student.foi.hr | 0016147707 | sarbutina20
-Zvonimir Belina | zbelina20@student.foi.hr | 0016149673 | zbelina20
-Patrik Bužić | pbuzic20@student.foi.hr | 0016146757 | puzic20
 
 ## Specifikacija projekta
 
