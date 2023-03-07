@@ -1,6 +1,8 @@
+<!--
 **(ERASMUS students please see the english version (README_ENG.md) of this document)**
 
-# Inicijalne upute za prijavu 1. projekta iz kolegija Testiranje i kvaliteta programskih proizvoda
+
+ Inicijalne upute za prijavu 1. projekta iz kolegija Testiranje i kvaliteta programskih proizvoda
 
 Poštovane kolegice i kolege, 
 
@@ -12,9 +14,10 @@ Za upute o sintaksi koju možete koristiti u ovom dokumentu i kod pisanje vaše 
 Sav programski kod i testove je potrebno verzionirati u glavnoj **master** grani i **obvezno** smjestiti u mapu Software. Sve artefakte (npr. slike) koje ćete koristiti u vašoj dokumentaciju obvezno verzionirati u posebnoj grani koja je već kreirana i koja se naziva **master-docs** i smjestiti u mapu Documentation.
 
 Povratnu informaciju na samu prijavu tima i projekta, kao i na završnu predaju ćete od nastavnika dobiti kroz sekciju Discussions (također dostupnu na GitHubu vašeg projekta). A sada, vrijeme je da prijavite vaš projekt. Za prijavu vašeg projektnog prijedloga molimo vas koristite **predložak** koji je naveden u nastavku, a započnite tako da kliknete na *olovku* u desnom gornjem kutu ovoga dokumenta :) 
+-->
 
 # Naziv projekta
-(u redak iznad navedite kratki proizvoljni naziv projekta prikladan akademskoj zajednici, a ovaj tekst obrišite)
+ZMG Desktop
 
 ## Model rada na projektu
 (1) Nastavak rada na projektu iz kolegija "Naziv kolegija"
