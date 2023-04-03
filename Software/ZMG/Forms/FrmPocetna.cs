@@ -17,13 +17,17 @@ namespace ZMGDesktop
         Radnik radnik;
         public FrmPocetna()
         {
+            radnik = new Radnik
+            {
+                Korime = "sbicak20",
+                Lozinka = "12345"
+            };
             InitializeComponent();
             ucitajPomoc();
         }
 
         public FrmPocetna(Radnik provjereniRadnik)
         {
-            radnik = provjereniRadnik;
             this.FormClosing += new FormClosingEventHandler(MyForm_FormClosing);
             InitializeComponent();
             ucitajPomoc();
@@ -77,6 +81,11 @@ namespace ZMGDesktop
                 string path = Path.Combine(Application.StartupPath, "Pomoc\\Pomoc\\Klijenti\\Pocetna\\pocetna.html");
                 System.Diagnostics.Process.Start(path);
             }
+        }
+
+        private void FrmPocetna_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
