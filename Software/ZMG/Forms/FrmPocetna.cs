@@ -1,4 +1,5 @@
-﻿using EntitiesLayer.Entities;
+﻿using BusinessLogicLayer.Services;
+using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace ZMGDesktop
     public partial class FrmPocetna : Form
     {
         Radnik radnik;
+
+        private RadnikServices servis = new RadnikServices();
         public FrmPocetna()
         {
             radnik = new Radnik
@@ -28,6 +31,11 @@ namespace ZMGDesktop
 
         public FrmPocetna(Radnik provjereniRadnik)
         {
+            radnik = new Radnik
+            {
+                Korime = "sbicak20",
+                Lozinka = "12345"
+            };
             this.FormClosing += new FormClosingEventHandler(MyForm_FormClosing);
             InitializeComponent();
             ucitajPomoc();
@@ -83,9 +91,18 @@ namespace ZMGDesktop
             }
         }
 
-        private void FrmPocetna_Load(object sender, EventArgs e)
+        private async void FrmPocetna_Load(object sender, EventArgs e)
         {
-            
+            radnik = new Radnik
+            {
+                Korime = "sbicak20",
+                Lozinka = "12345"
+            };
+            Radnik provjereniRadnik = await servis.ProvjeriRadnikaAsync(radnik);
+            if(provjereniRadnik != null)
+            {
+                radnik = provjereniRadnik;
+            }
         }
     }
 }
