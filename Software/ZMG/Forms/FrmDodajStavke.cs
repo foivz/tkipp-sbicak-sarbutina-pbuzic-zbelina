@@ -38,6 +38,7 @@ namespace ZMGDesktop
             stavkaServis= new StavkaRacunService();
             klijent= _klijent;
             racun= _racun;
+            Osvjezi();
         }
 
         private void ucitajPomoc()
@@ -57,9 +58,10 @@ namespace ZMGDesktop
 
         private void Osvjezi()
         {
+            var bindinglist = new BindingList<StavkaRacun>(GlobalListaStavki.stavkaRacunaList);
             this.Invalidate();
             dgvStavkeDodaj.DataSource = null;
-            dgvStavkeDodaj.DataSource = GlobalListaStavki.stavkaRacunaList;
+            dgvStavkeDodaj.DataSource = bindinglist;
             dgvStavkeDodaj.Columns[0].Visible = false;
             dgvStavkeDodaj.Columns[1].Visible = false;
             dgvStavkeDodaj.Columns[2].Visible = false;
