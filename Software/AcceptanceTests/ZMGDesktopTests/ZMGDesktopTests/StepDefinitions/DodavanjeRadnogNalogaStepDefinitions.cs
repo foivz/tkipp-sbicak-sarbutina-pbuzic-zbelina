@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using TechTalk.SpecFlow;
 using ZMGDesktopTests.Support;
 
@@ -223,7 +224,6 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriver.GetDriver();
             var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
-
             btnDodajRobuNaRadniNalog.Click();
         }
 
