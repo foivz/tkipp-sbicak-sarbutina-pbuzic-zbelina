@@ -26,7 +26,7 @@ namespace ZMGDesktopTests.Support
         private static WindowsDriver<WindowsElement> CreateDriverInstance()
         {
             var options = new AppiumOptions();
-            options.AddAdditionalCapability("app", @"C:\Users\Patrik\source\repos\tkipp-sbicak-sarbutina-pbuzic-zbelina\Software\ZMG\ZMGDesktop.exe");
+            options.AddAdditionalCapability("app", @"C:\Users\zvona\Desktop\Faks\3. godina\6. semestar\TKPP\ZMG Desktop\Software\ZMG\ZMGDesktop.exe");
             options.AddAdditionalCapability("deviceName", "WindowsPC");
             var wd = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"),
            options);
