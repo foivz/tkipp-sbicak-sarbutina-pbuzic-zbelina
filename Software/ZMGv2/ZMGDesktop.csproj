@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5022510D-9326-4CB9-AE03-07F2F4D3C075}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ZMGDesktop</RootNamespace>
+    <AssemblyName>ZMGDesktop</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ZMGDesktop.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Imaging.2.2.5\lib\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Math.2.2.5\lib\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="BitMiracle.LibTiff.NET, Version=2.4.649.0, Culture=neutral, PublicKeyToken=53879b3e20e7a7d6, processorArchitecture=MSIL">
+      <HintPath>..\packages\BitMiracle.LibTiff.NET.2.4.649\lib\net40\BitMiracle.LibTiff.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HidLibrary, Version=3.2.49.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\hidlibrary.3.3.40\lib\net45\HidLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.4.3.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.4.3\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d998eea7b14cab13, processorArchitecture=MSIL">
+      <HintPath>..\packages\SixLabors.ImageSharp.2.1.3\lib\net472\SixLabors.ImageSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.7.0.0\lib\net462\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.8\lib\net48\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.8\lib\net48\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Forms\FrmDodajMaterijal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDodajStavke.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDodajStavke.Designer.cs">
+      <DependentUpon>FrmDodajStavke.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmIzdajNoviRacun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmIzdajNoviRacun.Designer.cs">
+      <DependentUpon>FrmIzdajNoviRacun.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDodajMaterijal.Designer.cs">
+      <DependentUpon>FrmDodajMaterijal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmKatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmKatalog.Designer.cs">
+      <DependentUpon>FrmKatalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPocetna.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPocetna.Designer.cs">
+      <DependentUpon>FrmPocetna.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPrimka.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPrimka.Designer.cs">
+      <DependentUpon>FrmPrimka.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmRacuni.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmRacuni.Designer.cs">
+      <DependentUpon>FrmRacuni.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDetaljiRadnogNaloga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDetaljiRadnogNaloga.Designer.cs">
+      <DependentUpon>FrmDetaljiRadnogNaloga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDetaljniPrikazKlijenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDetaljniPrikazKlijenta.Designer.cs">
+      <DependentUpon>FrmDetaljniPrikazKlijenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmDodajKlijenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDodajKlijenta.Designer.cs">
+      <DependentUpon>FrmDodajKlijenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmIzvjestajKlijenata.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmIzvjestajKlijenata.Designer.cs">
+      <DependentUpon>FrmIzvjestajKlijenata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmKreirajIzvjestajRadnihNaloga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmKreirajIzvjestajRadnihNaloga.Designer.cs">
+      <DependentUpon>FrmKreirajIzvjestajRadnihNaloga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmNoviRadniNalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmNoviRadniNalog.Designer.cs">
+      <DependentUpon>FrmNoviRadniNalog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPopisIzvjestaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPopisIzvjestaja.Designer.cs">
+      <DependentUpon>FrmPopisIzvjestaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPopisRadnihNaloga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPopisRadnihNaloga.Designer.cs">
+      <DependentUpon>FrmPopisRadnihNaloga.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPregledKlijenata.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPregledKlijenata.Designer.cs">
+      <DependentUpon>FrmPregledKlijenata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmZaprimiMaterijal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmZaprimiMaterijal.Designer.cs">
+      <DependentUpon>FrmZaprimiMaterijal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmXML.Designer.cs">
+      <DependentUpon>FrmXML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidacijaUnosa\Validacija.cs" />
+    <EmbeddedResource Include="Forms\FrmDodajMaterijal.resx">
+      <DependentUpon>FrmDodajMaterijal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmKatalog.resx">
+      <DependentUpon>FrmKatalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPocetna.resx">
+      <DependentUpon>FrmPocetna.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPrimka.resx">
+      <DependentUpon>FrmPrimka.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmRacuni.resx">
+      <DependentUpon>FrmRacuni.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Forms\FrmDetaljniPregledRacun.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmDetaljniPregledRacun.Designer.cs">
+      <DependentUpon>FrmDetaljniPregledRacun.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\FrmDodajStavke.resx">
+      <DependentUpon>FrmDodajStavke.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmIzdajNoviRacun.resx">
+      <DependentUpon>FrmIzdajNoviRacun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmDetaljiRadnogNaloga.resx">
+      <DependentUpon>FrmDetaljiRadnogNaloga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmDetaljniPrikazKlijenta.resx">
+      <DependentUpon>FrmDetaljniPrikazKlijenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmDodajKlijenta.resx">
+      <DependentUpon>FrmDodajKlijenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmIzvjestajKlijenata.resx">
+      <DependentUpon>FrmIzvjestajKlijenata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmKreirajIzvjestajRadnihNaloga.resx">
+      <DependentUpon>FrmKreirajIzvjestajRadnihNaloga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmNoviRadniNalog.resx">
+      <DependentUpon>FrmNoviRadniNalog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPopisIzvjestaja.resx">
+      <DependentUpon>FrmPopisIzvjestaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPopisRadnihNaloga.resx">
+      <DependentUpon>FrmPopisRadnihNaloga.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPregledKlijenata.resx">
+      <DependentUpon>FrmPregledKlijenata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmZaprimiMaterijal.resx">
+      <DependentUpon>FrmZaprimiMaterijal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmXML.resx">
+      <DependentUpon>FrmXML.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\FrmDetaljniPregledRacun.resx">
+      <DependentUpon>FrmDetaljniPregledRacun.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reportKlijenti.rdlc" />
+    <EmbeddedResource Include="rptRadniNalozi.rdlc" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\EntitiesLayer.Entities.Klijent.datasource" />
+    <None Include="Properties\DataSources\EntitiesLayer.Entities.RadniNalog.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ZMG.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
+      <Project>{9493449f-748d-401d-bc03-898405ce2019}</Project>
+      <Name>BusinessLogicLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{DF1307F3-7420-45A3-9C7D-50FE8172602B}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Email\Email.csproj">
+      <Project>{933F3363-D231-43AB-A2B2-8B8BB5F7583D}</Project>
+      <Name>Email</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
+      <Project>{969baf40-7473-43b9-b39d-c0371c085d3f}</Project>
+      <Name>EntitiesLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pomoc\Izvjestaji\Izvjestaji\izvjestaji.css" />
+    <Content Include="Pomoc\Izvjestaji\Izvjestaji\izvjestaji.html" />
+    <Content Include="Pomoc\Izvjestaji\Izvjestaji\Izvjestaji.png" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajKlijenata\izvjestajKlijenata.css" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajKlijenata\izvjestajKlijenata.html" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajKlijenata\izvjestajKlijenata.png" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajRadnihNaloga\izvjestajRadnihNaloga.css" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajRadnihNaloga\izvjestajRadnihNaloga.html" />
+    <Content Include="Pomoc\Izvjestaji\IzvjestajRadnihNaloga\IzvjestajRadnihNaloga.png" />
+    <Content Include="Pomoc\Klijenti\DetaljiKlijenta\detaljiKlijenta.css" />
+    <Content Include="Pomoc\Klijenti\DetaljiKlijenta\detaljiKlijenta.html" />
+    <Content Include="Pomoc\Klijenti\DetaljiKlijenta\detaljiKlijenta.png" />
+    <Content Include="Pomoc\Klijenti\DodajKlijenta\dodajKlijenta.css" />
+    <Content Include="Pomoc\Klijenti\DodajKlijenta\dodajKlijenta.html" />
+    <Content Include="Pomoc\Klijenti\DodajKlijenta\dodajKlijenta.png" />
+    <Content Include="Pomoc\Klijenti\DodajKlijenta\urediKlijenta.png" />
+    <Content Include="Pomoc\Klijenti\Pocetna\pocetna.css" />
+    <Content Include="Pomoc\Klijenti\Pocetna\pocetna.html" />
+    <Content Include="Pomoc\Klijenti\Pocetna\Pocetna.png" />
+    <Content Include="Pomoc\Klijenti\PregledKlijenta\Pregled.css" />
+    <Content Include="Pomoc\Klijenti\PregledKlijenta\Pregled.html" />
+    <Content Include="Pomoc\Klijenti\PregledKlijenta\PregledKlijenata.png" />
+    <Content Include="Pomoc\Klijenti\UveziKlijentaXML\uveziKlijenta.css" />
+    <Content Include="Pomoc\Klijenti\UveziKlijentaXML\uveziKlijenta.html" />
+    <Content Include="Pomoc\Klijenti\UveziKlijentaXML\uveziKlijenta1.png" />
+    <Content Include="Pomoc\Klijenti\UveziKlijentaXML\uveziKlijenta2.png" />
+    <Content Include="Pomoc\Klijenti\UveziKlijentaXML\uveziKlijenta3.png" />
+    <Content Include="Pomoc\Prijava\prijava.css" />
+    <Content Include="Pomoc\Prijava\prijava.html" />
+    <Content Include="Pomoc\Prijava\prijava.png" />
+    <Content Include="Pomoc\Racuni\DetaljiRacuna\detaljiRacuna.html" />
+    <Content Include="Pomoc\Racuni\DetaljiRacuna\detaljiRacuna.png" />
+    <Content Include="Pomoc\Racuni\DetaljiRacuna\detaljiRacuns.css" />
+    <Content Include="Pomoc\Racuni\DodajRacun\dodajRacun.css" />
+    <Content Include="Pomoc\Racuni\DodajRacun\dodajRacun.html" />
+    <Content Include="Pomoc\Racuni\DodajRacun\dodajRacun.png" />
+    <Content Include="Pomoc\Racuni\PdfRacuna\pdfRacuna.css" />
+    <Content Include="Pomoc\Racuni\PdfRacuna\pdfRacuna.html" />
+    <Content Include="Pomoc\Racuni\PdfRacuna\pdfRacuna.png" />
+    <Content Include="Pomoc\Racuni\Racuni\racuni.css" />
+    <Content Include="Pomoc\Racuni\Racuni\racuni.html" />
+    <Content Include="Pomoc\Racuni\Racuni\racuni.png" />
+    <Content Include="Pomoc\Racuni\Stavke\Stavke.png" />
+    <Content Include="Pomoc\Racuni\Stavke\stavkeRacuna.css" />
+    <Content Include="Pomoc\Racuni\Stavke\stavkeRacuna.html" />
+    <Content Include="Pomoc\RadniNalozi\DetaljiRadnogNaloga\detaljiRadnogNaloga.css" />
+    <Content Include="Pomoc\RadniNalozi\DetaljiRadnogNaloga\detaljiRadnogNaloga.html" />
+    <Content Include="Pomoc\RadniNalozi\DetaljiRadnogNaloga\detaljiRadnogNaloga.png" />
+    <Content Include="Pomoc\RadniNalozi\DodajRadniNalog\dodajRadniNalog.css" />
+    <Content Include="Pomoc\RadniNalozi\DodajRadniNalog\dodajRadniNalog.html" />
+    <Content Include="Pomoc\RadniNalozi\DodajRadniNalog\noviRadniNalog.png" />
+    <Content Include="Pomoc\RadniNalozi\RadniNalozi\radniNalozi.css" />
+    <Content Include="Pomoc\RadniNalozi\RadniNalozi\radniNalozi.html" />
+    <Content Include="Pomoc\RadniNalozi\RadniNalozi\radniNalozi.png" />
+    <Content Include="Pomoc\Skladiste\DodajMaterijal\dodajMaterijal.css" />
+    <Content Include="Pomoc\Skladiste\DodajMaterijal\dodajMaterijal.html" />
+    <Content Include="Pomoc\Skladiste\DodajMaterijal\dodajMaterijal.png" />
+    <Content Include="Pomoc\Skladiste\Primka\primka.css" />
+    <Content Include="Pomoc\Skladiste\Primka\primka.html" />
+    <Content Include="Pomoc\Skladiste\Primka\primka.png" />
+    <Content Include="Pomoc\Skladiste\Skladiste\skladiste.css" />
+    <Content Include="Pomoc\Skladiste\Skladiste\skladiste.html" />
+    <Content Include="Pomoc\Skladiste\Skladiste\skladiste.png" />
+    <Content Include="Pomoc\Skladiste\ZaprimiMaterijal\zaprimiMaterijal.css" />
+    <Content Include="Pomoc\Skladiste\ZaprimiMaterijal\zaprimiMaterijal.html" />
+    <Content Include="Pomoc\Skladiste\ZaprimiMaterijal\zaprimiMaterijal.png" />
+    <Content Include="Resources\klijenti.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+</Project>
