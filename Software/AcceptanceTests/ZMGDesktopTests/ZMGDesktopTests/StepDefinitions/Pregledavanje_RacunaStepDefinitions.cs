@@ -28,8 +28,10 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikuSePrikazujuSviRacuniIzBazePodataka()
         {
             var driver = GuiDriverAppOpen.GetDriver();
-            bool racuniSePrikazuju = driver.FindElementByAccessibilityId("dgvRacuni") != null;
-            Assert.IsTrue(racuniSePrikazuju);
+            var dgvRacuni = driver.FindElementByAccessibilityId("dgvRacuni");
+            var value1 = dgvRacuni.FindElementByName("Racun_ID Row 0, Not sorted.").Text;
+            var value2 = dgvRacuni.FindElementByName("Racun_ID Row 28, Not sorted.").Text;
+            Assert.IsTrue(value1 == "158" && value2 == "1061");
         }
 
         [When(@"Korisnik klikne na radiogumb Uzlazno")]
