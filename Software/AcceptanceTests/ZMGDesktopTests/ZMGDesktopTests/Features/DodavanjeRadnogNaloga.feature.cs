@@ -171,26 +171,26 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("Korisniku se otvara forma za dodavanje novog radnog naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 23
- testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Opis = ""Cinčanje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""31.04.2023."", odabire Klijent = ""Aggreko"", odabire Materijal = ""Cink"" i dodaje ga u tablicu, odabire robu ""Šipka e2, Šipka e4"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Opis = ""Čeličenje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""2023-04-30"", odabire Klijent = ""Aggreko"", odabire Materijal = ""Cink"" i dodaje ga u tablicu, odabire robu ""Šipka e2, Šipka e4"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
  testRunner.And("Korisnik klikne na gumb Podnesi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 25
- testRunner.And("Prikazivanje poruke \"Morate upisati količinu i status\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Prikazivanje poruke \"Morate upisati količinu i status!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Uneseni svi podaci radnog naloga osim statusa radnog naloga")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Uneseni svi podaci radnog naloga osim materijala")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "DodavanjeRadnogNaloga")]
-        public void UneseniSviPodaciRadnogNalogaOsimStatusaRadnogNaloga()
+        public void UneseniSviPodaciRadnogNalogaOsimMaterijala()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Uneseni svi podaci radnog naloga osim statusa radnog naloga", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Uneseni svi podaci radnog naloga osim materijala", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -217,26 +217,26 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("Korisniku se otvara forma za dodavanje novog radnog naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 33
- testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Količina = ""15"", Opis = ""Cinčanje robe."", odabire Datum stvaranja = ""31.04.2023."", odabire Klijent = ""Aggreko"", odabire Materijal = ""Cink"" i dodaje ga u tablicu, odabire robu ""Šipka e2, Šipka e4"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Količina = ""15"", Opis = ""Čeličenje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""2023-04-30"", odabire Klijent = ""Aggreko"", odabire robu ""Šipka e2, Šipka e4"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 34
  testRunner.And("Korisnik klikne na gumb Podnesi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 35
- testRunner.And("Prikazivanje poruke \"Morate upisati količinu i status\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Prikazivanje poruke \"Morate staviti materijal i robu u radni nalog!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Uneseni svi podaci radnog naloga osim materijala")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Uneseni svi podaci radnog naloga osim robe")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "DodavanjeRadnogNaloga")]
-        public void UneseniSviPodaciRadnogNalogaOsimMaterijala()
+        public void UneseniSviPodaciRadnogNalogaOsimRobe()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Uneseni svi podaci radnog naloga osim materijala", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Uneseni svi podaci radnog naloga osim robe", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 37
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -263,26 +263,26 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("Korisniku se otvara forma za dodavanje novog radnog naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 43
- testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Količina = ""15"", Opis = ""Cinčanje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""31.04.2023"", odabire Klijent = ""Aggreko"", odabire robu ""Šipka e2, Šipka e4"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Količina = ""15"", Opis = ""Čeličenje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""2023-04-30"", odabire Klijent = ""Aggreko"", odabire Materijal = ""Cink"" i dodaje ga u tablicu, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 44
  testRunner.And("Korisnik klikne na gumb Podnesi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 45
- testRunner.And("Prikazivanje poruke \"Morate staviti materijal i robu u radni nalog\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Prikazivanje poruke \"Morate staviti materijal i robu u radni nalog!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Uneseni svi podaci radnog naloga osim robe")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dodavanje nove robe klijenta bez unošenja podataka robe")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "DodavanjeRadnogNaloga")]
-        public void UneseniSviPodaciRadnogNalogaOsimRobe()
+        public void DodavanjeNoveRobeKlijentaBezUnosenjaPodatakaRobe()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Uneseni svi podaci radnog naloga osim robe", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodavanje nove robe klijenta bez unošenja podataka robe", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -309,60 +309,14 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("Korisniku se otvara forma za dodavanje novog radnog naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 53
- testRunner.And(@"Korisnik redom unosi podatke za radni nalog: Količina = ""15"", Opis = ""Cinčanje robe."", odabire Status = ""Napravljen"", odabire Datum stvaranja = ""31.04.2023"", odabire Klijent = ""Aggreko"", odabire Materijal = ""Cink"" i dodaje ga u tablicu, klikće na gumb generiraj QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 54
- testRunner.And("Korisnik klikne na gumb Podnesi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 55
- testRunner.And("Prikazivanje poruke \"Morate staviti materijal i robu u radni nalog\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Dodavanje nove robe klijenta bez unošenja podataka robe")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "DodavanjeRadnogNaloga")]
-        public void DodavanjeNoveRobeKlijentaBezUnosenjaPodatakaRobe()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodavanje nove robe klijenta bez unošenja podataka robe", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 57
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 58
- testRunner.Given("Korisnik se nalazi na početnom izborniku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 59
- testRunner.When("Korisnik klikne na gumb radni nalozi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 60
- testRunner.Then("Korisniku se otvara forma za prikaz svih radnih naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 61
- testRunner.And("Korisnik klikne na gumb novi radni nalog", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 62
- testRunner.And("Korisniku se otvara forma za dodavanje novog radnog naloga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 63
  testRunner.And("Korisnik klikne na gumb dodaj novu robu bez upisivanja informacija o robi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 64
+#line 54
  testRunner.And("Radni nalog uspješno dodan u bazu podataka", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 65
+#line 55
  testRunner.And("Prikazivanje poruke \"Morate upisati naziv robe i količinu robe koju želite unijet" +
-                        "i\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+                        "i!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

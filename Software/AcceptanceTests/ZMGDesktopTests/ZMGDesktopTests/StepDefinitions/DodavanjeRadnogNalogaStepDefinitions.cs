@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
@@ -61,8 +62,7 @@ namespace ZMGDesktopTests.StepDefinitions
             var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
             var cmbKlijent = driver.FindElementByAccessibilityId("cmbKlijent");
             var dtpDatumStvaranja = driver.FindElementByAccessibilityId("dtpDatumStvaranja");
-            var roba1 = driver.FindElementByAccessibilityId("4233047401");
-            var roba2 = driver.FindElementByAccessibilityId("4224437140");
+            var dgvKlijentovaRoba = driver.FindElementByAccessibilityId("dgvKlijentovaRoba");
 
             var btnDodajMaterijal = driver.FindElementByAccessibilityId("btnDodajMaterijal");
             var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
@@ -71,15 +71,15 @@ namespace ZMGDesktopTests.StepDefinitions
             txtKolicina.SendKeys(kolicina);
             txtOpis.SendKeys(opis);
             cmbStatus.Click();
-            var statusNapravljen = cmbStatus.FindElementByName(status);
-            statusNapravljen.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
 
             dtpDatumStvaranja.SendKeys(DateTime.Parse(datum_stvaranja).ToString());
             cmbKlijent.SendKeys(klijent);
             btnDodajMaterijal.Click();
-            roba1.Click();
+            dgvKlijentovaRoba.Click();
             btnDodajRobuNaRadniNalog.Click();
-            roba2.Click();
+            dgvKlijentovaRoba.SendKeys(Keys.Down);
             btnDodajRobuNaRadniNalog.Click();
             btnGenerirajQRKod.Click();
         }
@@ -96,7 +96,7 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenRadniNalogUspjesnoDodanUBazuPodataka()
         {
             var driver = GuiDriver.GetDriver();
-            var dgvKlijenti = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
+            var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
             bool isOpened = driver.FindElementByAccessibilityId("FrmPopisRadnihNaloga") != null;
             Assert.IsTrue(isOpened);
         }
@@ -109,52 +109,22 @@ namespace ZMGDesktopTests.StepDefinitions
             var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
             var cmbKlijent = driver.FindElementByAccessibilityId("cmbKlijent");
             var dtpDatumStvaranja = driver.FindElementByAccessibilityId("dtpDatumStvaranja");
-            var cmbMaterijal = driver.FindElementByAccessibilityId("cmbMaterijal");
-            var roba1 = driver.FindElementByAccessibilityId("4233047401");
-            var roba2 = driver.FindElementByAccessibilityId("4224437140");
+            var dgvKlijentovaRoba = driver.FindElementByAccessibilityId("dgvKlijentovaRoba");
 
             var btnDodajMaterijal = driver.FindElementByAccessibilityId("btnDodajMaterijal");
             var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
             var btnGenerirajQRKod = driver.FindElementByAccessibilityId("btnGenerirajQRKod");
 
             txtOpis.SendKeys(opis);
-            cmbStatus.SendKeys(status);
+            cmbStatus.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
             dtpDatumStvaranja.SendKeys(DateTime.Parse(datum_stvaranja).ToString());
             cmbKlijent.SendKeys(klijent);
-            cmbMaterijal.SendKeys(materijal);
             btnDodajMaterijal.Click();
-            roba1.Click();
+            dgvKlijentovaRoba.Click();
             btnDodajRobuNaRadniNalog.Click();
-            roba2.Click();
-            btnDodajRobuNaRadniNalog.Click();
-            btnGenerirajQRKod.Click();
-        }
-
-        [Then(@"Korisnik redom unosi podatke za radni nalog: Količina = ""([^""]*)"", Opis = ""([^""]*)"", odabire Datum stvaranja = ""([^""]*)"", odabire Klijent = ""([^""]*)"", odabire Materijal = ""([^""]*)"" i dodaje ga u tablicu, odabire robu ""([^""]*)"" iz tablice klijentove robe te ju dodaje u tablicu robe radnog naloga, klikće na gumb generiraj QR kod")]
-        public void ThenKorisnikRedomUnosiPodatkeZaRadniNalogKolicinaOpisOdabireDatumStvaranjaOdabireKlijentOdabireMaterijalIDodajeGaUTablicuOdabireRobuIzTabliceKlijentoveRobeTeJuDodajeUTablicuRobeRadnogNalogaKlikceNaGumbGenerirajQRKod(string kolicina, string opis, string datum_stvaranja, string klijent, string materijal, string roba)
-        {
-            var driver = GuiDriver.GetDriver();
-            var txtKolicina = driver.FindElementByAccessibilityId("txtKolicina");
-            var txtOpis = driver.FindElementByAccessibilityId("txtOpis");
-            var cmbKlijent = driver.FindElementByAccessibilityId("cmbKlijent");
-            var dtpDatumStvaranja = driver.FindElementByAccessibilityId("dtpDatumStvaranja");
-            var cmbMaterijal = driver.FindElementByAccessibilityId("cmbMaterijal");
-            var roba1 = driver.FindElementByAccessibilityId("4233047401");
-            var roba2 = driver.FindElementByAccessibilityId("4224437140");
-
-            var btnDodajMaterijal = driver.FindElementByAccessibilityId("btnDodajMaterijal");
-            var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
-            var btnGenerirajQRKod = driver.FindElementByAccessibilityId("btnGenerirajQRKod");
-
-            txtKolicina.SendKeys(kolicina);
-            txtOpis.SendKeys(opis);
-            dtpDatumStvaranja.SendKeys(DateTime.Parse(datum_stvaranja).ToString());
-            cmbKlijent.SendKeys(klijent);
-            cmbMaterijal.SendKeys(materijal);
-            btnDodajMaterijal.Click();
-            roba1.Click();
-            btnDodajRobuNaRadniNalog.Click();
-            roba2.Click();
+            dgvKlijentovaRoba.SendKeys(Keys.Down);
             btnDodajRobuNaRadniNalog.Click();
             btnGenerirajQRKod.Click();
         }
@@ -177,20 +147,21 @@ namespace ZMGDesktopTests.StepDefinitions
             var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
             var cmbKlijent = driver.FindElementByAccessibilityId("cmbKlijent");
             var dtpDatumStvaranja = driver.FindElementByAccessibilityId("dtpDatumStvaranja");
-            var roba1 = driver.FindElementByAccessibilityId("4233047401");
-            var roba2 = driver.FindElementByAccessibilityId("4224437140");
+            var dgvKlijentovaRoba = driver.FindElementByAccessibilityId("dgvKlijentovaRoba");
 
             var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
             var btnGenerirajQRKod = driver.FindElementByAccessibilityId("btnGenerirajQRKod");
 
             txtKolicina.SendKeys(kolicina);
             txtOpis.SendKeys(opis);
-            cmbStatus.SendKeys(status);
+            cmbStatus.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
             dtpDatumStvaranja.SendKeys(DateTime.Parse(datum_stvaranja).ToString());
             cmbKlijent.SendKeys(klijent);
-            roba1.Click();
+            dgvKlijentovaRoba.Click();
             btnDodajRobuNaRadniNalog.Click();
-            roba2.Click();
+            dgvKlijentovaRoba.SendKeys(Keys.Down); ;
             btnDodajRobuNaRadniNalog.Click();
             btnGenerirajQRKod.Click();
         }
@@ -204,17 +175,17 @@ namespace ZMGDesktopTests.StepDefinitions
             var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
             var cmbKlijent = driver.FindElementByAccessibilityId("cmbKlijent");
             var dtpDatumStvaranja = driver.FindElementByAccessibilityId("dtpDatumStvaranja");
-            var cmbMaterijal = driver.FindElementByAccessibilityId("cmbMaterijal");
 
             var btnDodajMaterijal = driver.FindElementByAccessibilityId("btnDodajMaterijal");
             var btnGenerirajQRKod = driver.FindElementByAccessibilityId("btnGenerirajQRKod");
 
             txtKolicina.SendKeys(kolicina);
             txtOpis.SendKeys(opis);
-            cmbStatus.SendKeys(status);
+            cmbStatus.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
             dtpDatumStvaranja.SendKeys(DateTime.Parse(datum_stvaranja).ToString());
             cmbKlijent.SendKeys(klijent);
-            cmbMaterijal.SendKeys(materijal);
             btnDodajMaterijal.Click();
             btnGenerirajQRKod.Click();
         }
@@ -223,8 +194,8 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikKlikneNaGumbDodajNovuRobuBezUpisivanjaInformacijaORobi()
         {
             var driver = GuiDriver.GetDriver();
-            var btnDodajRobuNaRadniNalog = driver.FindElementByAccessibilityId("btnDodajRobuNaRadniNalog");
-            btnDodajRobuNaRadniNalog.Click();
+            var btnDodajNovuRobu = driver.FindElementByAccessibilityId("btnDodajNovuRobu");
+            btnDodajNovuRobu.Click();
         }
 
         [AfterScenario]

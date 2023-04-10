@@ -69,7 +69,7 @@ namespace ZMGDesktopTests.StepDefinitions
             var txtMjesto = driver.FindElementByAccessibilityId("txtMjesto");
             var txtTelefon = driver.FindElementByAccessibilityId("txtTelefon");
             var txtMail = driver.FindElementByAccessibilityId("txtEmail");
-
+            
             txtNaziv.SendKeys(naziv);
             txtOIB.SendKeys(oib);
             txtAdresa.SendKeys(adresa);
