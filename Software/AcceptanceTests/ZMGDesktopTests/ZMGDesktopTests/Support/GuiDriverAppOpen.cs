@@ -42,7 +42,7 @@ namespace ZMGDesktopTests.Support
             if (appTopLevelWindowsHandleHex == "0")
             {
                 //Ukoliko je heksadecimalna vrijdenost nula, znaci da nije pokrenut proces sa zadanim imenom te se pokrece sa diska
-                options.AddAdditionalCapability("app", @"C:\Winatjecaj\Winatjecaj.exe");
+                options.AddAdditionalCapability("app", @"C:\Users\okwin\source\repos\tkipp-sbicak-sarbutina-pbuzic-zbelina\Software\ZMGv2\ZMGDesktop.exe");
             }
             else
             {
