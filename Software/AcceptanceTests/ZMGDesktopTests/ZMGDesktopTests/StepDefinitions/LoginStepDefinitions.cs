@@ -67,15 +67,17 @@ namespace ZMGDesktopTests.StepDefinitions
             txtLozinka.SendKeys(lozinka);
         }
 
-
         [Then(@"prikazuje se poruka ""([^""]*)""")]
-        public void ThenPrikazujeSePoruka()
+        public void ThenPrikazujeSePoruka(string poruka)
         {
             var driver = GuiDriverv2.GetDriver();
             var lblErrorMessage = driver.FindElementByName("Krivi podaci!");
             var actualMessage = lblErrorMessage.Text;
             Assert.AreEqual(actualMessage, "Krivi podaci!");
         }
+
+
+        
 
 
         [AfterScenario]

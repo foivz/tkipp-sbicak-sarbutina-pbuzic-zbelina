@@ -60,11 +60,7 @@ namespace ZMGDesktopTests.StepDefinitions
             throw new PendingStepException();
         }
 
-        [When(@"klikne gumb ""([^""]*)""")]
-        public void WhenKlikneGumb(string dodaj)
-        {
-            throw new PendingStepException();
-        }
+        
 
         [Then(@"Materijal ""([^""]*)"" se prikazuje na popisu materijala")]
         public void ThenMaterijalSePrikazujeNaPopisuMaterijala(string guma)

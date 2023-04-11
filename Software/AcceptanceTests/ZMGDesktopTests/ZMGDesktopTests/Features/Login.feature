@@ -11,7 +11,7 @@ Scenario: Ispravno korisnicko ime i lozinka
 Scenario Outline: Neispravno korisničko ime i/ili lozinka
   Given Radnik se nalazi na formi prijave
   When Korisnik unese "<korime>" u polje za korisničko ime i unese "<lozinka>" u polje za lozinku
-    And klikne gumb "Prijava"
+  And Radnik klikne gumb Prijava
   Then prikazuje se poruka "Krivi podaci"
 
 Examples:
