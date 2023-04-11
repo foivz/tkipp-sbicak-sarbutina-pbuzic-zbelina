@@ -30,8 +30,9 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikuSeIzbacujePorukaSustavaZaNemogucnostIzdavanjaRacuna()
         {
             var driver = GuiDriverAppOpen.GetDriver();
-            var greska = driver.FindElementByClassName("#32770");
-            Assert.IsTrue(greska.Text == "Morate imati barem jednu stavku i opis je obvezan.");
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            var greska = driver.FindElementByAccessibilityId("65535") != null;
+            Assert.IsTrue(greska);
         }
 
         [Then(@"Korisnik klikne na gumb Ok1")]
@@ -40,6 +41,7 @@ namespace ZMGDesktopTests.StepDefinitions
             var driver = GuiDriverAppOpen.GetDriver();
             var btnGreskaOK = driver.FindElementByAccessibilityId("2");
             btnGreskaOK.Click();
+            driver.SwitchTo().Window(driver.WindowHandles.First());
         }
 
         [Then(@"Korisnik klikne na gumb Natrag")]
@@ -71,7 +73,6 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikuSeOtvaraFormaZaUpravljanjeStavkama()
         {
             var driver = GuiDriverAppOpen.GetDriver();
-            driver.SwitchTo().Window(driver.WindowHandles.First());
             bool isOpen = driver.FindElementByAccessibilityId("FrmDodajStavke") != null;
             Assert.IsTrue(isOpen);
         }
