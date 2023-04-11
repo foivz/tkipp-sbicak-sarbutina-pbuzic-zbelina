@@ -42,11 +42,7 @@ namespace ZMGDesktopTests.StepDefinitions
             throw new PendingStepException();
         }
 
-        [When(@"korisnik klikne na red ili čeliju unutar reda materijala ""([^""]*)""")]
-        public void WhenKorisnikKlikneNaRedIliCelijuUnutarRedaMaterijala(string celik)
-        {
-            throw new PendingStepException();
-        }
+ 
 
         [Then(@"prikazuje se poruka da nije moguće obrisati materijal koji se nalazi u nekom radnom nalogu ili primci")]
         public void ThenPrikazujeSePorukaDaNijeMoguceObrisatiMaterijalKojiSeNalaziUNekomRadnomNaloguIliPrimci()

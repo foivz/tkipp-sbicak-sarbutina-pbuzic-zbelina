@@ -15,7 +15,7 @@ namespace ZMGDesktopTests.StepDefinitions
         [Given(@"Radnik se nalazi na formi prijave")]
         public void GivenRadnikSeNalaziNaFormiPrijave()
         {
-            var driver = GuiDriverv3.GetOrCreateDriver();
+            var driver = GuiDriverv2.GetOrCreateDriver();
             bool isOpen = driver.FindElementByAccessibilityId("FrmLogin") != null;
             Assert.IsTrue(isOpen);
         }
@@ -23,7 +23,7 @@ namespace ZMGDesktopTests.StepDefinitions
         [When(@"Radnik unosi podatke: Korisnicko ime=""([^""]*)"", Lozinka=""([^""]*)""")]
         public void WhenRadnikUnosiPodatkeKorisnickoImeLozinka(string korime, string lozinka)
         {
-            var driver = GuiDriverv3.GetDriver();
+            var driver = GuiDriverv2.GetDriver();
             var txtNaziv = driver.FindElementByAccessibilityId("txtKorIme");
             var txtLozinka = driver.FindElementByAccessibilityId("txtLozinka");
 
@@ -34,7 +34,7 @@ namespace ZMGDesktopTests.StepDefinitions
         [When(@"Radnik klikne gumb Prijava")]
         public void WhenRadnikKlikneGumbPrijava()
         {
-            var driver = GuiDriverv3.GetDriver();
+            var driver = GuiDriverv2.GetDriver();
             var btnLogin = driver.FindElementByAccessibilityId("btnLogin");
             btnLogin.Click();
         }
@@ -42,7 +42,7 @@ namespace ZMGDesktopTests.StepDefinitions
         [Then(@"Radnik je prebačen s forme za prijavu na glavni izbornik")]
         public void ThenRadnikJePrebacenSFormeZaPrijavuNaGlavniIzbornik()
         {
-            var driver = GuiDriverv3.GetDriver();
+            var driver = GuiDriverv2.GetDriver();
 
             if (driver.WindowHandles.Count > 1)
             {
@@ -59,7 +59,7 @@ namespace ZMGDesktopTests.StepDefinitions
         [Then(@"prikazuje se poruka ""([^""]*)""")]
         public void ThenPrikazujeSePoruka()
         {
-            var driver = GuiDriverv3.GetDriver();
+            var driver = GuiDriverv2.GetDriver();
             var lblErrorMessage = driver.FindElementByAccessibilityId("lblErrorMessage");
             var actualMessage = lblErrorMessage.Text;
             Assert.AreEqual(actualMessage, "Krivi podaci!");
