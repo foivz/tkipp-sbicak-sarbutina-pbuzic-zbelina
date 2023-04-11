@@ -1,10 +1,9 @@
 ﻿Feature: UpravljanjeStavkama
 Feature se odnosi na upravljanje stavkama, gdje radnik moze dodavati, pregledati i obrisati stavke.
 
-#(S13)
-#Kao radnik,
-#kod izdavanja racuna,
-#zelim dodati stavke na racun.
+Kao radnik,
+kod izdavanja racuna,
+zelim dodati stavke na racun.
 
 Background:
 	Given Korisniku se otvara forma za upravljanje stavkama
@@ -31,7 +30,7 @@ Scenario: Dodati stavku s tocnim odredenim unosom ponovno
 When Korinsik ponovno unese tocne podatke
 Then Korisnik klikne na gumb Dodaj
 And Korisniku se izbacuje poruka sustava za unos stavke
-And Korisnik klikne na gumb Ok 
+And Korisnik klikne na gumb Ok
 
 
 Scenario: Obrisati odredenu stavku iz polja

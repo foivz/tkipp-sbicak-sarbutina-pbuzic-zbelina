@@ -108,8 +108,8 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikuSeIzbacujePorukaSustavaZaUnosStavke()
         {
             var driver = GuiDriverAppOpen.GetDriver();
-            var greska = driver.FindElementByClassName("#32770") != null;
-            Assert.IsTrue(greska);
+            var greska = driver.FindElementByClassName("#32770");
+            Assert.IsTrue(greska.Text == "Neispravan unos znakova tamo gdje se traže brojevi!");
         }
 
         [Then(@"Korisnik klikne na gumb Ok")]
@@ -144,12 +144,6 @@ namespace ZMGDesktopTests.StepDefinitions
             var cmbUsluge = driver.FindElementByAccessibilityId("cmbUsluge");
             cmbUsluge.Click();
             cmbUsluge.SendKeys(Keys.Down);
-        }
-
-        [AfterScenario]
-        public void CloseApplication()
-        {
-            GuiDriver.Dispose();
         }
     }
 }

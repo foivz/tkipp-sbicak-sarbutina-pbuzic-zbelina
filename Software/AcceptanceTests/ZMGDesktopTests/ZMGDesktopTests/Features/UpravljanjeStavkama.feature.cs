@@ -49,7 +49,8 @@ namespace ZMGDesktopTests.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "UpravljanjeStavkama", "Feature se odnosi na upravljanje stavkama, gdje radnik moze dodavati, pregledati " +
-                    "i obrisati stavke.", ProgrammingLanguage.CSharp, featureTags);
+                    "i obrisati stavke.\r\n\r\nKao radnik,\r\nkod izdavanja racuna,\r\nzelim dodati stavke na" +
+                    " racun.", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -94,9 +95,9 @@ namespace ZMGDesktopTests.Features
         
         public virtual void FeatureBackground()
         {
-#line 9
+#line 8
 #line hidden
-#line 10
+#line 9
  testRunner.Given("Korisniku se otvara forma za upravljanje stavkama", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
@@ -109,7 +110,7 @@ namespace ZMGDesktopTests.Features
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodati stavku na racun bez potrebnog unosa", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+#line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -119,16 +120,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 8
 this.FeatureBackground();
 #line hidden
-#line 13
+#line 12
 testRunner.When("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 13
 testRunner.Then("Korisniku se izbacuje poruka sustava za unos stavke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 15
+#line 14
 testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -143,7 +144,7 @@ testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFl
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodati stavku na racun s krivim unosom", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 18
+#line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -153,19 +154,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 8
 this.FeatureBackground();
 #line hidden
-#line 19
+#line 18
 testRunner.When("Korisnik unese krive podatke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 20
+#line 19
 testRunner.Then("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 21
+#line 20
 testRunner.And("Korisniku se izbacuje poruka sustava za unos stavke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 22
+#line 21
 testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -180,7 +181,7 @@ testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFl
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodati stavku s tocnim odredenim unosom", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 25
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -190,13 +191,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 8
 this.FeatureBackground();
 #line hidden
-#line 26
+#line 25
 testRunner.When("Korisnik unese tocne podatke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 27
+#line 26
 testRunner.Then("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -211,7 +212,7 @@ testRunner.Then("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.Sp
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodati stavku s tocnim odredenim unosom ponovno", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 30
+#line 29
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -221,19 +222,19 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 8
 this.FeatureBackground();
 #line hidden
-#line 31
+#line 30
 testRunner.When("Korinsik ponovno unese tocne podatke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 32
+#line 31
 testRunner.Then("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 33
+#line 32
 testRunner.And("Korisniku se izbacuje poruka sustava za unos stavke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 34
+#line 33
 testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -248,7 +249,7 @@ testRunner.And("Korisnik klikne na gumb Ok", ((string)(null)), ((TechTalk.SpecFl
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Obrisati odredenu stavku iz polja", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 37
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -258,13 +259,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 9
+#line 8
 this.FeatureBackground();
 #line hidden
-#line 38
+#line 37
 testRunner.When("Korisnik oznaci stavku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 39
+#line 38
 testRunner.Then("Korisnik klikne na gumb Obrisi", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
