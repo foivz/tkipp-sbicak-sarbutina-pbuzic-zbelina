@@ -110,37 +110,43 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
- testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.And("otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
- testRunner.And("Radnik unosi \"Guma\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
- testRunner.And("unosi \"2\" u polje za količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
- testRunner.And("odabire \"kg\" u padajućem izborniku za mjernu jedinicu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Radnik unosi \"Guma\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 11
- testRunner.And("unosi \"15\" u polje za cijenu po jedinici", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("unosi \"2\" u polje za količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 12
+ testRunner.And("odabire \"kg\" u padajućem izborniku za mjernu jedinicu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+ testRunner.And("unosi \"15\" u polje za cijenu po jedinici", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 14
  testRunner.And("unosi \"mehanički čvrst, žilav i izvanredno elastičan polimerni materijal dobiven " +
                         "vulkanizacijom kaučuka\" u polje za opis", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 13
+#line 15
  testRunner.And("označava \"false\" u polju za opasnost po život", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 14
- testRunner.And("klikne gumb \"Dodaj\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 15
+#line 17
  testRunner.Then("Materijal \"Guma\" se prikazuje na popisu materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -155,7 +161,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Dodavanje materijala s postojećim nazivom", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -165,26 +171,32 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
- testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 19
- testRunner.And("postoji materijal \"Celik\" u katalogu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 20
- testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
- testRunner.And("otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 22
- testRunner.And("Korisnik unosi \"Celik\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 23
- testRunner.And("klikne gumb \"Dodaj\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("postoji materijal \"Celik\" u katalogu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 24
- testRunner.Then("Prikazuje se poruka \"Materijal već postoji\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 25
+ testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+ testRunner.And("Radnik unosi \"Celik\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 27
+ testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 28
+ testRunner.Then("Prikazana je poruka \"Materijal već postoji\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -198,7 +210,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Neispunjeno polje naziva materijala", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -208,20 +220,26 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 27
- testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
+#line 32
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 33
+ testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 34
  testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 29
-    testRunner.And("otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+    testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 30
-    testRunner.And("klikne gumb \"Dodaj\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 36
+    testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 31
- testRunner.Then("Prikazuje se poruka \"Potrebno je ispuniti sva polja\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 37
+ testRunner.Then("Prikazana je poruka \"Potrebno je ispuniti sva polja\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -235,7 +253,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Neispravan naziv materijala", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 33
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -245,20 +263,29 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 34
-  testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 40
+testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 35
+#line 41
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 42
+  testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 43
   testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 36
-  testRunner.And("Korisnik unosi \"Pijesak123\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+  testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 37
-  testRunner.And("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
+  testRunner.And("Radnik unosi \"Pijesak123\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 38
-  testRunner.Then("Prikazuje se poruka \"Naziv može sadržavati samo slova\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+  testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 47
+  testRunner.Then("Prikazana je poruka \"Naziv može sadržavati samo slova\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -272,7 +299,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Ručna promjena naziva mjerne jedinice u padajućem izborniku", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 41
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -282,25 +309,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 42
-  testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 51
+testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 43
+#line 52
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 53
+  testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 54
   testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 44
+#line 55
   testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 45
-  testRunner.And("Korisnik unosi \"Pijesak123\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
+  testRunner.And("Radnik unosi \"Rucna promjena\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 46
+#line 57
   testRunner.And("Korisnik unosi \"Rucna promjena\" u polje za mjernu jedinicu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 47
-  testRunner.And("Korisnik klikne na gumb Dodaj", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 58
+  testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 48
+#line 59
   testRunner.Then("Prikazuje se poruka da treba ispuniti sva polja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -315,7 +348,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Naziv materijala podržava sva slova u hrvatskoj abecedi", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 50
+#line 61
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -325,22 +358,28 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 51
-  testRunner.Given("da je korisnik na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 62
+testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 52
-  testRunner.When("korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 63
+ testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 53
+#line 64
+  testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 65
+  testRunner.When("Korisnik klikne na gumb \'Dodaj materijal\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 66
   testRunner.And("Otvara se forma za dodavanje novog materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 54
-  testRunner.And("Korisnik unosi naziv \'Đćčšž\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
+  testRunner.And("Radnik unosi \"Đćčšž\" u polje za naziv", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 55
-  testRunner.And("Korisnik klikne na gumb \'Dodaj\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 68
+  testRunner.And("Korisnik klikne na gumb za dodavanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 56
+#line 69
   testRunner.Then("Korisnik bi trebao vidjeti novi materijal s nazivom \'Đćčšž\' na popisu svih materi" +
                         "jala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

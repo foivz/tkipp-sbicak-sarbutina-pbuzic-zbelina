@@ -24,11 +24,12 @@ namespace ZMGDesktopTests.StepDefinitions
             throw new PendingStepException();
         }
 
-        [When(@"korisnik klikne na gumb Obriši materijal")]
-        public void WhenKorisnikKlikneNaGumbObrisiMaterijal()
+        [When(@"korisnik klikne na gumb ""([^""]*)""")]
+        public void WhenKorisnikKlikneNaGumb(string p0)
         {
-            throw new PendingStepException();
+            
         }
+
 
         [Then(@"materijal ""([^""]*)"" se ne prikazuje više u popisu svih materijala")]
         public void ThenMaterijalSeNePrikazujeViseUPopisuSvihMaterijala(string drvo)

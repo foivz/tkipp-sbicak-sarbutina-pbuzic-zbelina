@@ -1,63 +1,136 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
+using System.Threading;
+using System.Windows;
 using TechTalk.SpecFlow;
+using ZMGDesktopTests.Support;
 
 namespace ZMGDesktopTests.StepDefinitions
 {
     [Binding]
     public class DodavanjeMaterijalaStepDefinitions
     {
-        [Given(@"Radnik se nalazi na formi za upravljanje katalogom usluga i materijala")]
-        public void GivenRadnikSeNalaziNaFormiZaUpravljanjeKatalogomUslugaIMaterijala()
+        [When(@"Korisnik klikne na gumb za dodavanje materijala")]
+        public void WhenKorisnikKlikneNaGumbZaDodavanjeMaterijala()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var gumb = driver.FindElementByAccessibilityId("btnDodajMaterijal");
+            gumb.Click();
         }
 
-        [When(@"Radnik klikne na gumb '([^']*)'")]
-        public void WhenRadnikKlikneNaGumb(string p0)
+        
+
+
+        [Given(@"Korisnik se nalazi na formi glavnog izbornika")]
+        public void GivenKorisnikSeNalaziNaFormiGlavnogIzbornika()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetOrCreateDriver();
+            bool isOpen = driver.FindElementByAccessibilityId("FrmPocetna") != null;
+            bool title = driver.Title == "Glavni izbornik";
+            Assert.IsTrue(isOpen);
         }
 
-        [When(@"otvara se forma za dodavanje novog materijala \(FrmNoviMaterijal\)")]
-        public void WhenOtvaraSeFormaZaDodavanjeNovogMaterijalaFrmNoviMaterijal()
+        [Then(@"Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala")]
+        public void ThenKorisnikSeNalaziNaFormiZaUpravljanjeKatalogomUslugaIMaterijala()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetOrCreateDriver();
+            bool isOpen = driver.FindElementByAccessibilityId("FrmKatalog") != null;
+            Assert.IsTrue(isOpen);
         }
+
+
+       
+
+        [When(@"Korisnik klikne na gumb '([^']*)'")]
+        public void WhenKorisnikKlikneNaGumb(string prosljGumb)
+        {
+            var driver = GuiDriver.GetDriver();
+            var gumb = driver.FindElementByName(prosljGumb);
+            gumb.Click();
+            
+        }
+
+        [When(@"Otvara se forma za dodavanje novog materijala")]
+        public void WhenOtvaraSeFormaZaDodavanjeNovogMaterijala()
+        {
+            var driver = GuiDriver.GetDriver();
+
+            //Thread.Sleep(2000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+
+
+            var isOpened = driver.FindElementByAccessibilityId("FrmDodajMaterijal");
+
+
+            Assert.IsNotNull(isOpened);
+        }
+
+        [Then(@"Prikazana je poruka ""([^""]*)""")]
+        public void ThenPrikazanaJePoruka(string poruka)
+        {
+            var driver = GuiDriver.GetDriver();
+            
+            var lblErrorMessage = driver.FindElementByName(poruka);
+            var actualMessage = lblErrorMessage.Text;
+            Assert.AreEqual(actualMessage, poruka);
+        }
+
+
+
 
         [When(@"Radnik unosi ""([^""]*)"" u polje za naziv")]
-        public void WhenRadnikUnosiUPoljeZaNaziv(string guma)
+        public void WhenRadnikUnosiUPoljeZaNaziv(string naziv)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var txtNaziv = driver.FindElementByAccessibilityId("txtNaziv");
+
+            txtNaziv.SendKeys(naziv);
         }
 
         [When(@"unosi ""([^""]*)"" u polje za količinu")]
         public void WhenUnosiUPoljeZaKolicinu(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var numKol = driver.FindElementByAccessibilityId("txtKolicina");
+
+            numKol.SendKeys(p0);
         }
 
         [When(@"odabire ""([^""]*)"" u padajućem izborniku za mjernu jedinicu")]
         public void WhenOdabireUPadajucemIzbornikuZaMjernuJedinicu(string kg)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var cmbJedinica = driver.FindElementByAccessibilityId("cmbMjernaJedinica");
+
+            cmbJedinica.SendKeys(kg);
         }
 
         [When(@"unosi ""([^""]*)"" u polje za cijenu po jedinici")]
         public void WhenUnosiUPoljeZaCijenuPoJedinici(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var numCijena = driver.FindElementByAccessibilityId("txtCijena");
+
+            numCijena.SendKeys(p0);
         }
 
         [When(@"unosi ""([^""]*)"" u polje za opis")]
         public void WhenUnosiUPoljeZaOpis(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var txtOpis = driver.FindElementByAccessibilityId("txtOpis");
+
+            txtOpis.SendKeys(p0);
         }
 
         [When(@"označava ""([^""]*)"" u polju za opasnost po život")]
         public void WhenOznacavaUPoljuZaOpasnostPoZivot(string @false)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var txtOpasno = driver.FindElementByAccessibilityId("txtOpasno");
+
+            txtOpasno.SendKeys(@false);
         }
 
         
@@ -65,9 +138,22 @@ namespace ZMGDesktopTests.StepDefinitions
         [Then(@"Materijal ""([^""]*)"" se prikazuje na popisu materijala")]
         public void ThenMaterijalSePrikazujeNaPopisuMaterijala(string guma)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
+            var value1 = dgvRacuni.FindElementByName("Naziv Row 7, Not sorted.").Text;
+
+            Assert.IsTrue(value1 == "Guma");
         }
 
+        [Then(@"postoji materijal ""([^""]*)"" u katalogu")]
+        public void ThenPostojiMaterijalUKatalogu(string celik)
+        {
+            var driver = GuiDriver.GetDriver();
+            var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
+            var value1 = dgvRacuni.FindElementByName("Naziv Row 0, Not sorted.").Text;
+
+            Assert.IsTrue(value1 == "Celik");
+        }
 
 
 
@@ -77,35 +163,38 @@ namespace ZMGDesktopTests.StepDefinitions
             throw new PendingStepException();
         }
 
-
-        [When(@"Korisnik unosi ""([^""]*)"" u polje za naziv")]
-        public void WhenKorisnikUnosiUPoljeZaNaziv(string celik)
-        {
-            throw new PendingStepException();
-        }
+        
 
         [When(@"Korisnik unosi ""([^""]*)"" u polje za mjernu jedinicu")]
         public void WhenKorisnikUnosiUPoljeZaMjernuJedinicu(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var cmbJedinica = driver.FindElementByAccessibilityId("cmbMjernaJedinica");
+
+            cmbJedinica.SendKeys("Rucna promjena");
         }
 
         [Then(@"Prikazuje se poruka da treba ispuniti sva polja")]
         public void ThenPrikazujeSePorukaDaTrebaIspunitiSvaPolja()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            
+
+            var lblErrorMessage = driver.FindElementByName("Potrebno je ispuniti sva polja");
+            var actualMessage = lblErrorMessage.Text;
+            Assert.AreEqual(actualMessage, "Potrebno je ispuniti sva polja");
         }
 
-        [When(@"Korisnik unosi naziv '([^']*)'")]
-        public void WhenKorisnikUnosiNaziv(string đćčšž)
-        {
-            throw new PendingStepException();
-        }
 
         [Then(@"Korisnik bi trebao vidjeti novi materijal s nazivom '([^']*)' na popisu svih materijala")]
         public void ThenKorisnikBiTrebaoVidjetiNoviMaterijalSNazivomNaPopisuSvihMaterijala(string đćčšž)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+ 
+            var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
+            var value1 = dgvRacuni.FindElementByName("Naziv Row 8, Not sorted.").Text;
+
+            Assert.IsTrue(value1 == "Ðccšž");
         }
     }
 }

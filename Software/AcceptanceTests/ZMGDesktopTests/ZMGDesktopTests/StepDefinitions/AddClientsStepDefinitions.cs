@@ -121,7 +121,7 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriver.GetDriver();
 
-            var messageBox = driver.FindElementByAccessibilityId("65535");
+            var messageBox = driver.FindElementByName(poruka);
             Assert.IsTrue(poruka == messageBox.Text);
         }
 
