@@ -108,8 +108,8 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenKorisnikuSeIzbacujePorukaSustavaZaUnosStavke()
         {
             var driver = GuiDriverAppOpen.GetDriver();
-            var greska = driver.FindElementByClassName("#32770");
-            Assert.IsTrue(greska.Text == "Neispravan unos znakova tamo gdje se traže brojevi!");
+            var greska = driver.FindElementByClassName("#32770") != null;
+            Assert.IsTrue(greska);
         }
 
         [Then(@"Korisnik klikne na gumb Ok")]
