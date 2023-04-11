@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using TechTalk.SpecFlow;
 using ZMGDesktopTests.Support;
 using System.Linq;
+using System.Threading;
 
 namespace ZMGDesktopTests.StepDefinitions
 {
@@ -44,23 +45,34 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriverv2.GetDriver();
 
-            if (driver.WindowHandles.Count > 1)
-            {
-                driver.SwitchTo().Window(driver.WindowHandles.Last());
-            }
+            Thread.Sleep(2000);
+            driver.SwitchTo().Window(driver.WindowHandles.Last());
+            
 
-            var isOpened = driver.FindElementByName("FrmPocetna");
+            var isOpened = driver.FindElementByName("Glavni izbornik");
 
 
             Assert.IsNotNull(isOpened);
 
         }
 
+        [When(@"Korisnik unese ""([^""]*)"" u polje za korisničko ime i unese ""([^""]*)"" u polje za lozinku")]
+        public void WhenKorisnikUneseUPoljeZaKorisnickoImeIUneseUPoljeZaLozinku(string korime, string lozinka)
+        {
+            var driver = GuiDriverv2.GetDriver();
+            var txtNaziv = driver.FindElementByAccessibilityId("txtKorIme");
+            var txtLozinka = driver.FindElementByAccessibilityId("txtLozinka");
+
+            txtNaziv.SendKeys(korime);
+            txtLozinka.SendKeys(lozinka);
+        }
+
+
         [Then(@"prikazuje se poruka ""([^""]*)""")]
         public void ThenPrikazujeSePoruka()
         {
             var driver = GuiDriverv2.GetDriver();
-            var lblErrorMessage = driver.FindElementByAccessibilityId("lblErrorMessage");
+            var lblErrorMessage = driver.FindElementByName("Krivi podaci!");
             var actualMessage = lblErrorMessage.Text;
             Assert.AreEqual(actualMessage, "Krivi podaci!");
         }

@@ -9,9 +9,8 @@ Scenario: Ispravno korisnicko ime i lozinka
     Then Radnik je prebačen s forme za prijavu na glavni izbornik
 
 Scenario Outline: Neispravno korisničko ime i/ili lozinka
-  Given Korisnik se nalazi na stranici za prijavu
-  When Korisnik unese "<korime>" u polje za korisničko ime
-    And unese "<lozinka>" u polje za lozinku
+  Given Radnik se nalazi na formi prijave
+  When Korisnik unese "<korime>" u polje za korisničko ime i unese "<lozinka>" u polje za lozinku
     And klikne gumb "Prijava"
   Then prikazuje se poruka "Krivi podaci"
 

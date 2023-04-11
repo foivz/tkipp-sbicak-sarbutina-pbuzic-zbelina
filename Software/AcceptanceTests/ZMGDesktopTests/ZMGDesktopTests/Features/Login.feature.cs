@@ -143,18 +143,15 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 12
-  testRunner.Given("Korisnik se nalazi na stranici za prijavu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("Radnik se nalazi na formi prijave", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 13
-  testRunner.When(string.Format("Korisnik unese \"{0}\" u polje za korisničko ime", korime), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.When(string.Format("Korisnik unese \"{0}\" u polje za korisničko ime i unese \"{1}\" u polje za lozinku", korime, lozinka), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 14
-    testRunner.And(string.Format("unese \"{0}\" u polje za lozinku", lozinka), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 15
     testRunner.And("klikne gumb \"Prijava\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 16
+#line 15
   testRunner.Then("prikazuje se poruka \"Krivi podaci\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
