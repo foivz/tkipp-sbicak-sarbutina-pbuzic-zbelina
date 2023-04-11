@@ -3,6 +3,8 @@ using System;
 using System.Security.Cryptography;
 using TechTalk.SpecFlow;
 using ZMGDesktopTests.Support;
+using System.Linq;
+using System.Threading;
 
 namespace ZMGDesktopTests.StepDefinitions
 {
@@ -39,19 +41,40 @@ namespace ZMGDesktopTests.StepDefinitions
         [Then(@"Radnik je prebačen s forme za prijavu na glavni izbornik")]
         public void ThenRadnikJePrebacenSFormeZaPrijavuNaGlavniIzbornik()
         {
-            var driver = GuiDriver.GetDriver();
-            bool isOpened = driver.FindElementByAccessibilityId("FrmPocetna") != null;
-            Assert.IsTrue(isOpened);
+            var driver = GuiDriverv2.GetDriver();
+            Thread.Sleep(2000);
+
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+
+
+            var isOpened = driver.FindElementByName("Glavni izbornik");
+
+
+            Assert.IsNotNull(isOpened);
+
         }
 
-        [Then(@"prikazuje se poruka ""([^""]*)""")]
-        public void ThenPrikazujeSePoruka()
+        [When(@"Radnik unese ""([^""]*)"" u polje za korisničko ime i unese ""([^""]*)"" u polje za lozinku")]
+        public void WhenRadnikUneseUPoljeZaKorisnickoImeIUneseUPoljeZaLozinku(string korime, string lozinka)
         {
-            var driver = GuiDriver.GetDriver();
-            var lblErrorMessage = driver.FindElementByAccessibilityId("lblErrorMessage");
-            var actualMessage = lblErrorMessage.Text;
-            Assert.AreEqual(actualMessage, "Krivi podaci!");
+            var driver = GuiDriverv2.GetDriver();
+            var txtNaziv = driver.FindElementByAccessibilityId("txtKorIme");
+            var txtLozinka = driver.FindElementByAccessibilityId("txtLozinka");
+
+            txtNaziv.SendKeys(korime);
+            txtLozinka.SendKeys(lozinka);
         }
+
+        [Then(@"Radniku se prikazuje poruka ""([^""]*)""")]
+        public void ThenRadnikuSePrikazujePoruka(string poruka)
+        {
+            var driver = GuiDriverv2.GetDriver();
+            driver.SwitchTo().Window(driver.WindowHandles.First());
+            var error = driver.FindElementByName("Krivi podaci!") != null;
+            Assert.IsTrue(error);
+        }
+
+
 
 
         [AfterScenario]

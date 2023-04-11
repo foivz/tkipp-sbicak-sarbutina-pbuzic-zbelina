@@ -134,6 +134,42 @@ testRunner.Then("Radnik je prebačen s forme za prijavu na glavni izbornik", ((s
             }
             this.ScenarioCleanup();
         }
+        
+        public virtual void NeispravnoKorisnickoImeIIliLozinka(string korime, string lozinka, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("korime", korime);
+            argumentsOfScenario.Add("lozinka", lozinka);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Neispravno korisničko ime i/ili lozinka", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 11
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 12
+    testRunner.Given("Radnik se nalazi na formi prijave", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 13
+    testRunner.When(string.Format("Radnik unese \"{0}\" u polje za korisničko ime i unese \"{1}\" u polje za lozinku", korime, lozinka), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 14
+    testRunner.And("Radnik klikne gumb Prijava", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 15
+    testRunner.Then("Radniku se prikazuje poruka \"Krivi podaci\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+  testRunner.Then("prikazuje se poruka \"Krivi podaci\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
