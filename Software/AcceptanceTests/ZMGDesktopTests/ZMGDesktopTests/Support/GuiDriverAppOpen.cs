@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace ZMGDesktopTests.Support
 {
-    public static class GuiDriverv3
+    public static class GuiDriverAppOpen
     {
         private static WindowsDriver<WindowsElement> driver;
         public static WindowsDriver<WindowsElement> GetOrCreateDriver()
@@ -37,7 +37,7 @@ namespace ZMGDesktopTests.Support
             }
             var appTopLevelWindowsHandleHex = myAppTopLevelWindowsHandle.ToString("x");
             var options = new AppiumOptions();
-            options.AddAdditionalCapability("app", @"C:\Users\Sebastian\source\repos\tkipp-sbicak-sarbutina-pbuzic-zbelina\Software\ZMGv2\ZMGDesktop.exe");
+            options.AddAdditionalCapability("app", @"C:\Users\okwin\source\repos\tkipp-sbicak-sarbutina-pbuzic-zbelina\Software\ZMGv2\ZMGDesktop.exe");
             options.AddAdditionalCapability("deviceName", "WindowsPC");
             if (appTopLevelWindowsHandleHex == "0")
             {
