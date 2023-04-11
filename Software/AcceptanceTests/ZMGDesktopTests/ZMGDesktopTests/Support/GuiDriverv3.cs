@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ZMGDesktopTests.Support
 {
-    public static class GuiDriverv2
+    public static class GuiDriverv3
     {
         private static WindowsDriver<WindowsElement> driver;
         public static WindowsDriver<WindowsElement> GetOrCreateDriver()
@@ -26,7 +26,7 @@ namespace ZMGDesktopTests.Support
         private static WindowsDriver<WindowsElement> CreateDriverInstance()
         {
             var options = new AppiumOptions();
-            options.AddAdditionalCapability("app", @"C: \Users\Sebastian\source\repos\tkipp - sbicak - sarbutina - pbuzic - zbelina\Software\ZMGv2\ZMGDesktop.exe");
+            options.AddAdditionalCapability("app", @"C:\Users\Sebastian\source\repos\tkipp-sbicak-sarbutina-pbuzic-zbelina\Software\ZMGv2\ZMGDesktop.exe");
             options.AddAdditionalCapability("deviceName", "WindowsPC");
             var wd = new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"),
            options);
