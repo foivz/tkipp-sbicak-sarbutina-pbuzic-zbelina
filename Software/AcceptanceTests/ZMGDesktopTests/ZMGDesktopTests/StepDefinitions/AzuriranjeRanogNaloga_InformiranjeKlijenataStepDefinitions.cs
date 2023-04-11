@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
@@ -35,33 +36,24 @@ namespace ZMGDesktopTests.StepDefinitions
             Assert.IsTrue(isOpened);
         }
 
-        [Given(@"Korisnik odabire radni nalog s bilo kojim statusom")]
-        public void GivenKorisnikOdabireRadniNalogSBiloKojimStatusom()
-        {
-            var driver = GuiDriver.GetDriver();
-            var radniNalog = driver.FindElementByName("Status Row 0, Not sorted.");
-
-            radniNalog.Click();
-        }
-
-        [Given(@"Korisnik klikne na gumb Detalji")]
-        public void GivenKorisnikKlikneNaGumbDetalji()
+        [Then(@"Korisnik klikne na gumb Detalji")]
+        public void ThenKorisnikKlikneNaGumbDetalji()
         {
             var driver = GuiDriver.GetDriver();
             var btnDetalji = driver.FindElementByAccessibilityId("btnDetalji");
             btnDetalji.Click();
         }
 
-        [Given(@"Korisnik klikne na gumb Izmijeni")]
-        public void GivenKorisnikKlikneNaGumbIzmijeni()
+        [Then(@"Korisnik klikne na gumb Izmijeni")]
+        public void ThenKorisnikKlikneNaGumbIzmijeni()
         {
             var driver = GuiDriver.GetDriver();
             var btnIzmijeni = driver.FindElementByAccessibilityId("btnIzmijeni");
             btnIzmijeni.Click();
         }
 
-        [Given(@"Korisnik unosi u polje Količina = ""([^""]*)"", polje Opis = ""([^""]*)"", status ostaje isti te dodaje čelik u tablicu materijala")]
-        public void GivenKorisnikUnosiUPoljeKolicinaPoljeOpisStatusOstajeIstiTeDodajeCelikUTablicuMaterijala(string kolicina, string opis)
+        [Then(@"Korisnik unosi u polje Količina = ""([^""]*)"", polje Opis = ""([^""]*)"", status ostaje isti te dodaje čelik u tablicu materijala")]
+        public void ThenKorisnikUnosiUPoljeKolicinaPoljeOpisStatusOstajeIstiTeDodajeCelikUTablicuMaterijala(string kolicina, string opis)
         {
             var driver = GuiDriver.GetDriver();
             var txtKolicina = driver.FindElementByAccessibilityId("txtKolicina");
@@ -73,16 +65,16 @@ namespace ZMGDesktopTests.StepDefinitions
             btnDodajMaterijal.Click();
         }
 
-        [Given(@"Korisnik klikne na gumb Spremi")]
-        public void GivenKorisnikKlikneNaGumbSpremi()
+        [Then(@"Korisnik klikće na gumb Spremi")]
+        public void ThenKorisnikKlikceNaGumbSpremi()
         {
             var driver = GuiDriver.GetDriver();
             var btnSpremi = driver.FindElementByAccessibilityId("btnSpremi");
             btnSpremi.Click();
         }
 
-        [Given(@"Podaci radnog naloga su izmijenjeni i spremljeni")]
-        public void GivenPodaciRadnogNalogaSuIzmijenjeniISpremljeni()
+        [Then(@"Podaci radnog naloga su izmijenjeni i spremljeni")]
+        public void ThenPodaciRadnogNalogaSuIzmijenjeniISpremljeni()
         {
             var driver = GuiDriver.GetDriver();
             var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
@@ -90,33 +82,31 @@ namespace ZMGDesktopTests.StepDefinitions
             Assert.IsTrue(isOpened);
         }
 
-        [Given(@"Korisnik ostavlja polje Količina prazno pa unosi Opis = ""([^""]*)""")]
-        public void GivenKorisnikOstavljaPoljeKolicinaPraznoPaUnosiOpis(string opis)
+        [Then(@"Korisnik ostavlja polje Količina prazno pa unosi Opis = ""([^""]*)""")]
+        public void ThenKorisnikOstavljaPoljeKolicinaPraznoPaUnosiOpis(string opis)
         {
             var driver = GuiDriver.GetDriver();
             var txtOpis = driver.FindElementByAccessibilityId("txtOpis");
+            var txtKolicina = driver.FindElementByAccessibilityId("txtKolicina");
 
+            for (int i=0; i < 2; i++)
+            {
+                txtKolicina.SendKeys(Keys.Backspace);
+            }
             txtOpis.SendKeys(opis);
         }
 
-        [Given(@"Prikaz poruke ""([^""]*)""")]
-        public void GivenPrikazPoruke(string poruka)
+        [Then(@"Prikaz poruke ""([^""]*)""")]
+        public void ThenPrikazPoruke(string poruka)
         {
             var driver = GuiDriver.GetDriver();
+
             var messageBox = driver.FindElementByAccessibilityId("65535");
             Assert.IsTrue(poruka == messageBox.Text);
         }
 
-        [Given(@"Korisnik ne mijenja status radnog naloga")]
-        public void GivenKorisnikNeMijenjaStatusRadnogNaloga()
-        {
-            var driver = GuiDriver.GetDriver();
-            var btnDodajMaterijal = driver.FindElementByAccessibilityId("btnDodajMaterijal");
-            btnDodajMaterijal.Click();
-        }
-
-        [Given(@"Podaci radnog naloga su izmijenjeni i spremljeni te Email poruka o promjeni nije poslana")]
-        public void GivenPodaciRadnogNalogaSuIzmijenjeniISpremljeniTeEmailPorukaOPromjeniNijePoslana()
+        [Then(@"Podaci radnog naloga su izmijenjeni i spremljeni te Email poruka o promjeni nije poslana")]
+        public void ThenPodaciRadnogNalogaSuIzmijenjeniISpremljeniTeEmailPorukaOPromjeniNijePoslana()
         {
             var driver = GuiDriver.GetDriver();
             var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
@@ -124,38 +114,53 @@ namespace ZMGDesktopTests.StepDefinitions
             Assert.IsTrue(isOpened);
         }
 
-        [Given(@"Korisnik odabire radni nalog s popisa s sa statusom Napravljen")]
-        public void GivenKorisnikOdabireRadniNalogSPopisaSSaStatusomNapravljen()
+        [Then(@"Korisnik odabire radni nalog s popisa sa statusom Napravljen")]
+        public void ThenKorisnikOdabireRadniNalogSPopisaSaStatusomNapravljen()
         {
             var driver = GuiDriver.GetDriver();
-            var radniNalog = driver.FindElementByName("Status Row 1, Not sorted");
-            radniNalog.Click();
+            var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
+            dgvPopisRadnihNaloga.Click();
         }
 
-        [Given(@"Korisnik mijenja status radnog naloga iz padajuće liste iz Napravljen u U obradi")]
-        public void GivenKorisnikMijenjaStatusRadnogNalogaIzPadajuceListeIzNapravljenUUObradi()
-        {
-            throw new PendingStepException();
-        }
-
-        [Given(@"Korisnik dobiva E-mail poruku o promjeni statusa radnog naloga")]
-        public void GivenKorisnikDobivaE_MailPorukuOPromjeniStatusaRadnogNaloga()
-        {
-            throw new PendingStepException();
-        }
-
-        [Given(@"Korisnik odabire radni nalog s popisa s sa statusom U obradi")]
-        public void GivenKorisnikOdabireRadniNalogSPopisaSSaStatusomUObradi()
+        [Then(@"Korisnik mijenja status radnog naloga iz padajuće liste iz Napravljen u U obradi")]
+        public void ThenKorisnikMijenjaStatusRadnogNalogaIzPadajuceListeIzNapravljenUUObradi()
         {
             var driver = GuiDriver.GetDriver();
-            var radniNalog = driver.FindElementByName("Status Row 2, Not sorted");
-            radniNalog.Click();
+            var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
+
+            cmbStatus.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
         }
 
-        [Given(@"Korisnik mijenja status radnog naloga iz padajuće liste iz U obradi u Dovršen")]
-        public void GivenKorisnikMijenjaStatusRadnogNalogaIzPadajuceListeIzUObradiUDovrsen()
+        [Then(@"Korisnik dobiva E-mail poruku o promjeni statusa radnog naloga")]
+        public void ThenKorisnikDobivaE_MailPorukuOPromjeniStatusaRadnogNaloga()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
+            bool isOpened = driver.FindElementByAccessibilityId("FrmPopisRadnihNaloga") != null;
+            Assert.IsTrue(isOpened);
+        }
+
+        [Then(@"Korisnik odabire radni nalog s popisa sa statusom U obradi")]
+        public void ThenKorisnikOdabireRadniNalogSPopisaSaStatusomUObradi()
+        {
+            var driver = GuiDriver.GetDriver();
+            var dgvPopisRadnihNaloga = driver.FindElementByAccessibilityId("dgvPopisRadnihNaloga");
+            dgvPopisRadnihNaloga.Click();
+            dgvPopisRadnihNaloga.SendKeys(Keys.Down);
+            dgvPopisRadnihNaloga.SendKeys(Keys.Down);
+        }
+
+        [Then(@"Korisnik mijenja status radnog naloga iz padajuće liste iz U obradi u Dovršen")]
+        public void ThenKorisnikMijenjaStatusRadnogNalogaIzPadajuceListeIzUObradiUDovrsen()
+        {
+            var driver = GuiDriver.GetDriver();
+            var cmbStatus = driver.FindElementByAccessibilityId("cmbStatus");
+
+            cmbStatus.Click();
+            cmbStatus.SendKeys(Keys.Down);
+            cmbStatus.SendKeys(Keys.Enter);
         }
 
         [AfterScenario]
