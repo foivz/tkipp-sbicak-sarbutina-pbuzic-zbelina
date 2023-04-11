@@ -113,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
     testRunner.Given("Radnik se nalazi na formi prijave", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
-    testRunner.When("Radnik unosi podatke: Korisnicko ime=\"abc\", Lozinka=\"12345\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("Radnik unosi podatke: Korisnicko ime=\"sarbutina20\", Lozinka=\"12345\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
         testRunner.And("Radnik klikne gumb Prijava", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

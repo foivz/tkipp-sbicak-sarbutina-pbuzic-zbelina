@@ -1,10 +1,10 @@
 ﻿Feature: Dodavanje materijala
-Radnik je prijavljen
+Korisnik je prijavljen
 
 Scenario: Uneseni ispravni podaci.
-	Given Radnik se nalazi na formi za upravljanje katalogom usluga i materijala
-	When Radnik klikne na gumb 'Dodaj materijal'
-	And otvara se forma za dodavanje novog materijala (FrmNoviMaterijal)
+	Given Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala
+	When Korisnik klikne na gumb 'Dodaj materijal'
+	And otvara se forma za dodavanje novog materijala
 	And Radnik unosi "Guma" u polje za naziv
 	And unosi "2" u polje za količinu
 	And odabire "kg" u padajućem izborniku za mjernu jedinicu
@@ -24,11 +24,11 @@ Scenario: Dodavanje materijala s postojećim nazivom
 	Then Prikazuje se poruka "Materijal već postoji"
 
 Scenario: Neispunjeno polje naziva materijala
-  Given Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala 
-  When Korisnik klikne na gumb 'Dodaj materijal'
+	Given Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala 
+	When Korisnik klikne na gumb 'Dodaj materijal'
     And otvara se forma za dodavanje novog materijala
     And klikne gumb "Dodaj"
-  Then Prikazuje se poruka "Potrebno je ispuniti sva polja"
+	Then Prikazuje se poruka "Potrebno je ispuniti sva polja"
 
 Scenario: Neispravan naziv materijala
   Given Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala
@@ -42,7 +42,8 @@ Scenario: Ručna promjena naziva mjerne jedinice u padajućem izborniku
   Given Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala
   When Korisnik klikne na gumb 'Dodaj materijal'
   And Otvara se forma za dodavanje novog materijala
-  And Korisnik unosi naziv materijala "Pijesak" i mjernu jedinicu "Rucna promjena"
+  And Korisnik unosi "Pijesak123" u polje za naziv
+  And Korisnik unosi "Rucna promjena" u polje za mjernu jedinicu
   And Korisnik klikne na gumb Dodaj
   Then Prikazuje se poruka da treba ispuniti sva polja
 
