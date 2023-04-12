@@ -110,25 +110,38 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 4
-  testRunner.Given("Korisnik se nalazi na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-  testRunner.And("Korisnik je uspješno skenirao QR kod materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
-  testRunner.When("Korisnik upiše \"20\" u numerički izbornik", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
-  testRunner.And("Korisnik klikne gumb Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
-  testRunner.And("Korisniku se prikaže forma generirane primke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Then("Korisnik se nalazi na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 9
-  testRunner.And("Korisnik klikne na gumb Zatvori", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Korisnik simulira uspješno skeniranje QR koda materijala tako što klikne na gumb " +
+                        "za isprobavanje uspješnog skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 10
-  testRunner.Then("Količina skeniranog materijala je promjenjena u sustavu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.When("Korisnik upiše \"20\" u numerički izbornik", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 11
+    testRunner.And("Korisnik klikne Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 12
+    testRunner.And("Korisniku se prikaže forma generirane primke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 13
+    testRunner.And("Korisnik klikne na gumb Zatvori", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 14
+    testRunner.Then("Količina skeniranog materijala je promjenjena u sustavu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -142,7 +155,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Prikaz ispravnih podataka zaprimljenog materijala na formi generirane primke", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+#line 16
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -152,24 +165,37 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 13
-  testRunner.Given("Korisnik se nalazi na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 14
-  testRunner.When("Korisnik upiše \"20\" u numerički izbornik", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 15
-    testRunner.And("Korisnik klikne Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 16
-    testRunner.And("Korisniku se prikaže generirana primka", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 17
-  testRunner.Then("Korisnik provjeri podudaranje podataka tako da je Količina: \"20\", a Datum: današn" +
-                        "ji datum", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 18
-  testRunner.And("Generirani dokument primka sadrži ispravne podatke.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+  testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 20
+  testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 21
+  testRunner.Then("Korisnik se nalazi na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 22
+  testRunner.And("Korisnik simulira uspješno skeniranje QR koda materijala tako što klikne na gumb " +
+                        "za isprobavanje uspješnog skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 23
+  testRunner.When("Korisnik upiše \"20\" u numerički izbornik", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+  testRunner.And("Korisnik klikne Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 25
+  testRunner.And("Korisniku se prikaže forma generirane primke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 26
+  testRunner.Then("Korisnik provjeri podudaranje podataka tako da je Količina: \"20\", a Naziv: Alumin" +
+                        "ij", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -183,7 +209,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Spremanje dokumenta primke na sustavu računala i provjera ispravnosti podataka", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -193,25 +219,44 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 21
-  testRunner.Given("Korisnik je na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 29
+testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 22
-  testRunner.When("Korisnik upiše \"35\" u numerički izbornik i klikne Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+  testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 23
-  testRunner.And("Korisniku se prikaže generirana primka", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
+  testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 24
+#line 32
+  testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 33
+  testRunner.Then("Korisnik se nalazi na formi za zaprimanje materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 34
+  testRunner.And("Korisnik simulira uspješno skeniranje QR koda materijala tako što klikne na gumb " +
+                        "za isprobavanje uspješnog skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 35
+  testRunner.When("Korisnik upiše \"35\" u numerički izbornik", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 36
+  testRunner.And("Korisnik klikne Ažuriraj količinu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 37
+  testRunner.And("Korisniku se prikaže forma generirane primke", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 38
   testRunner.And("korisnik klikne na gumb Pohrani datoteku lokalno", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 25
+#line 39
   testRunner.And("Korisnik odabere mjesto spremanja datoteke na Desktop i nazove datoteku \"primka\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 26
+#line 40
   testRunner.And("Korisnik locira dokument na Desktopu i otvori ga", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 27
+#line 41
   testRunner.Then("Prikazuje se poruka da je dokument uspješno spremljen lokalno s ispravnim podacim" +
                         "a", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

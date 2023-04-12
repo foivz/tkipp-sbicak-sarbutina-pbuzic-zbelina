@@ -22,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Appium.WebDriver" Version="4.4.0" />
     <PackageReference Include="Gherkin" Version="26.0.3" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="SpecFlow" Version="3.9.74" />
     <PackageReference Include="SpecFlow.Internal.Json" Version="1.0.8" />

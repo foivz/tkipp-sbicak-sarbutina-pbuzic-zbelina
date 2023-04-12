@@ -8,11 +8,16 @@ namespace ZMGDesktopTests.StepDefinitions
     [Binding]
     public class SkeniranjeQRKodaStepDefinitions
     {
-        [Given(@"Korisnik je na formi za upravljanje katalogom usluga i materijala")]
-        public void GivenKorisnikJeNaFormiZaUpravljanjeKatalogomUslugaIMaterijala()
+        
+
+        [Then(@"Korisnik se nalazi na formi za zaprimanje materijala")]
+        public void ThenKorisnikSeNalaziNaFormiZaZaprimanjeMaterijala()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetOrCreateDriver();
+            bool isOpen = driver.FindElementByAccessibilityId("FrmZaprimiMaterijal") != null;
+            Assert.IsTrue(isOpen);
         }
+
 
         [When(@"Korisnik klikne na gumb ""([^""]*)""")]
         public void WhenKorisnikKlikneNaGumb(string p0)
