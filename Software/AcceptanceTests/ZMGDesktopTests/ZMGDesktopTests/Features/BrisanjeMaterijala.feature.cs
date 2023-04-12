@@ -110,19 +110,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
-  testRunner.Given("korisnik je na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+   testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-  testRunner.And("postoji materijal \"Drvo\" u popisu svih materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-  testRunner.When("korisnik klikne na red ili čeliju unutar reda materijala \"Drvo\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
-  testRunner.And("korisnik klikne na gumb Obriši materijal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("postoji materijal \"\" u popisu svih materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
-  testRunner.Then("materijal \"Drvo\" se ne prikazuje više u popisu svih materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.When("korisnik klikne na red ili čeliju unutar reda materijala \"\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 10
+  testRunner.And("korisnik klikne na gumb \"Obriši materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 11
+  testRunner.Then("materijal \"\" se ne prikazuje više u popisu svih materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -136,7 +142,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Brisanje materijala koji se nalazi u jednom ili više radnih naloga i/ili primci", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 11
+#line 13
   this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -146,19 +152,25 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 12
-  testRunner.Given("korisnik je na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 13
-    testRunner.And("materijal \"Celik\" se nalazi u nekom radnom nalogu ili primci", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 14
-    testRunner.When("korisnik klikne na red ili čeliju unutar reda materijala \"Celik\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
-    testRunner.And("korisnik klikne na gumb Obriši materijal", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
+ testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 17
+    testRunner.And("postoji materijal \"Celik\" u popisu svih materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 18
+    testRunner.When("korisnik klikne na red ili čeliju unutar reda materijala \"Celik\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 19
+    testRunner.And("korisnik klikne na gumb \"Obriši materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
     testRunner.Then("prikazuje se poruka da nije moguće obrisati materijal koji se nalazi u nekom radn" +
                         "om nalogu ili primci", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

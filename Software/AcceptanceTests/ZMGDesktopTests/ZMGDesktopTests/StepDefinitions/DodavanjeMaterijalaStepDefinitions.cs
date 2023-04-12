@@ -102,8 +102,8 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriver.GetDriver();
             var cmbJedinica = driver.FindElementByAccessibilityId("cmbMjernaJedinica");
-
-            cmbJedinica.SendKeys(kg);
+            cmbJedinica.Click();
+            cmbJedinica.FindElementByName("kg").Click();
         }
 
         [When(@"unosi ""([^""]*)"" u polje za cijenu po jedinici")]
@@ -140,7 +140,7 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriver.GetDriver();
             var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
-            var value1 = dgvRacuni.FindElementByName("Naziv Row 7, Not sorted.").Text;
+            var value1 = dgvRacuni.FindElementByName("Naziv Row 6, Not sorted.").Text;
 
             Assert.IsTrue(value1 == "Guma");
         }
@@ -149,8 +149,8 @@ namespace ZMGDesktopTests.StepDefinitions
         public void ThenPostojiMaterijalUKatalogu(string celik)
         {
             var driver = GuiDriver.GetDriver();
-            var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
-            var value1 = dgvRacuni.FindElementByName("Naziv Row 0, Not sorted.").Text;
+            var dgvMaterijali = driver.FindElementByAccessibilityId("dgvMaterijali");
+            var value1 = dgvMaterijali.FindElementByName("Naziv Row 0, Not sorted.").Text;
 
             Assert.IsTrue(value1 == "Celik");
         }
@@ -191,8 +191,8 @@ namespace ZMGDesktopTests.StepDefinitions
         {
             var driver = GuiDriver.GetDriver();
  
-            var dgvRacuni = driver.FindElementByAccessibilityId("dgvMaterijali");
-            var value1 = dgvRacuni.FindElementByName("Naziv Row 8, Not sorted.").Text;
+            var dgvMat = driver.FindElementByAccessibilityId("dgvMaterijali");
+            var value1 = dgvMat.FindElementByName("Naziv Row 8, Not sorted.").Text;
 
             Assert.IsTrue(value1 == "Ðccšž");
         }
