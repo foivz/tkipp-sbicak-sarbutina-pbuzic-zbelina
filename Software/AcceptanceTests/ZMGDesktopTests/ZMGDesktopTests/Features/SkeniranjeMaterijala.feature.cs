@@ -110,18 +110,24 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
-    testRunner.Given("Korisnik je na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
-    testRunner.And("Korisnik odabire kameru \"Integrated camera\" na padajućem izborniku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
-    testRunner.And("Korisnik klikne gumb \"Kreni skeniranje\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
+    testRunner.And("Korisnik odabire kameru \"Integrated camera\" na padajućem izborniku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 10
+    testRunner.And("Korisnik klikne gumb za početak skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 11
     testRunner.Then("Prikaz kamere je vidljiv na ekranu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -136,7 +142,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Skeniranje ispravnog QR koda", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 11
+#line 13
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -146,29 +152,30 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 12
-    testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 13
-    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 14
-    testRunner.And("Korisnik odabire svoju kameru za skeniranje QR koda", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
-    testRunner.And("Korisnik klikne gumb Kreni skeniranje", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 16
-    testRunner.Then("Prikaz kamere je vidljiv na ekranu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 17
-    testRunner.When("Korisnik približi QR kod svojoj kameri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 18
-    testRunner.Then("Skener prepoznaje QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.And("Korisnik odabire kameru \"Integrated camera\" na padajućem izborniku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 19
-    testRunner.And("Korisniku se daje mogućnost određivanja količine materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Korisnik klikne gumb za početak skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+    testRunner.Then("Prikaz kamere je vidljiv na ekranu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 21
+    testRunner.Then("Skener prepoznaje QR kod i korisniku se daje mogućnost određivanja količine mater" +
+                        "ijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -182,7 +189,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Skeniranje neispravnog QR koda", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 21
+#line 23
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -192,29 +199,30 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 22
-    testRunner.Given("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 23
-    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
 #line 24
-    testRunner.And("Korisnik odabire svoju kameru za skeniranje QR koda", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("Korisnik se nalazi na formi glavnog izbornika", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 25
-    testRunner.And("Korisnik klikne gumb Kreni skeniranje", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.When("Korisnik klikne na gumb \'Stanje skladišta\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 26
-    testRunner.Then("Prikaz kamere je vidljiv na ekranu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("Korisnik se nalazi na formi za upravljanje katalogom usluga i materijala", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 27
-    testRunner.When("Korisnik približi QR kod svojoj kameri", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("Korisnik klikne na gumb \"Zaprimi materijal\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 28
-    testRunner.Then("Skener prepoznaje QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.And("Korisnik odabire kameru \"Integrated camera\" na padajućem izborniku", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 29
-    testRunner.And("Prikazuje se poruka da je neispravan QR kod", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("Korisnik klikne gumb za početak skeniranja", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 30
+    testRunner.Then("Prikaz kamere je vidljiv na ekranu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 31
+    testRunner.And("Skener prepoznaje neispravan QR kod i prikazuje se poruka da nije ispravan QR kod" +
+                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

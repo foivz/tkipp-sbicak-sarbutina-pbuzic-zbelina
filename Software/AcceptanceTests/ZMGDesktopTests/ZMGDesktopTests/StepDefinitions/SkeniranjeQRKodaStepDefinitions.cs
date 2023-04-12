@@ -1,5 +1,7 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TechTalk.SpecFlow;
+using ZMGDesktopTests.Support;
 
 namespace ZMGDesktopTests.StepDefinitions
 {
@@ -15,61 +17,64 @@ namespace ZMGDesktopTests.StepDefinitions
         [When(@"Korisnik klikne na gumb ""([^""]*)""")]
         public void WhenKorisnikKlikneNaGumb(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var gumb = driver.FindElementByAccessibilityId("btnZaprimi");
+            gumb.Click();
         }
 
         [When(@"Korisnik odabire kameru ""([^""]*)"" na padajućem izborniku")]
         public void WhenKorisnikOdabireKameruNaPadajucemIzborniku(string p0)
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var cmbJedinica = driver.FindElementByAccessibilityId("cboDevice");
+            cmbJedinica.Click();
         }
+
+        [When(@"Korisnik klikne gumb za početak skeniranja")]
+        public void WhenKorisnikKlikneGumbZaPocetakSkeniranja()
+        {
+            var driver = GuiDriver.GetDriver();
+            var gumb = driver.FindElementByAccessibilityId("btnKreni");
+            gumb.Click();
+        }
+
+
+        [When(@"Korisnik klikne gumb ""([^""]*)""")]
+        public void WhenKorisnikKlikneGumb(string p0)
+        {
+            var driver = GuiDriver.GetDriver();
+            var gumb = driver.FindElementByAccessibilityId("btnZaprimi");
+            gumb.Click();
+        }
+
+
 
         [Then(@"Prikaz kamere je vidljiv na ekranu")]
         public void ThenPrikazKamereJeVidljivNaEkranu()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var picQR = driver.FindElementByAccessibilityId("picQR");
+            Assert.IsTrue(picQR.Displayed);
         }
 
-        [When(@"Korisnik klikne na gumb Zaprimi materijal")]
-        public void WhenKorisnikKlikneNaGumbZaprimiMaterijal()
+
+
+        [Then(@"Skener prepoznaje QR kod i korisniku se daje mogućnost određivanja količine materijala")]
+        public void ThenSkenerPrepoznajeQRKodIKorisnikuSeDajeMogucnostOdredivanjaKolicineMaterijala()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var azuriraj = driver.FindElementByAccessibilityId("btnZaprimi");
+            Assert.IsTrue(azuriraj.Enabled);
         }
 
-        [When(@"Korisnik odabire svoju kameru za skeniranje QR koda")]
-        public void WhenKorisnikOdabireSvojuKameruZaSkeniranjeQRKoda()
+
+        [Then(@"Skener prepoznaje neispravan QR kod i prikazuje se poruka da nije ispravan QR kod")]
+        public void ThenSkenerPrepoznajeQRKodIPrikazujeSePorukaDaNijeIspravanQRKod()
         {
-            throw new PendingStepException();
+            var driver = GuiDriver.GetDriver();
+            var error = driver.FindElementByName("lblError");
+            Assert.IsNotNull(error);
         }
 
-        [When(@"Korisnik klikne gumb Kreni skeniranje")]
-        public void WhenKorisnikKlikneGumbKreniSkeniranje()
-        {
-            throw new PendingStepException();
-        }
-
-        [When(@"Korisnik približi QR kod svojoj kameri")]
-        public void WhenKorisnikPribliziQRKodSvojojKameri()
-        {
-            throw new PendingStepException();
-        }
-
-        [Then(@"Skener prepoznaje QR kod")]
-        public void ThenSkenerPrepoznajeQRKod()
-        {
-            throw new PendingStepException();
-        }
-
-        [Then(@"Korisniku se daje mogućnost određivanja količine materijala")]
-        public void ThenKorisnikuSeDajeMogucnostOdredivanjaKolicineMaterijala()
-        {
-            throw new PendingStepException();
-        }
-
-        [Then(@"Prikazuje se poruka da je neispravan QR kod")]
-        public void ThenPrikazujeSePorukaDaJeNeispravanQRKod()
-        {
-            throw new PendingStepException();
-        }
     }
 }
