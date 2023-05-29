@@ -47,7 +47,7 @@ namespace ZMGDesktop
 
         private void btnSpremi_Click(object sender, EventArgs e)
         {
-            if (provjeriUnos() == true)
+            if (provjeriUnos())
             {
                 try
                 {
@@ -105,32 +105,32 @@ namespace ZMGDesktop
                 MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if(validacija.provjeraSamoSlova(txtNaziv.Text) == false)
+            if(!validacija.provjeraSamoSlova(txtNaziv.Text))
             {
                 MessageBox.Show("Naziv može sadržavati samo slova");
                 return false;
             }
-            if(validacija.provjeraOIB(txtOIB.Text) == false)
+            if(!validacija.provjeraOIB(txtOIB.Text))
             {
                 MessageBox.Show("Krivo unesen OIB");
                 return false;
             }
-            if(validacija.provjeraUlica(txtAdresa.Text) == false)
+            if(!validacija.provjeraUlica(txtAdresa.Text))
             {
                 MessageBox.Show("Krivo unesena adresa");
                 return false;
             }
-            if(validacija.provjeraRacuna(txtIBAN.Text) == false)
+            if(!validacija.provjeraRacuna(txtIBAN.Text))
             {
                 MessageBox.Show("Krivo uneesn IBAN račun");
                 return false;
             }
-            if(validacija.provjeraMjesta(txtMjesto.Text) == false)
+            if(!validacija.provjeraMjesta(txtMjesto.Text))
             {
                 MessageBox.Show("Krivo uneseno mjesto");
                 return false;
             }
-            if(validacija.provjeraTelefon(txtTelefon.Text) == false)
+            if(!validacija.provjeraTelefon(txtTelefon.Text))
             {
                 MessageBox.Show("Krivi broj telefona");
                 return false;

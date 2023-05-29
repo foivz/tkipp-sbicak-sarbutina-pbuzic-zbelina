@@ -22,7 +22,7 @@ namespace DataAccessLayer
         public virtual DbSet<RadniNalog> RadniNalog { get; set; }
         public virtual DbSet<Roba> Roba { get; set; }
         public virtual DbSet<StavkaRacun> StavkaRacun { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usluga> Usluga { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

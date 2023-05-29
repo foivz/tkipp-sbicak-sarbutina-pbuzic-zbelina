@@ -5,7 +5,7 @@ namespace EntitiesLayer.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public partial class sysdiagrams
+    public partial class Sysdiagrams
     {
         [Required]
         [StringLength(128)]
