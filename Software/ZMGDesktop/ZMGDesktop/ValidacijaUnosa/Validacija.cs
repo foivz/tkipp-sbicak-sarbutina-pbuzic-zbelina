@@ -17,12 +17,9 @@ namespace ZMGDesktop.ValidacijaUnosa
         public bool provjeraOIB(string oib)
         {
             bool validan = false;
-            if(oib.Length == 11)
+            if (oib.Length == 11 && Regex.IsMatch(oib, @"^[0-9]+$"))
             {
-                if(Regex.IsMatch(oib, @"^[0-9]+$"))
-                {
-                    validan = true;
-                }
+                validan = true;
             }
             return validan;
         }
@@ -30,12 +27,9 @@ namespace ZMGDesktop.ValidacijaUnosa
         public bool provjeraRacuna(string racun)
         {
             bool validan = false;
-            if(racun.Length == 21 && racun.StartsWith("HR"))
+            if (racun.Length == 21 && racun.StartsWith("HR") && Regex.IsMatch(racun, @"^[a-zA-Z0-9]+$"))
             {
-                if(Regex.IsMatch(racun, @"^[a-zA-Z0-9]+$"))
-                {
-                    validan = true;
-                }
+                validan = true;
             }
             return validan;
         }

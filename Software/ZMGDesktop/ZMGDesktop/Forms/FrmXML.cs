@@ -80,7 +80,7 @@ namespace ZMGDesktop
                         {
                             MessageBox.Show("Neuspješno ubacivanje korisnika", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
-                        };
+                        }
                             
                     }
                     dgvKlijentiXML.DataSource = servisKlijent.DohvatiKlijente();
@@ -123,7 +123,7 @@ namespace ZMGDesktop
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Neispravni format datoteke");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -134,37 +134,37 @@ namespace ZMGDesktop
                 MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraSamoSlova(klijent.Naziv) == false)
+            if (!validacija.provjeraSamoSlova(klijent.Naziv))
             {
                 MessageBox.Show("Naziv može sadržavati samo slova", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraOIB(klijent.OIB) == false)
+            if (!validacija.provjeraOIB(klijent.OIB))
             {
                 MessageBox.Show("Krivo unesen OIB", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraUlica(klijent.Adresa) == false)
+            if (!validacija.provjeraUlica(klijent.Adresa))
             {
                 MessageBox.Show("Krivo unesena adresa", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraRacuna(klijent.IBAN) == false)
+            if (!validacija.provjeraRacuna(klijent.IBAN))
             {
                 MessageBox.Show("Krivo uneesn IBAN račun", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraMjesta(klijent.Mjesto) == false)
+            if (!validacija.provjeraMjesta(klijent.Mjesto))
             {
                 MessageBox.Show("Krivo uneseno mjesto", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraTelefon(klijent.BrojTelefona) == false)
+            if (!validacija.provjeraTelefon(klijent.BrojTelefona))
             {
                 MessageBox.Show("Krivi broj telefona", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraMaila(klijent.Email) == false)
+            if (!validacija.provjeraMaila(klijent.Email))
             {
                 MessageBox.Show("Krivi email", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;

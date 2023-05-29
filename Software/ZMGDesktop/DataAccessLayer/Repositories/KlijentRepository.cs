@@ -25,8 +25,8 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Klijent> DohvatiDesetNajboljih()
         {
-            var query = Entities.Where(x => x.Racun.Count() > 0)
-                     .OrderByDescending(x => x.Racun.Count())
+            var query = Entities.Where(x => x.Racun.Count > 0)
+                     .OrderByDescending(x => x.Racun.Count)
                      .Take(10);
             return query;
         }
@@ -142,7 +142,7 @@ namespace DataAccessLayer.Repositories
         public override int Remove(Klijent entity, bool saveChanges = true)
         {
             Entities.Attach(entity);
-            if (provjeri(entity) == true)
+            if (provjeri(entity))
             {
                 Entities.Remove(entity);
                 if (saveChanges)

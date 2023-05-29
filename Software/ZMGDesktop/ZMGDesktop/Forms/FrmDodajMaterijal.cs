@@ -56,7 +56,7 @@ namespace ZMGDesktop
 
         private void btnDodajMaterijal_Click(object sender, EventArgs e)
         {
-            if(provjeriUnos() == true) {
+            if(provjeriUnos()) {
                 string naziv = txtNaziv.Text;
                 int kolicina = (int)txtKolicina.Value;
                 string odabranaJedinica = cmbMjernaJedinica.SelectedItem.ToString();
@@ -117,17 +117,17 @@ namespace ZMGDesktop
 
         private bool provjeriUnos()
         {
-            if (txtNaziv.Text == "" || txtCijena.Value == 0 || txtKolicina.Value == 0 || cmbMjernaJedinica.SelectedItem == null || txtOpasno.Checked == null || txtOpis.Text == null)
+            if (txtNaziv.Text == "" || txtCijena.Value == 0 || txtKolicina.Value == 0 || cmbMjernaJedinica.SelectedItem == null || !txtOpasno.Checked || txtOpis.Text == null)
             {
                 MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            if (validacija.provjeraSamoSlova(txtNaziv.Text) == false)
+            if (!validacija.provjeraSamoSlova(txtNaziv.Text))
             {
                 MessageBox.Show("Naziv može sadržavati samo slova");
                 return false;
             }
-            if (validacija.provjeraSamoBrojevi(txtCijena.Value.ToString()) == false) {
+            if (!validacija.provjeraSamoBrojevi(txtCijena.Value.ToString())) {
                 MessageBox.Show("Cijena može sadržavati samo brojeve");
                 return false;
             }
