@@ -73,7 +73,7 @@ namespace DataAccessLayer.Repositories
             };
 
             Entities.Add(racun);
-            klijent.ukupniBrojRacuna = klijent.Racun.Count();
+            klijent.ukupniBrojRacuna = klijent.Racun.Count;
             if (saveChanges)
             {
                 return SaveChanges();
@@ -86,8 +86,6 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<Racun> DohvatiRacuneZaKlijenta(Klijent entity)
         {
-            var klijent = Context.Klijent.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
-
             var query = from s in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik").Include("StavkaRacun")
                         where s.Klijent_ID == entity.Klijent_ID
                         select s;

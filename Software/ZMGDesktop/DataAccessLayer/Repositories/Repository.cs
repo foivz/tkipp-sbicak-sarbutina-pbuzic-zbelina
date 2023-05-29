@@ -12,7 +12,7 @@ namespace DataAccessLayer.Repositories
         public ZMGBaza Context { get; set; }
         public DbSet<T> Entities { get; set; }
 
-        public Repository(ZMGBaza context)
+        protected Repository(ZMGBaza context)
         {
             Context = context;
             Entities = Context.Set<T>();

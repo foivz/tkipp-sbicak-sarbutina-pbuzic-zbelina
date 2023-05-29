@@ -10,7 +10,6 @@ namespace ZMGDesktop
 {
     public partial class FrmIzvjestajKlijenata : Form
     {
-        KlijentServices servisKlijenta = new KlijentServices();
         List<Klijent> desetNajboljih;
 
         public FrmIzvjestajKlijenata(List<Klijent> desetNajboljih)
@@ -53,7 +52,7 @@ namespace ZMGDesktop
 
         private void provjeri(List<Klijent> desetNajboljih)
         {
-            if(desetNajboljih.Count() == 0)
+            if(desetNajboljih.Count == 0)
             {
                 throw new Exception("Nema dovoljno podataka");
             }
