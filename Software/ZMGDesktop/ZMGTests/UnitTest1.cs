@@ -30,7 +30,7 @@ namespace ZMGTests
             };
 
             bool uspjesno = servis.Add(klijent);
-            Assert.IsTrue(uspjesno == true);
+            Assert.IsTrue(uspjesno);
         }
 
         [TestMethod]
@@ -65,7 +65,7 @@ namespace ZMGTests
             var klijenti = servisKlijenta.DohvatiKlijente();
             var brisi = klijenti.FirstOrDefault(k => k.Naziv == "Preis");
             bool uspjesno = servisKlijenta.Remove(brisi);
-            Assert.IsTrue(uspjesno == true);
+            Assert.IsTrue(uspjesno);
         }
 
         [TestMethod]
@@ -140,7 +140,7 @@ namespace ZMGTests
             };
 
             bool uspjesno = servis.DodajRadniNalog(radniNalog);
-            Assert.IsTrue(uspjesno == true);
+            Assert.IsTrue(uspjesno);
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@ namespace ZMGTests
             var radniNalog = radniNalozi.FirstOrDefault(r => r.QR_kod == "NEK1QR123KOD12345678");
 
             bool uspjesno = servis.ObrisiRadniNalog(radniNalog);
-            Assert.IsTrue(uspjesno == true);
+            Assert.IsTrue(uspjesno);
         }
 
         [TestMethod]

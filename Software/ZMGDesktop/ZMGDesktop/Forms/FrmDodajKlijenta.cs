@@ -135,7 +135,7 @@ namespace ZMGDesktop
                 MessageBox.Show("Krivi broj telefona");
                 return false;
             }
-            if(validacija.provjeraMaila(txtEmail.Text) == false)
+            if(!validacija.provjeraMaila(txtEmail.Text))
             {
                 MessageBox.Show("Krivi email");
                 return false;
