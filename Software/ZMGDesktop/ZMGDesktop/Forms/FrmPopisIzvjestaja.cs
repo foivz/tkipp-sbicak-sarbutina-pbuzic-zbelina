@@ -82,7 +82,7 @@ namespace ZMGDesktop
 
         private void provjeri(List<Klijent> desetNajboljih)
         {
-            if (desetNajboljih.Count() < 10)
+            if (desetNajboljih.Count < 10)
             {
                 throw new Exception("Nema dovoljno podataka za prikaz deset najvećih klijenata");
             }

@@ -170,7 +170,7 @@ namespace ZMGDesktop
             {
                
 
-                if (chkAutoEmail.Checked == true)
+                if (chkAutoEmail.Checked)
                 {
                     InitRacun(racun);
                     racunServis.DodajRacun(racun);
