@@ -33,8 +33,6 @@ namespace DataAccessLayer.Repositories
 
         public override int Add(Klijent entity, bool saveChanges = true)
         {
-            vecPostoji(entity);
-
             var klijent = new Klijent
             {
                 Naziv = entity.Naziv,
@@ -46,6 +44,7 @@ namespace DataAccessLayer.Repositories
                 Email = entity.Email,
                 ukupniBrojRacuna = 0,
             };
+            vecPostoji(entity, klijent);
             Entities.Add(klijent);
             if (saveChanges)
             {
@@ -57,55 +56,55 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private void vecPostoji(Klijent entity)
+        private void vecPostoji(Klijent entity, Klijent klijent)
         {
-            provjeriNaziv(entity);
-            provjeriOib(entity);
-            provjeriIBAN(entity);
-            provjeriEmail(entity);
-            provjeriTelefon(entity);
+            provjeriNaziv(entity, klijent);
+            provjeriOib(entity, klijent);
+            provjeriIBAN(entity, klijent);
+            provjeriEmail(entity, klijent);
+            provjeriTelefon(entity, klijent);
         }
 
-        private void provjeriTelefon(Klijent entity)
+        private void provjeriTelefon(Klijent entity, Klijent klijent)
         {
             var telefon = Entities.SingleOrDefault(t => t.BrojTelefona == entity.BrojTelefona);
-            if(telefon != null)
+            if(telefon != null && telefon != klijent)
             {
                 throw new TelefonException("Postoji vec klijent s ovim brojem telefona: " + telefon.BrojTelefona);
             }
         }
 
-        private void provjeriEmail(Klijent entity)
+        private void provjeriEmail(Klijent entity, Klijent klijent)
         {
             var email = Entities.SingleOrDefault(e => e.Email == entity.Email);
-            if(email != null)
+            if(email != null && email != klijent)
             {
                 throw new EmailException("Postoji vec klijent s ovim Email-om: " + email.Email);
             }
         }
 
-        private void provjeriIBAN(Klijent entity)
+        private void provjeriIBAN(Klijent entity, Klijent klijent)
         {
             var iban = Entities.SingleOrDefault(ib => ib.IBAN == entity.IBAN);
-            if(iban != null)
+            if(iban != null && iban != klijent)
             {
                 throw new IBANException("Postoji vec klijent s ovim IBAN-om: " + iban.IBAN);
             }
         }
 
-        private void provjeriOib(Klijent entity)
+        private void provjeriOib(Klijent entity, Klijent klijent)
         {
             var oib = Entities.SingleOrDefault(o => o.OIB == entity.OIB);
-            if(oib != null)
+            if(oib != null && oib != klijent)
             {
                 throw new OIBException("Postoji vec klijent s ovim OIB-om: " + oib.OIB);
             }
         }
 
-        private void provjeriNaziv(Klijent entity)
+        private void provjeriNaziv(Klijent entity, Klijent klijent)
         {
             var naziv = Entities.SingleOrDefault(n => n.Naziv == entity.Naziv);
-            if(naziv != null)
+            if(naziv != null && naziv != klijent)
             {
                 throw new UserException("Postoji vec klijent s ovim nazivom: " + naziv.Naziv);
             }
@@ -115,7 +114,7 @@ namespace DataAccessLayer.Repositories
         {
 
             var klijent = Entities.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
-            vecPostojiAzuriraj(entity, klijent);
+            vecPostoji(entity, klijent);
 
             klijent.Naziv = entity.Naziv;
             klijent.Adresa = entity.Adresa;
@@ -132,36 +131,6 @@ namespace DataAccessLayer.Repositories
             {
                 return 0;
             }
-        }
-
-        private void vecPostojiAzuriraj(Klijent entity, Klijent klijent)
-        {
-            
-                var naziv = Entities.SingleOrDefault(n => n.Naziv == entity.Naziv);
-                var oib = Entities.SingleOrDefault(o => o.OIB == entity.OIB);
-                var IBAN = Entities.SingleOrDefault(r => r.IBAN == entity.IBAN);
-                var email = Entities.SingleOrDefault(e => e.Email == entity.Email);
-                var telefon = Entities.SingleOrDefault(t => t.BrojTelefona == entity.BrojTelefona);
-                if (naziv != null && naziv != klijent)
-                {
-                    throw new UserException("Postoji već klijent s ovim nazivom: " + naziv);
-                }
-                if (oib != null && oib != klijent)
-                {
-                    throw new OIBException("Postoji već klijent s ovim OIB-om: " + naziv);
-                }
-                if (IBAN != null && IBAN != klijent)
-                {
-                    throw new IBANException("Ovaj IBAN već postoji: " + naziv);
-                }
-                if (email != null && email != klijent)
-                {
-                    throw new EmailException("Ovaj email je već u upotrebi: " + naziv);
-                }
-                if (telefon != null && telefon != klijent)
-                {
-                    throw new TelefonException("Ovaj broj telefona se već koristi: " + naziv);
-                }
         }
 
         public override int Remove(Klijent entity, bool saveChanges = true)
