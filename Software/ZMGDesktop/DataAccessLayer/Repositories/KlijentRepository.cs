@@ -59,30 +59,55 @@ namespace DataAccessLayer.Repositories
 
         private void vecPostoji(Klijent entity)
         {
-            var naziv = Entities.SingleOrDefault(n => n.Naziv == entity.Naziv);
-            var oib = Entities.SingleOrDefault(o => o.OIB == entity.OIB);
-            var IBAN = Entities.SingleOrDefault(r => r.IBAN == entity.IBAN);
-            var email = Entities.SingleOrDefault(e => e.Email == entity.Email);
+            provjeriNaziv(entity);
+            provjeriOib(entity);
+            provjeriIBAN(entity);
+            provjeriEmail(entity);
+            provjeriTelefon(entity);
+        }
+
+        private void provjeriTelefon(Klijent entity)
+        {
             var telefon = Entities.SingleOrDefault(t => t.BrojTelefona == entity.BrojTelefona);
-            if(naziv != null)
-            {
-                throw new UserException("Postoji već klijent s ovim nazivom: " + naziv);
-            }
-            if(oib != null)
-            {
-                throw new OIBException("Postoji već klijent s ovim OIB-om: " + naziv);
-            }
-            if(IBAN != null)
-            {
-                throw new IBANException("Ovaj IBAN već postoji: " + naziv);
-            }
-            if(email != null)
-            {
-                throw new EmailException("Ovaj email je već u upotrebi: " + naziv);
-            }
             if(telefon != null)
             {
-                throw new TelefonException("Ovaj broj telefona se već koristi: " + naziv);
+                throw new TelefonException("Postoji vec klijent s ovim brojem telefona: " + telefon.BrojTelefona);
+            }
+        }
+
+        private void provjeriEmail(Klijent entity)
+        {
+            var email = Entities.SingleOrDefault(e => e.Email == entity.Email);
+            if(email != null)
+            {
+                throw new EmailException("Postoji vec klijent s ovim Email-om: " + email.Email);
+            }
+        }
+
+        private void provjeriIBAN(Klijent entity)
+        {
+            var iban = Entities.SingleOrDefault(ib => ib.IBAN == entity.IBAN);
+            if(iban != null)
+            {
+                throw new IBANException("Postoji vec klijent s ovim IBAN-om: " + iban.IBAN);
+            }
+        }
+
+        private void provjeriOib(Klijent entity)
+        {
+            var oib = Entities.SingleOrDefault(o => o.OIB == entity.OIB);
+            if(oib != null)
+            {
+                throw new OIBException("Postoji vec klijent s ovim OIB-om: " + oib.OIB);
+            }
+        }
+
+        private void provjeriNaziv(Klijent entity)
+        {
+            var naziv = Entities.SingleOrDefault(n => n.Naziv == entity.Naziv);
+            if(naziv != null)
+            {
+                throw new UserException("Postoji vec klijent s ovim nazivom: " + naziv.Naziv);
             }
         }
 
