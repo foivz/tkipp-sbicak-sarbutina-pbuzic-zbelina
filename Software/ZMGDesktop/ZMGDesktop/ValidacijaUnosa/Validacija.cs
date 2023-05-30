@@ -27,7 +27,7 @@ namespace ZMGDesktop.ValidacijaUnosa
         public bool provjeraRacuna(string racun)
         {
             bool validan = false;
-            if (racun.Length == 21 && racun.StartsWith("HR") && Regex.IsMatch(racun, @"^[a-zA-Z0-9]+$"))
+            if (Regex.IsMatch(racun, @"^HR\d{19}$"))
             {
                 validan = true;
             }
@@ -87,7 +87,7 @@ namespace ZMGDesktop.ValidacijaUnosa
         public bool provjeraTelefon(string telefon)
         {
             bool validan = false;
-            if (Regex.IsMatch(telefon, @"^[0-9]+$") && telefon.Length > 5 && telefon.Length < 15)
+            if (Regex.IsMatch(telefon, @"^[0-9]+$") && telefon.Length > 5 && telefon.Length <= 10)
             {
                 validan = true;
             }

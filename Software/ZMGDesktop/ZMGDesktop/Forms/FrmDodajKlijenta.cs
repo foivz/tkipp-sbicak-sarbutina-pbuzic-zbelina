@@ -49,9 +49,9 @@ namespace ZMGDesktop
 
         private void btnSpremi_Click(object sender, EventArgs e)
         {
-            if (provjeriUnos())
+            try
             {
-                try
+                if (provjeriUnos())
                 {
                     if (selektiran == null)
                     {
@@ -64,31 +64,30 @@ namespace ZMGDesktop
                         Close();
                     }
                 }
-                catch (UserException ex)
-                {
-                    MessageBox.Show(ex.Poruka);
-                }
-                catch (TelefonException ex)
-                {
-                    MessageBox.Show(ex.Poruka);
-                }
-                catch (IBANException ex)
-                {
-                    MessageBox.Show(ex.Poruka);
-                }
-                catch (OIBException ex)
-                {
-                    MessageBox.Show(ex.Poruka);
-                }
-                catch (EmailException ex)
-                {
-                    MessageBox.Show(ex.Poruka);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
+            }
+            catch (UserException ex)
+            {
+                MessageBox.Show(ex.Poruka);
+            }
+            catch (TelefonException ex)
+            {
+                MessageBox.Show(ex.Poruka);
+            }
+            catch (IBANException ex)
+            {
+                MessageBox.Show(ex.Poruka);
+            }
+            catch (OIBException ex)
+            {
+                MessageBox.Show(ex.Poruka);
+            }
+            catch (EmailException ex)
+            {
+                MessageBox.Show(ex.Poruka);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -133,7 +132,6 @@ namespace ZMGDesktop
             if (!validacija.provjeraTelefon(txtTelefon.Text))
             {
                 throw new TelefonException("Krivi broj telefona");
-                
             }
         }
 
