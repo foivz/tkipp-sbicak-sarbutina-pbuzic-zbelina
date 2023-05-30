@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,6 +84,10 @@ namespace ZMGDesktop
                 {
                     MessageBox.Show(ex.Poruka);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
 
             }
         }
@@ -100,44 +106,82 @@ namespace ZMGDesktop
 
         private bool provjeriUnos()
         {
-            if(txtIBAN.Text == "" || txtNaziv.Text == "" || txtMjesto.Text == "" || txtAdresa.Text == "" || txtOIB.Text == "" || txtTelefon.Text == "" || txtEmail.Text == "")
+            if(!provjeriPolja())
+            {
+                return false;
+            }
+            provjeriNaziv();
+            provjeriOIB();
+            provjeraUlice();
+            provjeraRacuna();
+            provjeraMjesta();
+            provjeraTelefona();
+            provjeraMaila();
+            return true;
+        }
+
+        private void provjeraMaila()
+        {
+            if (!validacija.provjeraMaila(txtEmail.Text))
+            {
+                throw new EmailException("Neispravan Email!");
+            }
+        }
+
+        private void provjeraTelefona()
+        {
+            if (!validacija.provjeraTelefon(txtTelefon.Text))
+            {
+                throw new TelefonException("Krivi broj telefona");
+                
+            }
+        }
+
+        private void provjeraMjesta()
+        {
+            if (!validacija.provjeraMjesta(txtMjesto.Text))
+            {
+                throw new Exception("Krivo uneseno mjesto");
+            }
+        }
+
+        private void provjeraRacuna()
+        {
+            if (!validacija.provjeraRacuna(txtIBAN.Text))
+            {
+                throw new IBANException("Krivo uneesn IBAN račun");
+            }
+        }
+
+        private void provjeraUlice()
+        {
+            if (!validacija.provjeraUlica(txtAdresa.Text))
+            {
+                throw new Exception("Krivo unesena adresa");
+            }
+        }
+
+        private void provjeriOIB()
+        {
+            if (!validacija.provjeraOIB(txtOIB.Text))
+            {
+                throw new OIBException("Krivo unesen OIB");
+            }
+        }
+
+        private void provjeriNaziv()
+        {
+            if (!validacija.provjeraSamoSlova(txtNaziv.Text))
+            {
+                throw new Exception("Naziv može sadržavati samo slova");
+            }
+        }
+
+        private bool provjeriPolja()
+        {
+            if (txtIBAN.Text == "" || txtNaziv.Text == "" || txtMjesto.Text == "" || txtAdresa.Text == "" || txtOIB.Text == "" || txtTelefon.Text == "" || txtEmail.Text == "")
             {
                 MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if(!validacija.provjeraSamoSlova(txtNaziv.Text))
-            {
-                MessageBox.Show("Naziv može sadržavati samo slova");
-                return false;
-            }
-            if(!validacija.provjeraOIB(txtOIB.Text))
-            {
-                MessageBox.Show("Krivo unesen OIB");
-                return false;
-            }
-            if(!validacija.provjeraUlica(txtAdresa.Text))
-            {
-                MessageBox.Show("Krivo unesena adresa");
-                return false;
-            }
-            if(!validacija.provjeraRacuna(txtIBAN.Text))
-            {
-                MessageBox.Show("Krivo uneesn IBAN račun");
-                return false;
-            }
-            if(!validacija.provjeraMjesta(txtMjesto.Text))
-            {
-                MessageBox.Show("Krivo uneseno mjesto");
-                return false;
-            }
-            if(!validacija.provjeraTelefon(txtTelefon.Text))
-            {
-                MessageBox.Show("Krivi broj telefona");
-                return false;
-            }
-            if(!validacija.provjeraMaila(txtEmail.Text))
-            {
-                MessageBox.Show("Krivi email");
                 return false;
             }
             return true;
