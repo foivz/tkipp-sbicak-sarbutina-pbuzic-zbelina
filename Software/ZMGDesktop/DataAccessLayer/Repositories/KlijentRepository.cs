@@ -115,14 +115,7 @@ namespace DataAccessLayer.Repositories
 
             var klijent = Entities.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
             vecPostoji(entity, klijent);
-
-            klijent.Naziv = entity.Naziv;
-            klijent.Adresa = entity.Adresa;
-            klijent.BrojTelefona = entity.BrojTelefona;
-            klijent.Mjesto = entity.Mjesto;
-            klijent.OIB = entity.OIB;
-            klijent.Email = entity.Email;
-            klijent.IBAN = entity.IBAN;
+            dodjeliSvojstva(entity, klijent);
             if (saveChanges)
             {
                 return SaveChanges();
@@ -131,6 +124,17 @@ namespace DataAccessLayer.Repositories
             {
                 return 0;
             }
+        }
+
+        private void dodjeliSvojstva(Klijent entity, Klijent klijent)
+        {
+            klijent.Naziv = entity.Naziv;
+            klijent.Adresa = entity.Adresa;
+            klijent.BrojTelefona = entity.BrojTelefona;
+            klijent.Mjesto = entity.Mjesto;
+            klijent.OIB = entity.OIB;
+            klijent.Email = entity.Email;
+            klijent.IBAN = entity.IBAN;
         }
 
         public override int Remove(Klijent entity, bool saveChanges = true)
