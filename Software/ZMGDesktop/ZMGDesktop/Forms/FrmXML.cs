@@ -92,25 +92,43 @@ namespace ZMGDesktop
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Dogodila se greška, klijenti nisu uvezeni");
             }
         }
 
         private List<Klijent> ParsirajKlijente(XDocument xDoc)
         {
-            return xDoc.Descendants("klijent")
-                .Select(klijent =>
-                    new Klijent
-                    {
-                        Naziv = klijent.Element("Naziv").Value,
-                        Adresa = klijent.Element("Adresa").Value,
-                        Mjesto = klijent.Element("Mjesto").Value,
-                        OIB = klijent.Element("OIB").Value,
-                        BrojTelefona = klijent.Element("BrojTelefona").Value,
-                        Email = klijent.Element("Email").Value,
-                        IBAN = klijent.Element("IBAN").Value
-                    })
-                .ToList();
+            List<Klijent> klijentiList = xDoc.Descendants("klijent")
+        .Select(klijent =>
+        {
+            Klijent noviKlijent = new Klijent();
+
+            noviKlijent.Naziv = ProvjeriElement(klijent, "Naziv");
+            noviKlijent.Adresa = ProvjeriElement(klijent, "Adresa");
+            noviKlijent.Mjesto = ProvjeriElement(klijent, "Mjesto");
+            noviKlijent.OIB = ProvjeriElement(klijent, "OIB");
+            noviKlijent.BrojTelefona = ProvjeriElement(klijent, "BrojTelefona");
+            noviKlijent.Email = ProvjeriElement(klijent, "Email");
+            noviKlijent.IBAN = ProvjeriElement(klijent, "IBAN");
+
+            return noviKlijent;
+        })
+        .ToList();
+
+            return klijentiList;
+        }
+
+        private string ProvjeriElement(XElement klijent, string elementName)
+        {
+            XElement element = klijent.Element(elementName);
+            if (element != null)
+            {
+                return element.Value;
+            }
+            else
+            {
+                throw new Exception($"Nedostaje element '{elementName}' u klijentu.");
+            }
         }
 
 

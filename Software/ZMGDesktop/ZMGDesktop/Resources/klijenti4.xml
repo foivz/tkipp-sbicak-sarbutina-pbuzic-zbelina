@@ -2,9 +2,8 @@
 <xhtml xml:lang="hr">
 <klijenti>
 	<klijent>
-		<Nazilv>Hađar</Naziv>
+		<Naziv>Hađar</Naziv>
 		<Adresa>Petrova Gora 23</Adresa>
-		<Mjesto>Petrova Gora</Mjesto>
 		<OIB>75215482612</OIB>
 		<BrojTelefona>0921421295</BrojTelefona>
 		<Email>hadar@gmail.com</Email>
@@ -12,7 +11,7 @@
 	</klijent>
 	<klijent>
 		<Naziv>Hudić</Naziv>
-		<Adraesa>Sesvete 20</Adresa>
+		<Adresa>Sesvete 20</Adresa>
 		<Mjesto>Sesvete</Mjesto>
 		<OIB>85721265201</OIB>
 		<BrojTelefona>0962142582</BrojTelefona>
@@ -21,7 +20,7 @@
 	</klijent>
 	<klijent>
 		<Naziv>BAMT</Naziv>
-		<Adrdesa>Mače 20</Adresa>
+		<Adresa>Mače 20</Adresa>
 		<Mjesto>Mače</Mjesto>
 		<OIB>82752125672</OIB>
 		<BrojTelefona>0992615721</BrojTelefona>
@@ -30,7 +29,7 @@
 	</klijent>
 	<klijent>
 		<Naziv>Boxmark</Naziv>
-		<Adreesa>Trnovec 21</Adresa>
+		<Adresa>Trnovec 21</Adresa>
 		<Mjesto>Trnovec</Mjesto>
 		<OIB>27165281562</OIB>
 		<BrojTelefona>0972429104</BrojTelefona>
