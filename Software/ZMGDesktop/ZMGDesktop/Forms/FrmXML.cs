@@ -58,6 +58,98 @@ namespace ZMGDesktop
             try
             {
                 XDocument xDoc = XDocument.Load(fileName);
+                List<Klijent> klijentiList = ParsirajKlijente(xDoc);
+                if (klijentiList.Count != 0)
+                {
+                    DodajKlijente(klijentiList);
+                    PrikaziKlijente();
+                    MessageBox.Show("Uspješno učitani korisnici");
+                }
+                else
+                {
+                    MessageBox.Show("Krivi format XML datoteke, ne mogu pročitati");
+                }
+            }
+            catch (UserException ex)
+            {
+                HandleException(ex);
+            }
+            catch (TelefonException ex)
+            {
+                HandleException(ex);
+            }
+            catch (IBANException ex)
+            {
+                HandleException(ex);
+            }
+            catch (OIBException ex)
+            {
+                HandleException(ex);
+            }
+            catch (EmailException ex)
+            {
+                HandleException(ex);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private List<Klijent> ParsirajKlijente(XDocument xDoc)
+        {
+            return xDoc.Descendants("klijent")
+                .Select(klijent =>
+                    new Klijent
+                    {
+                        Naziv = klijent.Element("Naziv").Value,
+                        Adresa = klijent.Element("Adresa").Value,
+                        Mjesto = klijent.Element("Mjesto").Value,
+                        OIB = klijent.Element("OIB").Value,
+                        BrojTelefona = klijent.Element("BrojTelefona").Value,
+                        Email = klijent.Element("Email").Value,
+                        IBAN = klijent.Element("IBAN").Value
+                    })
+                .ToList();
+        }
+
+
+        private void DodajKlijente(List<Klijent> klijentiList)
+        {
+            foreach (var klijent in klijentiList)
+            {
+                if (provjeri(klijent))
+                {
+                    servisKlijent.Add(klijent);
+                }
+                else
+                {
+                    MessageBox.Show("Neuspješno ubacivanje korisnika", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void PrikaziKlijente()
+        {
+            dgvKlijentiXML.DataSource = servisKlijent.DohvatiKlijente();
+            dgvKlijentiXML.Columns[0].Visible = false;
+            dgvKlijentiXML.Columns[8].Visible = false;
+            dgvKlijentiXML.Columns[9].Visible = false;
+            dgvKlijentiXML.Columns[10].Visible = false;
+            dgvKlijentiXML.Columns[11].Visible = false;
+        }
+
+        private void HandleException(Exception ex)
+        {
+            dgvKlijentiXML.DataSource = servisKlijent.DohvatiKlijente();
+            MessageBox.Show(ex.Message);
+        }
+
+        /*
+         try
+            {
+                XDocument xDoc = XDocument.Load(fileName);
                 List<Klijent> klijentiList = xDoc.Descendants("klijent").
                     Select(klijent =>
                     new Klijent
@@ -125,51 +217,83 @@ namespace ZMGDesktop
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+         */
 
         private bool provjeri(Klijent klijent)
         {
-            if (klijent.IBAN == "" || klijent.Naziv == "" || klijent.Mjesto == "" || klijent.Adresa == "" || klijent.OIB == "" || klijent.BrojTelefona == "" || klijent.Email == "")
-            {
-                MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraSamoSlova(klijent.Naziv))
-            {
-                MessageBox.Show("Naziv može sadržavati samo slova", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraOIB(klijent.OIB))
-            {
-                MessageBox.Show("Krivo unesen OIB", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraUlica(klijent.Adresa))
-            {
-                MessageBox.Show("Krivo unesena adresa", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraRacuna(klijent.IBAN))
-            {
-                MessageBox.Show("Krivo uneesn IBAN račun", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraMjesta(klijent.Mjesto))
-            {
-                MessageBox.Show("Krivo uneseno mjesto", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (!validacija.provjeraTelefon(klijent.BrojTelefona))
-            {
-                MessageBox.Show("Krivi broj telefona", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            provjeriKlijenta(klijent);
+            provjeriNaziv(klijent);
+            provjeriOIB(klijent);
+            provjeraUlica(klijent);
+            provjeraRacuna(klijent);
+            provjeraMjesta(klijent);
+            provjeraTelefona(klijent);
+            provjeraMaila(klijent);
+            return true;
+        }
+
+        private void provjeraMaila(Klijent klijent)
+        {
             if (!validacija.provjeraMaila(klijent.Email))
             {
-                MessageBox.Show("Krivi email", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                throw new EmailException("Krivi email");
             }
-            return true;
+        }
+
+        private void provjeraTelefona(Klijent klijent)
+        {
+            if (!validacija.provjeraTelefon(klijent.BrojTelefona))
+            {
+                throw new TelefonException("Krivi broj telefona");
+            }
+        }
+
+        private void provjeraMjesta(Klijent klijent)
+        {
+            if (!validacija.provjeraMjesta(klijent.Mjesto))
+            {
+                throw new Exception("Krivo uneseno mjesto");
+            }
+        }
+
+        private void provjeraRacuna(Klijent klijent)
+        {
+            if (!validacija.provjeraRacuna(klijent.IBAN))
+            {
+                throw new Exception("Krivo uneesn IBAN račun");
+            }
+        }
+
+        private void provjeraUlica(Klijent klijent)
+        {
+            if (!validacija.provjeraUlica(klijent.Adresa))
+            {
+                throw new Exception("Krivo unesena adresa");
+            }
+        }
+
+        private void provjeriOIB(Klijent klijent)
+        {
+            if (!validacija.provjeraOIB(klijent.OIB))
+            {
+                throw new OIBException("Krivo unesen OIB");
+            }
+        }
+
+        private void provjeriNaziv(Klijent klijent)
+        {
+            if (!validacija.provjeraSamoSlova(klijent.Naziv))
+            {
+                throw new Exception("Naziv može sadržavati samo slova");
+            }
+        }
+
+        private void provjeriKlijenta(Klijent klijent)
+        {
+            if (klijent.IBAN == "" || klijent.Naziv == "" || klijent.Mjesto == "" || klijent.Adresa == "" || klijent.OIB == "" || klijent.BrojTelefona == "" || klijent.Email == "")
+            {
+                throw new Exception("Potrebno je ispuniti sva polja");
+            }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
