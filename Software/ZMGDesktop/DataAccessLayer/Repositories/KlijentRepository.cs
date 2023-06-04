@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class KlijentRepository : Repository<Klijent>
+    public class KlijentRepository : Repository<Klijent>, IKlijentRepository
     {
         public KlijentRepository() : base(new ZMGBaza())
         {
@@ -106,7 +106,7 @@ namespace DataAccessLayer.Repositories
             var naziv = Entities.SingleOrDefault(n => n.Naziv == entity.Naziv);
             if(naziv != null && naziv != klijent)
             {
-                throw new UserException("Postoji vec klijent s ovim nazivom: " + naziv.Naziv);
+                throw new UserException("Postoji vec klijent s ovim nazivom: " + klijent.Naziv);
             }
         }
 

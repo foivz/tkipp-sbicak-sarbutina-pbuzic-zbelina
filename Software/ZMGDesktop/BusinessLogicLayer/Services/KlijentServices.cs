@@ -1,5 +1,7 @@
-﻿using DataAccessLayer.Repositories;
+﻿using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
+using PdfSharp.Charting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +12,21 @@ namespace BusinessLogicLayer.Services
 {
     public class KlijentServices
     {
+        private readonly IKlijentRepository klijentRepository;
+        public KlijentServices()
+        {
+            
+        }
+
+        public KlijentServices(IKlijentRepository klijentRepozitory) { 
+        this.klijentRepository = klijentRepozitory;
+        }
 
         public List<Klijent> DohvatiKlijente()
         {
             using (var repo = new KlijentRepository())
             {
-                List<Klijent> klijenti = repo.GetAll().ToList();
+                List<Klijent> klijenti = klijentRepository.GetAll().ToList();
                 return klijenti;
             }
         }
@@ -24,7 +35,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new KlijentRepository())
             {
-                List<Klijent> desetNajboljih = repo.DohvatiDesetNajboljih().ToList();
+                List<Klijent> desetNajboljih = klijentRepository.DohvatiDesetNajboljih().ToList();
                 return desetNajboljih;
             }
         }
@@ -35,7 +46,7 @@ namespace BusinessLogicLayer.Services
 
             using (var repo = new KlijentRepository())
             {
-                int red = repo.Add(klijent);
+                int red = klijentRepository.Add(klijent);
                 uspjesno = red > 0;
             }
                 return uspjesno;
@@ -47,7 +58,7 @@ namespace BusinessLogicLayer.Services
 
             using(var repo = new KlijentRepository())
             {
-                int red = repo.Update(klijent);
+                int red = klijentRepository.Update(klijent);
                 uspjesno = red > 0;
             }
 
@@ -57,11 +68,8 @@ namespace BusinessLogicLayer.Services
         public bool Remove(Klijent klijent)
         {
             bool uspjesno = false;
-                using(var repo = new KlijentRepository())
-                {
-                    int red = repo.Remove(klijent);
-                    uspjesno = red > 0;
-                }
+            int red = klijentRepository.Remove(klijent);
+            uspjesno = red > 0;
             return uspjesno;
         }
     }
