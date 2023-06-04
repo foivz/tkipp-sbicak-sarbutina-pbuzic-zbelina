@@ -19,6 +19,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ZMGDesktopWizard", "ZMGDesk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZMGDesktop_Tests", "ZMGDesktop_Tests\ZMGDesktop_Tests.csproj", "{18995603-D222-4EB8-912D-0A7B746D42D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZMG.IntegrationTests", "ZMG.IntegrationTests\ZMG.IntegrationTests.csproj", "{2A574052-F2DB-4830-ADE0-348F98E4FDD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{18995603-D222-4EB8-912D-0A7B746D42D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18995603-D222-4EB8-912D-0A7B746D42D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18995603-D222-4EB8-912D-0A7B746D42D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A574052-F2DB-4830-ADE0-348F98E4FDD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A574052-F2DB-4830-ADE0-348F98E4FDD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A574052-F2DB-4830-ADE0-348F98E4FDD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A574052-F2DB-4830-ADE0-348F98E4FDD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

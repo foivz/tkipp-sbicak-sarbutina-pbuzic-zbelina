@@ -15,7 +15,7 @@ namespace BusinessLogicLayer.Services
         private readonly IKlijentRepository klijentRepository;
         public KlijentServices()
         {
-            
+           
         }
 
         public KlijentServices(IKlijentRepository klijentRepozitory) { 
@@ -44,23 +44,23 @@ namespace BusinessLogicLayer.Services
         {
             bool uspjesno = false;
 
-            using (var repo = new KlijentRepository())
-            {
+              using (var repo = new KlijentRepository())
+              {
                 int red = repo.Add(klijent);
                 uspjesno = red > 0;
-            }
-                return uspjesno;
+              }
+            return uspjesno;
         }
 
         public bool Update(Klijent klijent)
         {
             bool uspjesno = false;
 
-            using(var repo = new KlijentRepository())
-            {
+              using(var repo = new KlijentRepository())
+              {
                 int red = repo.Update(klijent);
                 uspjesno = red > 0;
-            }
+              }
 
             return uspjesno;
         }
@@ -68,11 +68,11 @@ namespace BusinessLogicLayer.Services
         public bool Remove(Klijent klijent)
         {
             bool uspjesno = false;
-            using (var repo = new KlijentRepository())
-            {
+              using (var repo = new KlijentRepository())
+              {
                 int red = repo.Remove(klijent);
                 uspjesno = red > 0;
-            }
+              }
             return uspjesno;
         }
     }
