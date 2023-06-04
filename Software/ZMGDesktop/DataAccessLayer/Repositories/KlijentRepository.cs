@@ -158,7 +158,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private bool provjeri(Klijent entity)
+        public bool provjeri(Klijent entity)
         {
             if(entity.Racun.Count == 0 && entity.RadniNalog.Count == 0 && entity.Roba.Count == 0)
             {

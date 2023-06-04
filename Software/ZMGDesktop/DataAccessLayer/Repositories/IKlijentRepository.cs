@@ -18,5 +18,7 @@ namespace DataAccessLayer.Repositories
         int Update(Klijent entity, bool saveChanges = true);
 
         int Remove(Klijent entitiy, bool saveChanges = true);
+
+        bool provjeri(Klijent entity);
     }
 }
