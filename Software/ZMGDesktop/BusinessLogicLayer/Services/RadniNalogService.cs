@@ -10,42 +10,48 @@ namespace BusinessLogicLayer.Services
 {
     public class RadniNalogService
     {
+        private readonly IRadniNalogRepository radniNalogRepository;
+
+        public RadniNalogService(IRadniNalogRepository radniNalogRepository)
+        {
+            this.radniNalogRepository = radniNalogRepository;
+        }
         public List<RadniNalog> DohvatiRadneNalogeZaKlijenta(Klijent klijent)
         {
-            using(var repo = new RadniNalogRepository())
-            {
-                List<RadniNalog> radniNalozi = repo.DohvatiRadneNalogeZaKlijenta(klijent).ToList();
+            //using(var repo = new RadniNalogRepository())
+            //{
+            List<RadniNalog> radniNalozi = radniNalogRepository.DohvatiRadneNalogeZaKlijenta(klijent).ToList();
                 return radniNalozi;
-            }
+            //}
         }
 
         public List<RadniNalog> DohvatiRadneNaloge()
         {
-            using(var repo = new RadniNalogRepository())
-            {
-                List<RadniNalog> radniNalozi = repo.DohvatiSveRadneNaloge().ToList();
+            //using(var repo = new RadniNalogRepository())
+            //{
+            List<RadniNalog> radniNalozi = radniNalogRepository.DohvatiSveRadneNaloge().ToList();
                 return radniNalozi;
-            }
+            //}
         }
 
         public List<RadniNalog> DohvatiRadneNalogePoStatusima()
         {
-            using (var repo = new RadniNalogRepository())
-            {
-                List<RadniNalog> radniNalozi = repo.DohvatiRadneNalogePoStatusima().ToList();
+            //using (var repo = new RadniNalogRepository())
+            //{
+            List<RadniNalog> radniNalozi = radniNalogRepository.DohvatiRadneNalogePoStatusima().ToList();
                 return radniNalozi;
-            }
+            //}
         }
 
         public bool DodajRadniNalog(RadniNalog radniNalog)
         {
             bool uspjesno = false;
 
-            using (var repo = new RadniNalogRepository())
-            {
-                int red = repo.Add(radniNalog);
+            //using (var repo = new RadniNalogRepository())
+            //{
+            int red = radniNalogRepository.Add(radniNalog);
                 uspjesno = red > 0;
-            }
+            //}
 
             return uspjesno;
         }
@@ -65,10 +71,10 @@ namespace BusinessLogicLayer.Services
 
         public void AzurirajRadniNalog(RadniNalog radniNalog)
         {
-            using (var repo = new RadniNalogRepository())
-            {
-                repo.Update(radniNalog);
-            }
+            //using (var repo = new RadniNalogRepository())
+            //{
+            radniNalogRepository.Update(radniNalog);
+            //}
         }
     }
 }

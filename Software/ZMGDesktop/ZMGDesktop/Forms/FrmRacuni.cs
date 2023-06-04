@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,8 +31,8 @@ namespace ZMGDesktop
             InitializeComponent();
             ucitajPomoc();
             poslodavacServis = new PoslodavacServices();
-            klijentServis= new KlijentServices();
-            racunServis = new RacunService();
+            klijentServis= new KlijentServices(new KlijentRepository());
+            racunServis = new RacunService(new RacunRepository());
             radnik = _radnik;
         }
 

@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace ZMGDesktop
 {
     public partial class FrmDodajKlijenta : Form
     {
-        private KlijentServices servisKlijent = new KlijentServices();
+        private KlijentServices servisKlijent = new KlijentServices(new KlijentRepository());
         private Klijent selektiran;
         private Validacija validacija = new Validacija();
         public FrmDodajKlijenta()

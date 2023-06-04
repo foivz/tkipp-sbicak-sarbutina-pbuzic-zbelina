@@ -11,40 +11,45 @@ namespace BusinessLogicLayer.Services
 {
     public class RacunService
     {
+        private readonly IRacunRepository racunRepository;
 
+        public RacunService(IRacunRepository racunRepository)
+        {
+            this.racunRepository = racunRepository;
+        }
         public List<Racun> DohvatiRacuneZaKlijenta(Klijent klijent)
         {
-            using (var repo = new RacunRepository())
-            {
-                List<Racun> racuni = repo.DohvatiRacuneZaKlijenta(klijent).ToList();
+            //using (var repo = new RacunRepository())
+            //{
+            List<Racun> racuni = racunRepository.DohvatiRacuneZaKlijenta(klijent).ToList();
                 return racuni;
-            }
+            //}
         }
 
         public List<Racun> DohvatiSveRacune()
         {
-            using (var repo = new RacunRepository())
-            {
-                List<Racun> racuni = repo.DohvatiSveRacune().ToList();
+            //using (var repo = new RacunRepository())
+            //{
+            List<Racun> racuni = racunRepository.DohvatiSveRacune().ToList();
                 return racuni;
-            }
+            //}
         }
 
         public void DodajRacun(Racun racun)
         {
-            using (var repo = new RacunRepository())
-            {
-                repo.Add(racun);
-            }
+            //using (var repo = new RacunRepository())
+            //{
+            racunRepository.Add(racun);
+            //}
         }
 
         public Racun DohvatiOdredeniRacun(int id)
         {
             List<Racun> listaRacuna = new List<Racun>();
-            using (var repo = new RacunRepository())
-            {
-                listaRacuna = repo.DohvatiOdredeniRacun(id).ToList();
-            }
+            //using (var repo = new RacunRepository())
+            //{
+            listaRacuna = racunRepository.DohvatiOdredeniRacun(id).ToList();
+            //}
             Racun racun;
             racun = listaRacuna[0];
             return racun;
@@ -53,10 +58,10 @@ namespace BusinessLogicLayer.Services
         public Racun DohvatiZadnjiRacun()
         {
             List<Racun> listaRacuna = new List<Racun>();
-            using (var repo = new RacunRepository())
-            {
-                listaRacuna = repo.DohvatiSveRacune().ToList();
-            }
+            //using (var repo = new RacunRepository())
+            //{
+            listaRacuna = racunRepository.DohvatiSveRacune().ToList();
+            //}
             Racun racun;
             racun = listaRacuna.Last();
             return racun;
@@ -64,11 +69,11 @@ namespace BusinessLogicLayer.Services
 
         public List<Racun> DohvatiRacunePretrazivanje(Klijent klijent, int id, int pretrazivanje = 0, int sortiranje = 0)
         {
-            using (var repo = new RacunRepository())
-            {
-                List<Racun> racuni = repo.DohvatiPremaPretrazivanju(klijent, id, pretrazivanje, sortiranje).ToList();
+            //using (var repo = new RacunRepository())
+            //{
+            List<Racun> racuni = racunRepository.DohvatiPremaPretrazivanju(klijent, id, pretrazivanje, sortiranje).ToList();
                 return racuni;
+                //}
             }
         }
-    }
 }

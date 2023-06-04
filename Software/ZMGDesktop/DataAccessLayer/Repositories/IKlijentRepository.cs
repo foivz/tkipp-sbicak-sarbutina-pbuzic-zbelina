@@ -20,5 +20,7 @@ namespace DataAccessLayer.Repositories
         int Remove(Klijent entitiy, bool saveChanges = true);
 
         bool provjeri(Klijent entity);
+
+        void vecPostoji(Klijent entity, Klijent klijent);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BusinessLogicLayer.LogikaZaRacune;
 using BusinessLogicLayer.PDF;
 using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using Email;
 using EntitiesLayer.Entities;
 using EntitiesLayer.GlobalniObjekti;
@@ -33,10 +34,10 @@ namespace ZMGDesktop
         {
             InitializeComponent();
             ucitajPomoc();
-            klijentServis= new KlijentServices();
+            klijentServis= new KlijentServices(new KlijentRepository());
             poslodavacServis= new PoslodavacServices();
             racunanjeAPI= new RacunanjeAPI();
-            racunServis= new RacunService();
+            racunServis= new RacunService(new RacunRepository());
 
             poslodavac = _poslodavac;
             radnik = _radnik;

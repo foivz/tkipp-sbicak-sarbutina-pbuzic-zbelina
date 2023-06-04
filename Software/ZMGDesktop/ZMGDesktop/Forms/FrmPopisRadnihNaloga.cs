@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace ZMGDesktop
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
-        RadniNalogService servis = new RadniNalogService();
+        RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
 
         private void btnNoviRadniNalog_Click(object sender, EventArgs e)
         {

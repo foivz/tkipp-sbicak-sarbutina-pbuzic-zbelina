@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace ZMGDesktop
 {
     public partial class FrmPopisIzvjestaja : Form
     {
-        private KlijentServices servisKlijent = new KlijentServices();
-        private RadniNalogService servisRadnihNaloga = new RadniNalogService();
+        private KlijentServices servisKlijent = new KlijentServices(new KlijentRepository());
+        private RadniNalogService servisRadnihNaloga = new RadniNalogService(new RadniNalogRepository());
 
         List<Klijent> desetNajboljih;
         List<RadniNalog> radniNaloziPoStatusima;
@@ -75,7 +76,7 @@ namespace ZMGDesktop
             }
             catch (Exception)
             {
-                MessageBox.Show("Nema dovoljno podataka za prijaz deset najvećih klijenata");
+                MessageBox.Show("Nema dovoljno podataka za prikaz deset najvećih klijenata");
             }
           
         }

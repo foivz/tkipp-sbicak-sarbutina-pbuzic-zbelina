@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace ZMGDesktop
     public partial class FrmDetaljniPrikazKlijenta : Form
     {
         private Klijent selektiran;
-        private RacunService racunServis = new RacunService();
-        private RadniNalogService radniNalogServis = new RadniNalogService();
+        private RacunService racunServis = new RacunService(new RacunRepository());
+        private RadniNalogService radniNalogServis = new RadniNalogService(new RadniNalogRepository());
         public FrmDetaljniPrikazKlijenta()
         {
             InitializeComponent();

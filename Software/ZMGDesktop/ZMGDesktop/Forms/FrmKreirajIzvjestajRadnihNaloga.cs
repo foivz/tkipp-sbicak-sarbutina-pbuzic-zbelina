@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +15,7 @@ namespace ZMGDesktop
 {
     public partial class FrmKreirajIzvjestajRadnihNaloga : Form
     {
-        RadniNalogService servis = new RadniNalogService();
+        RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
 
         public FrmKreirajIzvjestajRadnihNaloga()
         {

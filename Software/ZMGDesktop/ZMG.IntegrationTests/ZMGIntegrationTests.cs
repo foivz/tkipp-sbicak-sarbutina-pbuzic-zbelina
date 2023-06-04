@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ZMG.IntegrationTests
 
         private void kreirajServis()
         {
-            _klijentServices = new KlijentServices();
+            _klijentServices = new KlijentServices(new KlijentRepository());
         }
 
         private Validacija kreirajValidator()
@@ -247,8 +248,8 @@ namespace ZMG.IntegrationTests
         {
             //Arrange
             kreirajServis();
-            var racunServis = new RacunService();
-            var radniNalogServis = new RadniNalogService();
+            var racunServis = new RacunService(new RacunRepository());
+            var radniNalogServis = new RadniNalogService(new RadniNalogRepository());
             var klijenti = _klijentServices.DohvatiKlijente();
             var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Impuls");
 

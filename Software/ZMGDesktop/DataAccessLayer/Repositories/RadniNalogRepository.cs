@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RadniNalogRepository : Repository<RadniNalog>
+    public class RadniNalogRepository : Repository<RadniNalog>, IRadniNalogRepository
     {
         public RadniNalogRepository() : base(new ZMGBaza())
         {

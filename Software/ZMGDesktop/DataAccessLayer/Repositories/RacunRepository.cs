@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RacunRepository: Repository<Racun>
+    public class RacunRepository: Repository<Racun>, IRacunRepository
     {
 
         public RacunRepository(): base(new ZMGBaza())

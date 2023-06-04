@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using Email;
 using EntitiesLayer.Entities;
 using QRCoder;
@@ -38,7 +39,7 @@ namespace ZMGDesktop
         List<Materijal> materijali = new List<Materijal>();
         List<Roba> robaZaRadniNalog = new List<Roba>();
 
-        RadniNalogService servis = new RadniNalogService();
+        RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
         RobaService robaServis = new RobaService();
 
         string QRKod = "";
@@ -158,7 +159,7 @@ namespace ZMGDesktop
 
         private void UcitajKlijente()
         {
-            KlijentServices klijentServices = new KlijentServices();
+            KlijentServices klijentServices = new KlijentServices(new KlijentRepository());
             var klijenti = klijentServices.DohvatiKlijente();
             cmbKlijent.DataSource = klijenti;
         }

@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using QRCoder;
 using System;
@@ -34,7 +35,7 @@ namespace ZMGDesktop
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
-        RadniNalogService servis = new RadniNalogService();
+        RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
         RobaService robaServis = new RobaService();
 
         List<Materijal> materijali = new List<Materijal>();
@@ -116,7 +117,7 @@ namespace ZMGDesktop
 
         private void UcitajKlijente()
         {
-            KlijentServices klijentServices = new KlijentServices();
+            KlijentServices klijentServices = new KlijentServices(new KlijentRepository());
             var klijenti = klijentServices.DohvatiKlijente();
             cmbKlijent.DataSource = klijenti;
         }

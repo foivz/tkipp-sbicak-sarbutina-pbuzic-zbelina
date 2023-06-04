@@ -56,7 +56,7 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        private void vecPostoji(Klijent entity, Klijent klijent)
+        public void vecPostoji(Klijent entity, Klijent klijent)
         {
             provjeriNaziv(entity, klijent);
             provjeriOib(entity, klijent);
