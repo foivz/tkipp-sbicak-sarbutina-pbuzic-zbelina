@@ -26,7 +26,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new KlijentRepository())
             {
-                List<Klijent> klijenti = klijentRepository.GetAll().ToList();
+                List<Klijent> klijenti = repo.GetAll().ToList();
                 return klijenti;
             }
         }
@@ -35,7 +35,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new KlijentRepository())
             {
-                List<Klijent> desetNajboljih = klijentRepository.DohvatiDesetNajboljih().ToList();
+                List<Klijent> desetNajboljih = repo.DohvatiDesetNajboljih().ToList();
                 return desetNajboljih;
             }
         }
@@ -46,7 +46,7 @@ namespace BusinessLogicLayer.Services
 
             using (var repo = new KlijentRepository())
             {
-                int red = klijentRepository.Add(klijent);
+                int red = repo.Add(klijent);
                 uspjesno = red > 0;
             }
                 return uspjesno;
@@ -58,7 +58,7 @@ namespace BusinessLogicLayer.Services
 
             using(var repo = new KlijentRepository())
             {
-                int red = klijentRepository.Update(klijent);
+                int red = repo.Update(klijent);
                 uspjesno = red > 0;
             }
 
@@ -68,8 +68,11 @@ namespace BusinessLogicLayer.Services
         public bool Remove(Klijent klijent)
         {
             bool uspjesno = false;
-            int red = klijentRepository.Remove(klijent);
-            uspjesno = red > 0;
+            using (var repo = new KlijentRepository())
+            {
+                int red = repo.Remove(klijent);
+                uspjesno = red > 0;
+            }
             return uspjesno;
         }
     }
