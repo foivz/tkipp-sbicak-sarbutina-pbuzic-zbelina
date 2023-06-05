@@ -88,13 +88,13 @@ namespace ZMG.IntegrationTests
             kreirajServis();
             var klijent = new Klijent
             {
-                Naziv = "Preis",
-                Adresa = "Zlatar 30",
-                Mjesto = "Zlatar",
-                OIB = "21693125721",
-                BrojTelefona = "0917261582",
-                Email = "preis@gmail.com",
-                IBAN = "HR2817502816521258291"
+                Naziv = "Toni",
+                Adresa = "Erpenja 30",
+                Mjesto = "Krapina",
+                OIB = "72521592912",
+                BrojTelefona = "0962125821",
+                Email = "toni@gmail.com",
+                IBAN = "HR2817502616521258291"
             };
 
             //Act
@@ -185,13 +185,13 @@ namespace ZMG.IntegrationTests
 
             var klijent = new Klijent
             {
-                Naziv = "Ceha",
-                Adresa = "Zlatar 30",
-                Mjesto = "Zlatar",
-                OIB = "27125281257",
+                Naziv = "Ostrc",
+                Adresa = "Belec  30",
+                Mjesto = "Belec",
+                OIB = "62712592012",
                 BrojTelefona = "0913955196",
-                Email = "preis@gmail.com",
-                IBAN = "HR2817521225291258271"
+                Email = "ostrc@gmail.com",
+                IBAN = "HR2817521722391258271"
             };
 
             //Act

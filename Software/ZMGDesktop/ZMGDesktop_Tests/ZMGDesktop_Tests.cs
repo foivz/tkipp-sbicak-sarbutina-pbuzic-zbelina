@@ -42,13 +42,30 @@ namespace ZMGDesktop_Tests
             var klijent = new Klijent { Naziv = "Klijent 1" };
             racun.Klijent = klijent;
             klijent.Racun.Add(racun);
-            A.CallTo(() => fakeRepo.Remove(klijent, true)).Throws(() => new BrisanjeKlijentaException("Istina"));
+            A.CallTo(() => fakeRepo.Remove(klijent, true)).Throws(() => new BrisanjeKlijentaException("Klijent ima račune."));
 
             //Act
-            Action act = () => fakeRepo.Remove(klijent);
+            Action act = () => servis.Remove(klijent);
 
             //Assert
             Assert.Throws<BrisanjeKlijentaException>(() => act());
+        }
+
+        [Fact]
+        public void Remove_KlijentNemaRacunRadniNalogIliRobu_KlijentUspjesnoObrisan()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var servis = new KlijentServices(fakeRepo);
+            var klijent = new Klijent { Naziv = "Klijent 1" };
+            A.CallTo(() => fakeRepo.Remove(klijent, true)).Returns(1);
+
+            //Act
+            bool uspjesno = servis.Remove(klijent);
+
+            //Assert
+            Assert.True(uspjesno);
+            A.CallTo(() => fakeRepo.Remove(klijent, true)).MustHaveHappenedOnceExactly();
         }
 
         [Fact]
@@ -190,6 +207,31 @@ namespace ZMGDesktop_Tests
 
             //Assert
             Assert.Throws<TelefonException>(() => act());
+        }
+
+        [Fact]
+        public void Add_KlijentSPostojecimIBANRacunom_BacaGresku()
+        {
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijent = new Klijent
+            {
+                Naziv = "Belina",
+                OIB = "0962124281",
+                Adresa = "Lobor 21",
+                IBAN = "HR2817521258682125921",
+                BrojTelefona = "0992712642",
+                Email = "email@gmail.com",
+                Mjesto = "Lobor"
+            };
+            var servis = new KlijentServices(fakeRepo);
+
+            A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new IBANException("Postoji korisnik s ovim brojem IBAN računom."));
+
+            //Act
+            Action act = () => servis.Add(klijent);
+
+            //Assert
+            Assert.Throws<IB>(() => act());
         }
 
         [Fact]
