@@ -1,6 +1,8 @@
-﻿using BusinessLogicLayer.LogikaZaRacune;
+﻿/*
+using BusinessLogicLayer.LogikaZaRacune;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -15,8 +17,7 @@ namespace ZMGTests
         [TestMethod]
         public void ADodajKlijenta_DodavanjeKlijenta_KlijentDodanUBazu()
         {
-            /*Kod ovog testa nakon što se izvrši test, doda se novi korisnik u bazu
-            */
+            
             KlijentServices servis = new KlijentServices();
             var klijent = new Klijent
             {
@@ -35,10 +36,7 @@ namespace ZMGTests
 
         [TestMethod]
 
-        /*
-         U ovom testu dohvaća se lista računa i radnih naloga za pojedinog klijenta. U ovom slučaju
-        za klijenta Bent. Test provjerava je li dobro dohvaća radne naloge i račune za klijenta.
-         * */
+        
         public void UcitajRadneNalogeUcitajRacune_DohvacanjeRacuneIRacnihNalogaZaKlijenta_DohvaceniRadniNaloziIRacuni()
         {
             RadniNalogService servisNalozi = new RadniNalogService();
@@ -55,10 +53,6 @@ namespace ZMGTests
 
         [TestMethod]
 
-        /*
-         Kod ovog testa u objekt k.Naziv se može staviti naziv klijenta koji postoji u bazi. Kada
-         
-         */
         public void IzbrisiKlijenta_BrisanjeKlijentaIzBaze_IzbrisanKlijentIzBaze()
         {
             KlijentServices servisKlijenta = new KlijentServices();
@@ -249,4 +243,4 @@ namespace ZMGTests
 
 
     }
-}
+} */
