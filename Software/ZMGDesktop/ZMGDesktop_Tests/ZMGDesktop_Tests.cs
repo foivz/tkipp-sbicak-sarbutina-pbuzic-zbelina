@@ -231,7 +231,7 @@ namespace ZMGDesktop_Tests
             Action act = () => servis.Add(klijent);
 
             //Assert
-            Assert.Throws<IB>(() => act());
+            Assert.Throws<IBANException>(() => act());
         }
 
         [Fact]
