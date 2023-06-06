@@ -106,16 +106,16 @@ namespace DataAccessLayer.Repositories
         //pretrazivanje
         public IQueryable<Racun> DohvatiPremaPretrazivanju(Klijent entity, int Radnik_ID, PretrazivanjeSortiranje SearchSort)
         {
-            int pretrazivanje = SearchSort.Pretrazivanje;
-            int sortiranje = SearchSort.Sortiranje;
+            int pretrazivanje = SearchSort.DohvatiPretrazivanje();
+            int sortiranje = SearchSort.DohvatiSortiranje();
 
-            IQueryable<Racun> query = null;
+            var query = Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
+                        .Where(r => r.Klijent_ID == entity.Klijent_ID);
+
             var klijent = Context.Klijent.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
             // parametar pretrazivanje oznacava koji je radiobutton u toj grupi
 
             switch (pretrazivanje)
-            {
-                switch (pretrazivanje)
             {
                 case 0:
                     query = sortiranje == 1 ? query.OrderByDescending(r => r.Racun_ID) : query.OrderBy(r => r.Racun_ID);
@@ -128,9 +128,7 @@ namespace DataAccessLayer.Repositories
                     break;
                 case 3:
                     query = query.Where(r => r.Radnik_ID == Radnik_ID);
-                    query = sortiranje == 1 ? query.OrderByDescending(r => r.Radnik_ID) : query.OrderBy(r => r.Radnik_ID);
-                    break;
-                default:
+                    query = sortiranje == 1 ? query.OrderByDescending(r => r.Racun_ID) : query.OrderBy(r => r.Racun_ID);
                     break;
             }
             return query;

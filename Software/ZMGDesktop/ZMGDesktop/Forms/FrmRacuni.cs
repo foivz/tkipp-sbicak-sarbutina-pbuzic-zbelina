@@ -25,7 +25,7 @@ namespace ZMGDesktop
         Poslodavac poslodavac;
         Klijent selektirani;
         Radnik radnik;
-        private PretrazivanjeSortiranje SearchSort;
+        PretrazivanjeSortiranje SearchSort;
 
         public FrmRacuni(Radnik _radnik)
         {
@@ -35,13 +35,7 @@ namespace ZMGDesktop
             klijentServis= new KlijentServices(new KlijentRepository());
             racunServis = new RacunService(new RacunRepository());
             radnik = _radnik;
-            PostaviSearchSort();
-        }
-
-        private void PostaviSearchSort()
-        {
-            SearchSort.Pretrazivanje = 0;
-            SearchSort.Sortiranje = 0;
+            SearchSort = new PretrazivanjeSortiranje();
         }
 
         private void ucitajPomoc()
@@ -94,7 +88,7 @@ namespace ZMGDesktop
 
         private void btnOcisti_Click(object sender, EventArgs e)
         {
-            PostaviSearchSort();
+            SearchSort.Reset();
             //pretrazivanje
             rbtnDatumIzdaje.Checked = false;
             rbtnVasiRacuni.Checked = false;
@@ -109,32 +103,32 @@ namespace ZMGDesktop
         
         private void rbtnDatumIzdaje_CheckedChanged(object sender, EventArgs e)
         {
-            pretrazivanje = 1;
+            SearchSort.PostaviPretrazivanje(1);
         }
 
         private void rbtnUkupniIznos_CheckedChanged(object sender, EventArgs e)
         {
-            pretrazivanje = 2;
+            SearchSort.PostaviPretrazivanje(2);
         }
 
         private void rbtnVasiRacuni_CheckedChanged(object sender, EventArgs e)
         {
-            pretrazivanje = 3;
+            SearchSort.PostaviPretrazivanje(3);
         }
 
         private void btnPretrazivanje_Click(object sender, EventArgs e)
         {
-            dgvRacuni.DataSource = racunServis.DohvatiRacunePretrazivanje(selektirani, radnik.Radnik_ID, pretrazivanje, sortiranje);
+            dgvRacuni.DataSource = racunServis.DohvatiRacunePretrazivanje(selektirani, radnik.Radnik_ID, SearchSort);
         }
 
         private void rbtnUzlazno_CheckedChanged(object sender, EventArgs e)
         {
-            sortiranje = 0;
+            SearchSort.PostaviSortiranje(0);
         }
 
         private void rbtnSilazno_CheckedChanged(object sender, EventArgs e)
         {
-            sortiranje = 1;
+            SearchSort.PostaviSortiranje(1);
         }
 
         private void btnDetaljniPregled_Click(object sender, EventArgs e)

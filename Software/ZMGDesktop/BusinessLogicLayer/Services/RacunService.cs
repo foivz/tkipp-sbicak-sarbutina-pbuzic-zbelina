@@ -67,11 +67,11 @@ namespace BusinessLogicLayer.Services
             return racun;
         }
 
-        public List<Racun> DohvatiRacunePretrazivanje(Klijent klijent, int id, int pretrazivanje = 0, int sortiranje = 0)
+        public List<Racun> DohvatiRacunePretrazivanje(Klijent klijent, int id, PretrazivanjeSortiranje SearchSort)
         {
             //using (var repo = new RacunRepository())
             //{
-            List<Racun> racuni = racunRepository.DohvatiPremaPretrazivanju(klijent, id, pretrazivanje, sortiranje).ToList();
+            List<Racun> racuni = racunRepository.DohvatiPremaPretrazivanju(klijent, id, SearchSort).ToList();
                 return racuni;
                 //}
             }
