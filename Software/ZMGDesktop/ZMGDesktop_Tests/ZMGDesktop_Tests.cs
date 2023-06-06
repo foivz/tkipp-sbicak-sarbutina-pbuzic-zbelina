@@ -526,5 +526,47 @@ namespace ZMGDesktop_Tests
             //Assert
             Assert.True(uspjesno);
         }
+
+        [Fact]
+        public void Add_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
+            
+            //Act
+            int red = fakeRepo.Add(klijent, false);
+
+            //Assert
+            Assert.True(red == 0);
+        }
+
+        [Fact]
+        public void Update_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
+
+            //Act
+            int red = fakeRepo.Update(klijent, false);
+
+            //Assert
+            Assert.True(red == 0);
+        }
+
+        [Fact]
+        public void Remove_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
+
+            //Act
+            int red = fakeRepo.Remove(klijent, false);
+
+            //Assert
+            Assert.True(red == 0);
+        }
     }
 }
