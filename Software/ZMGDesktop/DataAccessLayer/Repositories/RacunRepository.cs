@@ -113,6 +113,23 @@ namespace DataAccessLayer.Repositories
 
             switch (pretrazivanje)
             {
+                case 3:
+                    if (_sortiranje == 1)
+                    {
+                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
+                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
+                                orderby r.Racun_ID descending
+                                select r;
+                    }
+                    else
+                    {
+                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
+                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
+                                orderby r.Racun_ID ascending
+                                select r;
+                    }
+                    break;
+
                 case 0:
                     if (_sortiranje == 1)
                     {
@@ -163,22 +180,7 @@ namespace DataAccessLayer.Repositories
                     }
                     break;
                 // prema racunima radnika
-                case 3:
-                    if (_sortiranje == 1)
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
-                                orderby r.Radnik_ID descending
-                                select r;
-                    }
-                    else
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
-                                orderby r.Radnik_ID ascending
-                                select r;
-                    }
-                    break;
+               
             }
 
             return query;
