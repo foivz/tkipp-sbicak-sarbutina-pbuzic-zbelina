@@ -273,5 +273,68 @@ namespace ZMG.IntegrationTests
             //Assert
             Assert.Equal(10, _klijentServices.DohvatiDesetNajboljih().Count);
         }
+
+        [Fact]
+        public void Add_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var repo = new KlijentRepository();
+            var klijent = new Klijent
+            {
+                Naziv = "Zasjades",
+                Adresa = "Marusevec 20",
+                Mjesto = "Varazdin",
+                OIB = "82717572612",
+                BrojTelefona = "0912748261",
+                Email = "buzic@gmail.com",
+                IBAN = "HR2817520125291258271"
+            };
+
+            //Act
+            int red = repo.Add(klijent, false);
+
+            //Assert
+            Assert.Equal(red, 0);
+        }
+
+        [Fact]
+        public void Update_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var repo = new KlijentRepository();
+            var klijenti = repo.GetAll();
+            var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Aggreko");
+            klijent.Adresa = "Krapina 42";
+            klijent.Mjesto = "Krapina";
+
+            //Act
+            int red = repo.Update(klijent, false);
+
+            //Assert
+            Assert.Equal(red, 0);
+        }
+
+        [Fact]
+        public void Remove_ProslijediKaoParametarKlijentaIFalse_Vraca0()
+        {
+            //Arrange
+            var repo = new KlijentRepository();
+            var klijent = new Klijent
+            {
+                Naziv = "Zasjades",
+                Adresa = "Marusevec 20",
+                Mjesto = "Varazdin",
+                OIB = "82717572612",
+                BrojTelefona = "0912748261",
+                Email = "buzic@gmail.com",
+                IBAN = "HR2817520125291258271"
+            };
+
+            //Act
+            int red = repo.Remove(klijent, false);
+
+            //Assert
+            Assert.Equal(red, 0);
+        }
     }
 }
