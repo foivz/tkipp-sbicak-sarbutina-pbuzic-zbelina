@@ -61,41 +61,50 @@ namespace ZMGDesktop
             {
                 MessageBox.Show("Morate upisati opis!");
             }
-            else if (cmbStatus.SelectedText != "Dovršen")
+            else if (radniNalog.Status == "Dovršen" && cmbStatus.SelectedText != "Dovršen")
             {
                 MessageBox.Show("Nije moguće promijeniti status iz Dovršen!");
                 cmbStatus.SelectedIndex = 2;
             }
             else
             {
-                RadniNalog AzuriraniRadniNalog = new RadniNalog()
-                {
-                    RadniNalog_ID = radniNalog.RadniNalog_ID,
-                    Kolicina = int.Parse(txtKolicina.Text),
-                    Opis = txtOpis.Text,
-                    DatumStvaranja = dtpDatumStvaranja.Value,
-                    Status = cmbStatus.SelectedItem as string,
-                    QR_kod = QRKod,
-                    Radnik_ID = Radnik.Radnik_ID,
-                    Klijent_ID = klijent.Klijent_ID,
-                    Radnik = Radnik,
-                    Klijent = klijent
-                };
-
+                var AzuriraniRadniNalog = AzurirajRadniNalog(klijent);
                 servis.AzurirajRadniNalog(AzuriraniRadniNalog);
-
-                string emailBody = "Poštovani,<br/>radni nalog Vaše robe je u statusu: " + AzuriraniRadniNalog.Status + 
-                    "<br/><br/>Informacije o radnom nalogu:<br/>Količina(kg): " + AzuriraniRadniNalog.Kolicina + "<br/>Opis: " + AzuriraniRadniNalog.Opis +
-                    "<br/>Datum podnošenja: " + AzuriraniRadniNalog.DatumStvaranja + "<br/>Podnositelj zahtjeva: " + AzuriraniRadniNalog.Radnik;
-
-                if (status != AzuriraniRadniNalog.Status)
-                {
-                    EmailAPI.NapraviEmail("zastitametalnegalanterije@gmail.com", "zvonimir.belina1@gmail.com", "Obavijest o promjeni statusa", emailBody);
-                    EmailAPI.Posalji();
-                }
+                PosaljiEmail(AzuriraniRadniNalog);
 
                 Close();
             }
+        }
+
+        private void PosaljiEmail(RadniNalog AzuriraniRadniNalog)
+        {
+            string emailBody = "Poštovani,<br/>radni nalog Vaše robe je u statusu: " + AzuriraniRadniNalog.Status +
+                    "<br/><br/>Informacije o radnom nalogu:<br/>Količina(kg): " + AzuriraniRadniNalog.Kolicina + "<br/>Opis: " + AzuriraniRadniNalog.Opis +
+                    "<br/>Datum podnošenja: " + AzuriraniRadniNalog.DatumStvaranja + "<br/>Podnositelj zahtjeva: " + AzuriraniRadniNalog.Radnik;
+
+            if (status != AzuriraniRadniNalog.Status)
+            {
+                EmailAPI.NapraviEmail("zastitametalnegalanterije@gmail.com", "zvonimir.belina1@gmail.com", "Obavijest o promjeni statusa", emailBody);
+                EmailAPI.Posalji();
+            }
+        }
+
+        private RadniNalog AzurirajRadniNalog(Klijent klijent)
+        {
+            RadniNalog AzuriraniRadniNalog = new RadniNalog() {
+                RadniNalog_ID = radniNalog.RadniNalog_ID,
+                Kolicina = int.Parse(txtKolicina.Text),
+                Opis = txtOpis.Text,
+                DatumStvaranja = dtpDatumStvaranja.Value,
+                Status = cmbStatus.SelectedItem as string,
+                QR_kod = QRKod,
+                Radnik_ID = Radnik.Radnik_ID,
+                Klijent_ID = klijent.Klijent_ID,
+                Radnik = Radnik,
+                Klijent = klijent
+            };
+
+            return AzuriraniRadniNalog;
         }
 
         private void btnIzmijeni_Click(object sender, EventArgs e)
@@ -115,10 +124,31 @@ namespace ZMGDesktop
 
         private void FrmDetaljiRadnogNaloga_Load(object sender, EventArgs e)
         {
-            labelRadniNalog.Text += radniNalog.RadniNalog_ID.ToString();
-            txtRadnik.Text = Radnik.Ime + " " + Radnik.Prezime;
-            status = radniNalog.Status.ToString();
-            
+            UcitajOsnovneInformacije();
+            OnemoguciKontrole();
+            UcitajInformacijeORadnomNalogu();
+            UcitajMaterijale();
+            UcitajKlijente();
+            UcitajRobuRadnogNaloga();
+            DodajMaterijalUTablicu();
+            OdaberiKlijenta(radniNalog.Klijent_ID);
+        }
+
+        private void UcitajInformacijeORadnomNalogu()
+        {
+            txtKolicina.Text = radniNalog.Kolicina.ToString();
+            txtOpis.Text = radniNalog.Opis;
+            dtpDatumStvaranja.Value = radniNalog.DatumStvaranja;
+            cmbStatus.Text = radniNalog.Status;
+            cmbKlijent.SelectedItem = radniNalog.Klijent;
+
+            dgvMaterijali.DataSource = radniNalog.Materijal.ToList();
+            dgvRobaRadnogNaloga.DataSource = radniNalog.Roba.ToList();
+            dgvKlijentovaRoba.DataSource = radniNalog.Klijent;
+        }
+
+        private void OnemoguciKontrole()
+        {
             txtKolicina.Enabled = false;
             txtOpis.Enabled = false;
             dtpDatumStvaranja.Enabled = false;
@@ -134,22 +164,13 @@ namespace ZMGDesktop
             btnDodajRobuNaRadniNalog.Enabled = false;
             btnObrisiRobuSRadnogNaloga.Enabled = false;
             btnDodajNovuRobu.Enabled = false;
+        }
 
-            txtKolicina.Text = radniNalog.Kolicina.ToString();
-            txtOpis.Text = radniNalog.Opis;
-            dtpDatumStvaranja.Value = radniNalog.DatumStvaranja;
-            cmbStatus.Text = radniNalog.Status;
-            cmbKlijent.SelectedItem = radniNalog.Klijent;
-
-            dgvMaterijali.DataSource = radniNalog.Materijal.ToList();
-            dgvRobaRadnogNaloga.DataSource = radniNalog.Roba.ToList();
-            dgvKlijentovaRoba.DataSource = radniNalog.Klijent;
-
-            UcitajMaterijale();
-            UcitajKlijente();
-            UcitajRobuRadnogNaloga();
-            DodajMaterijalUTablicu();
-            OdaberiKlijenta(radniNalog.Klijent_ID);
+        private void UcitajOsnovneInformacije()
+        {
+            labelRadniNalog.Text += radniNalog.RadniNalog_ID.ToString();
+            txtRadnik.Text = Radnik.Ime + " " + Radnik.Prezime;
+            status = radniNalog.Status.ToString();
         }
 
         private void OdaberiKlijenta(int? klijent_ID)
