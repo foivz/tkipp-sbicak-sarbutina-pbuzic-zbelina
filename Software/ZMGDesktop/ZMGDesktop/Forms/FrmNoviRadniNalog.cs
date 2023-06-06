@@ -49,11 +49,9 @@ namespace ZMGDesktop
 
         private void btnPodnesi_Click(object sender, EventArgs e)
         {
-            var status = cmbStatus.SelectedItem as string;
-
             try
             {
-                if (txtKolicina.Text == "" || status == null)
+                if (txtKolicina.Text == "" || cmbStatus.SelectedItem == null)
                 {
                     MessageBox.Show("Morate upisati količinu i status!");
                 }
@@ -63,26 +61,9 @@ namespace ZMGDesktop
                 }
                 else
                 {
-                    var kolicina = int.Parse(txtKolicina.Text);
-                    var opis = txtOpis.Text;
-                    var datumStvaranja = dtpDatumStvaranja.Value;
+                    NapraviRadniNalog();
 
-                    RadniNalog radniNalog = new RadniNalog()
-                    {
-                        Kolicina = kolicina,
-                        Opis = opis,
-                        QR_kod = QRKod,
-                        DatumStvaranja = datumStvaranja,
-                        Status = status,
-                        Radnik_ID = Radnik.Radnik_ID,
-                        Klijent_ID = odabraniKlijent.Klijent_ID,
-                        Klijent = odabraniKlijent,
-                        Radnik = Radnik,
-                        Materijal = materijali,
-                        Roba = robaZaRadniNalog
-                    };
-
-                    servis.DodajRadniNalog(radniNalog);
+                    servis.DodajRadniNalog(NapraviRadniNalog());
                     Close();
                 }
             }
@@ -92,13 +73,31 @@ namespace ZMGDesktop
             }
         }
 
+        private RadniNalog NapraviRadniNalog()
+        {
+            RadniNalog radniNalog = new RadniNalog() {
+                Kolicina = int.Parse(txtKolicina.Text),
+                Opis = txtOpis.Text,
+                QR_kod = QRKod,
+                DatumStvaranja = dtpDatumStvaranja.Value,
+                Status = cmbStatus.SelectedItem as string,
+                Radnik_ID = Radnik.Radnik_ID,
+                Klijent_ID = odabraniKlijent.Klijent_ID,
+                Klijent = odabraniKlijent,
+                Radnik = Radnik,
+                Materijal = materijali,
+                Roba = robaZaRadniNalog
+            };
+
+            return radniNalog;
+        }
+
         private void FrmNoviRadniNalog_Load(object sender, EventArgs e)
         {
             UcitajKlijente();
             UcitajMaterijale();
             txtRadnik.Text = Radnik.Ime + " " + Radnik.Prezime;
             UcitajRobu();
-            
         }
 
         private void UcitajRobu()

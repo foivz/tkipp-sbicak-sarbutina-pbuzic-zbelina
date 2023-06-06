@@ -102,7 +102,9 @@ namespace DataAccessLayer.Repositories
                 Klijent_ID = klijent.Klijent_ID,
                 Radnik_ID = radnik.Radnik_ID
             };
+
             Entities.Add(nalog);
+
             if (saveChanges)
             {
                 return SaveChanges();
