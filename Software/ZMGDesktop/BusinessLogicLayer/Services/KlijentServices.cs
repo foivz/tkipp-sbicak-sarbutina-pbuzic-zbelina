@@ -27,6 +27,12 @@ namespace BusinessLogicLayer.Services
            // }
         }
 
+        public List<Klijent> SortirajKlijentePoUkupnomBrojuRacuna()
+        {
+            List<Klijent> sortiraniKlijenti = klijentRepository.SortirajKlijentePoUkupnomBrojuRacuna().ToList();
+            return sortiraniKlijenti;
+        }
+
         public List<Klijent> DohvatiDesetNajboljih()
         {
             // using (var repo = new KlijentRepository())
@@ -70,6 +76,12 @@ namespace BusinessLogicLayer.Services
                 uspjesno = red > 0;
             //    }
             return uspjesno;
+        }
+
+        public List<Klijent> Pretrazi(string izraz)
+        {
+            var pretrazeniKlijenti =  klijentRepository.Pretrazi(izraz).ToList();
+            return pretrazeniKlijenti;
         }
     }
 }

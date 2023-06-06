@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -18,10 +19,23 @@ namespace ZMGDesktop
     public partial class FrmPregledKlijenata : Form
     {
         private KlijentServices servis = new KlijentServices(new KlijentRepository());
+
+        private Timer timer = new Timer();
+        
         public FrmPregledKlijenata()
         {
             InitializeComponent();
             ucitajPomoc();
+            timer.Interval = 1300;
+            timer.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            timer.Stop();
+            string pretrazi = txtSearch.Text;
+            var pretrazeniKlijenti = servis.Pretrazi(pretrazi);
+            dgvKlijenti.DataSource = pretrazeniKlijenti;
         }
 
         private void ucitajPomoc()
@@ -120,6 +134,23 @@ namespace ZMGDesktop
                 string path = Path.Combine(Application.StartupPath, "Pomoc\\Pomoc\\Klijenti\\PregledKlijenta\\Pregled.html");
                 System.Diagnostics.Process.Start(path);
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            timer.Stop();
+            timer.Start();
+        }
+
+        private void SortirajKlijentePoUkupnomBrojuRacuna()
+        {
+            var sortiraniKlijenti = servis.SortirajKlijentePoUkupnomBrojuRacuna();
+            dgvKlijenti.DataSource = sortiraniKlijenti;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SortirajKlijentePoUkupnomBrojuRacuna();
         }
     }
 }

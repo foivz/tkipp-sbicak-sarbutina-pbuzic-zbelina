@@ -36,13 +36,16 @@
             this.btnDetaljiKlijenta = new System.Windows.Forms.Button();
             this.btnUveziKlijenta = new System.Windows.Forms.Button();
             this.btnNatrag = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKlijenti)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvKlijenti
             // 
             this.dgvKlijenti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKlijenti.Location = new System.Drawing.Point(12, 33);
+            this.dgvKlijenti.Location = new System.Drawing.Point(12, 67);
             this.dgvKlijenti.Name = "dgvKlijenti";
             this.dgvKlijenti.RowHeadersWidth = 51;
             this.dgvKlijenti.RowTemplate.Height = 24;
@@ -53,7 +56,7 @@
             // 
             this.labelKlijenti.AutoSize = true;
             this.labelKlijenti.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelKlijenti.Location = new System.Drawing.Point(12, 8);
+            this.labelKlijenti.Location = new System.Drawing.Point(12, 33);
             this.labelKlijenti.Name = "labelKlijenti";
             this.labelKlijenti.Size = new System.Drawing.Size(137, 20);
             this.labelKlijenti.TabIndex = 1;
@@ -129,7 +132,7 @@
             this.btnNatrag.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnNatrag.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnNatrag.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnNatrag.Location = new System.Drawing.Point(907, 432);
+            this.btnNatrag.Location = new System.Drawing.Point(908, 466);
             this.btnNatrag.Name = "btnNatrag";
             this.btnNatrag.Size = new System.Drawing.Size(108, 40);
             this.btnNatrag.TabIndex = 7;
@@ -137,11 +140,43 @@
             this.btnNatrag.UseVisualStyleBackColor = false;
             this.btnNatrag.Click += new System.EventHandler(this.btnNatrag_Click);
             // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(731, 39);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(130, 22);
+            this.txtSearch.TabIndex = 8;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(728, 19);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(88, 16);
+            this.lblSearch.TabIndex = 9;
+            this.lblSearch.Text = "Pretraživanje:";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button1.Location = new System.Drawing.Point(634, 27);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 35);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Sortiraj";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmPregledKlijenata
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 483);
+            this.ClientSize = new System.Drawing.Size(1043, 518);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblSearch);
+            this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnNatrag);
             this.Controls.Add(this.btnUveziKlijenta);
             this.Controls.Add(this.btnDetaljiKlijenta);
@@ -169,6 +204,9 @@
         private System.Windows.Forms.Button btnDetaljiKlijenta;
         private System.Windows.Forms.Button btnUveziKlijenta;
         private System.Windows.Forms.Button btnNatrag;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Button button1;
     }
 }
 
