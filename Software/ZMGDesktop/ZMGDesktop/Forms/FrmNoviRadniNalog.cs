@@ -57,6 +57,10 @@ namespace ZMGDesktop
                 {
                     MessageBox.Show("Morate upisati količinu i status!");
                 }
+                else if(txtOpis.Text == "") 
+                {
+                    MessageBox.Show("Morate upisati opis!");
+                }
                 else
                 {
                     var kolicina = int.Parse(txtKolicina.Text);
