@@ -86,24 +86,11 @@ namespace DataAccessLayer.Repositories
             foreach (var roba in entity.Roba)
             {
                 Context.Roba.Attach(roba);
-            } 
+            }
 
-            var nalog = new RadniNalog
-            {
-                Kolicina = entity.Kolicina,
-                Radnik = radnik,
-                Klijent = klijent,
-                QR_kod = entity.QR_kod,
-                Opis = entity.Opis,
-                DatumStvaranja= entity.DatumStvaranja,
-                Status = entity.Status,
-                Materijal = entity.Materijal,
-                Roba = entity.Roba,
-                Klijent_ID = klijent.Klijent_ID,
-                Radnik_ID = radnik.Radnik_ID
-            };
+            var radniNalog = NoviRadniNalog(entity, radnik, klijent);
 
-            Entities.Add(nalog);
+            Entities.Add(radniNalog);
 
             if (saveChanges)
             {
@@ -113,6 +100,25 @@ namespace DataAccessLayer.Repositories
             {
                 return 0;
             }
+        }
+
+        private RadniNalog NoviRadniNalog(RadniNalog entity, Radnik radnik, Klijent klijent)
+        {
+            var radniNalog = new RadniNalog {
+                Kolicina = entity.Kolicina,
+                Radnik = radnik,
+                Klijent = klijent,
+                QR_kod = entity.QR_kod,
+                Opis = entity.Opis,
+                DatumStvaranja = entity.DatumStvaranja,
+                Status = entity.Status,
+                Materijal = entity.Materijal,
+                Roba = entity.Roba,
+                Klijent_ID = klijent.Klijent_ID,
+                Radnik_ID = radnik.Radnik_ID
+            };
+
+            return radniNalog;
         }
 
         private void ProvjeriMaterijalIRobu(RadniNalog entity)
