@@ -57,6 +57,11 @@ namespace ZMGDesktop
             {
                 MessageBox.Show("Morate upisati količinu i status!");
             }
+            else if (cmbStatus.SelectedText != "Dovršen")
+            {
+                MessageBox.Show("Nije moguće promijeniti status iz Dovršen!");
+                cmbStatus.SelectedIndex = 2;
+            }
             else
             {
                 RadniNalog AzuriraniRadniNalog = new RadniNalog()
