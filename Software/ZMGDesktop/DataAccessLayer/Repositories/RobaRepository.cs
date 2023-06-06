@@ -43,14 +43,8 @@ namespace DataAccessLayer.Repositories
         {
             var klijent = Context.Klijent.SingleOrDefault(r => r.Klijent_ID == entity.Klijent_ID);
 
-            Roba roba = new Roba
-            {
-                Naziv = entity.Naziv,
-                Kolicina = entity.Kolicina,
-                Klijent = klijent
-            };
-            
-            Entities.Add(roba);
+            Entities.Add(NovaRoba(entity, klijent));
+
             if (saveChanges)
             {
                 return SaveChanges();
@@ -59,6 +53,17 @@ namespace DataAccessLayer.Repositories
             {
                 return 0;
             }
+        }
+
+        private Roba NovaRoba(Roba entity, Klijent klijent)
+        {
+            Roba roba = new Roba {
+                Naziv = entity.Naziv,
+                Kolicina = entity.Kolicina,
+                Klijent = klijent
+            };
+
+            return roba;
         }
 
         public override int Update(Roba entity, bool saveChanges = true)
