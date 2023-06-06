@@ -151,12 +151,17 @@ namespace ZMGDesktop
                 QRKod += "NazivRobe=" + r.Naziv + ";" + "KolicinaRobe=" + r.Kolicina + ";" + "KlijentID=" + r.Klijent_ID + ";";
             }
 
+            pbQRKod.Image = GenerirajQRKod(QRKod);
+        }
+
+        private Bitmap GenerirajQRKod(string QRKod)
+        {
             var qrGenerator = new QRCodeGenerator();
             var qrCodeData = qrGenerator.CreateQrCode(QRKod, QRCodeGenerator.ECCLevel.Q); //generiranje QR koda
             var qrCode = new QRCode(qrCodeData); //stvaranje Bitmap objekta koji se koristi da bi se prikazala slika
-
             var qrCodeImage = qrCode.GetGraphic(3); //stvaranje slike QR koda
-            pbQRKod.Image = qrCodeImage;
+
+            return qrCodeImage;
         }
 
         private void cmbKlijent_SelectedIndexChanged(object sender, EventArgs e)
@@ -217,6 +222,11 @@ namespace ZMGDesktop
                 string path = Path.Combine(Application.StartupPath, "Pomoc\\Pomoc\\RadniNalozi\\DodajRadniNalog\\dodajRadniNalog.html");
                 System.Diagnostics.Process.Start(path);
             }
+        }
+
+        private void pbQRKod_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -251,6 +251,7 @@
             this.pbQRKod.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pbQRKod.TabIndex = 21;
             this.pbQRKod.TabStop = false;
+            this.pbQRKod.Click += new System.EventHandler(this.pbQRKod_Click);
             // 
             // dgvRobaRadnogNaloga
             // 
