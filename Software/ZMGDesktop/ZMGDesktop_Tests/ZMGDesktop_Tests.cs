@@ -6,12 +6,14 @@ using FakeItEasy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Sdk;
 using ZMGDesktop;
+using ZMGDesktop.ValidacijaUnosa;
 
 namespace ZMGDesktop_Tests
 {
@@ -20,14 +22,16 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void UcitajKlijente_KlijentiPostojeuBazi_KlijentiSePrikazujuUSustavu()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var ocekivaniKlijenti = new List<Klijent> { new Klijent { Naziv = "Klijent 1" }, new Klijent { Naziv = "Klijent 2" } };
             A.CallTo(() => fakeRepo.GetAll()).Returns(ocekivaniKlijenti.AsQueryable());
-
             var fakeServis = new KlijentServices(fakeRepo);
 
+            //Act
             var klijenti = fakeServis.DohvatiKlijente();
 
+            //Assert
             Assert.NotNull(ocekivaniKlijenti);
             Assert.Equal(klijenti, ocekivaniKlijenti);
         }
@@ -71,33 +75,42 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void Remove_KlijentImaRadniNalog_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = new Klijent { Naziv = "Ime" };
             var radniNalog = new RadniNalog { Opis = "Opis" };
             klijent.RadniNalog.Add(radniNalog);
             A.CallTo(() => fakeRepo.Remove(klijent, true)).Throws(new BrisanjeKlijentaException("Istina"));
             var fakeServis = new KlijentServices(fakeRepo);
-            //
+
+            //Act
             Action act = () => fakeRepo.Remove(klijent);
 
             //Assert
             Assert.Throws<BrisanjeKlijentaException>(() => act());
         }
 
+        private Klijent kreirajKlijenta(string naziv, string oib, string adresa, string iban, string brojTelefona, string email, string mjesto)
+        {
+            return new Klijent
+            {
+                Naziv = naziv,
+                OIB = oib,
+                Adresa = adresa,
+                IBAN = iban,
+                BrojTelefona = brojTelefona,
+                Email = email,
+                Mjesto = mjesto
+            };
+        }
+
         [Fact]
         public void Add_IspunjeniSviPodaciZaKlijenta_KlijentUspjesnoDodan()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Klijent",
-                OIB = "21694361376",
-                Adresa = "Lobor 35",
-                IBAN = "HR6324020061696361472",
-                BrojTelefona = "0976401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor",
-            };
+
+            var klijent = kreirajKlijenta("Klijent", "21694361376", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
             A.CallTo(() => fakeRepo.Add(klijent, true)).Returns(1);
             var servis = new KlijentServices(fakeRepo);
 
@@ -109,20 +122,14 @@ namespace ZMGDesktop_Tests
             A.CallTo(() => fakeRepo.Add(klijent, true)).MustHaveHappenedOnceExactly();
         }
 
+        
+
         [Fact]
         public void Add_KlijentSPostojecimImenom_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Aggreko",
-                OIB = "21694361376",
-                Adresa = "Lobor 35",
-                IBAN = "HR6324020061696361472",
-                BrojTelefona = "0976401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Aggreko", "21694361376", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new UserException("Postoji korisnik s ovim imenom"));
@@ -137,17 +144,10 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void Add_KlijentSPostojecimOibom_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Klijent",
-                OIB = "21852758212",
-                Adresa = "Lobor 35",
-                IBAN = "HR6324020061696361472",
-                BrojTelefona = "0976401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Klijent", "21852758212", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
+            
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new OIBException("Postoji korisnik s ovim OIBOM"));
@@ -162,17 +162,10 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void Add_KlijentSPostojecimEmailom_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Klijent",
-                OIB = "28152726125",
-                Adresa = "Lobor 35",
-                IBAN = "HR2817528125291258271",
-                BrojTelefona = "0976401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Klijent", "28152726125", "Lobor 35", "HR2817528125291258271", "0976401323", "email@gmail.com", "Lobor");
+            
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new EmailException("Postoji korisnik s ovim mailom"));
@@ -187,17 +180,9 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void Add_KlijentSPostojecimTelefonom_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Klijent",
-                OIB = "85721527125",
-                Adresa = "Lobor 35",
-                IBAN = "HR2817528915291258271",
-                BrojTelefona = "0913955196",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Klijent", "85721527125", "Lobor 35", "HR2817528915291258271", "0913955196", "email@gmail.com", "Lobor");
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new TelefonException("Postoji korisnik s ovim brojem telefona"));
@@ -212,17 +197,9 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void Add_KlijentSPostojecimIBANRacunom_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Belina",
-                OIB = "0962124281",
-                Adresa = "Lobor 21",
-                IBAN = "HR2817521258682125921",
-                BrojTelefona = "0992712642",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Belina", "0962124281", "Lobor 21", "HR2817521258682125921", "0992712642", "email@gmail.com", "Lobor");
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new IBANException("Postoji korisnik s ovim brojem IBAN računom."));
@@ -237,6 +214,7 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void DohvatiDesetNajboljih_PostojeDesetNajvecihKlijenata_KaoRezultatVracaDesetNajvecihKlijenata()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             List<Klijent> desetNajvecih = new List<Klijent>()
             {
@@ -264,11 +242,12 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void DohvatiDesetNajboljihKlijenata_NemaDovoljnoPodatkaUBaziZaDesetNajvecihKlijenata_BacaGresku()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             A.CallTo(() => fakeRepo.DohvatiDesetNajboljih()).Throws(new Exception("Nema dovoljno podatka za prikaz deset najvecih klijenata"));
             var fakeServis = new KlijentServices(fakeRepo);
 
-            //Assert
+            //Act
             Action act = () => fakeServis.DohvatiDesetNajboljih();
 
             //Assert
@@ -278,17 +257,9 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void AzurirajKlijenta_PostaviNazivNaPostojeciUBazi_VratiGreskuDaVecPostojiKlijentSTakvimNazivomUBazi()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Klijent",
-                OIB = "21694361376",
-                Adresa = "Lobor 35",
-                IBAN = "HR6324020061696361472",
-                BrojTelefona = "0976401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Klijent", "21694361376", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
             A.CallTo(() => fakeRepo.Update(klijent, true)).Throws(new UserException("Postoji vec klijent s ovim nazivom"));
             var fakeServis = new KlijentServices(fakeRepo);
 
@@ -302,17 +273,9 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void AzurirajKlijenta_PromijeniOdgovarajuceSvojstvo_UspjesnoAzuriranKlijent()
         {
+            //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Karlosag",
-                OIB = "82812572912",
-                Adresa = "Lobor 35",
-                IBAN = "HR6322120061696361472",
-                BrojTelefona = "0916401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Karlobag", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
             A.CallTo(() => fakeRepo.Update(klijent, true)).Returns(1);
             var fakeServis = new KlijentServices(fakeRepo);
 
@@ -328,16 +291,7 @@ namespace ZMGDesktop_Tests
         {
             //Arrange
             var fakeRepo = A.Fake<IRacunRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Preis",
-                OIB = "82812572912",
-                Adresa = "Lobor 35",
-                IBAN = "HR6322120061696361472",
-                BrojTelefona = "0916401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
             var racuni = new List<Racun>()
             {
                 new Racun { Fakturirao = "Ivan", Opis = "Odlicno", UkupnaCijena = 20000 },
@@ -357,17 +311,9 @@ namespace ZMGDesktop_Tests
         [Fact]
         public void DohvatiRadneNalogeZaKlijenta_PostojeRadniNaloziZaKlijenta_VracaPopisRadnihNalogaVezanihZaKlijenta()
         {
+            //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
-            var klijent = new Klijent
-            {
-                Naziv = "Preis",
-                OIB = "82812572912",
-                Adresa = "Lobor 35",
-                IBAN = "HR6322120061696361472",
-                BrojTelefona = "0916401323",
-                Email = "email@gmail.com",
-                Mjesto = "Lobor"
-            };
+            var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
             var radniNalozi = new List<RadniNalog>()
             {
                 new RadniNalog { Opis = "Sve uredu", Kolicina = 20 },
@@ -384,5 +330,201 @@ namespace ZMGDesktop_Tests
             Assert.Equal(klijentRadniNalozi, radniNalozi);
         }
 
+        private Validacija kreirajValidaciju()
+        {
+            return new Validacija();
+        }
+
+        [Fact]
+
+        public void ProvjeraOib_OIBNeispravan_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraOIB("728129529182");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void ProvjeraOib_OIBIspravan_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraOIB("27125827125");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void ProvjeraMaila_MailNeispravan_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraMaila("nesto@122'.com");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void ProvjeraMaila_MailIspravan_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraMaila("tvrtka@gmail.com");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void ProvjeraRacuna_RacunNeispravan_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraRacuna("HR828192591257271927217");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void ProvjeraRacuna_RacunIspravan_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraRacuna("HR4524020061552417385");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraSamoSlova_NeispravanNaziv_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraSamoSlova("Ivan123");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraSamoSlova_IspravanNaziv_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraSamoSlova("Ivan");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraMjesta_NeispravnoMjesto_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraMjesta("Novi '.Vinodolski");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraMjesta_IspravnoMjesto_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraMjesta("Novi Vinodolski");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraUlica_NeispravnaUlica_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraUlica("Apple# Street");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraUlica_IspravnaUlica_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraUlica("10th Avenue");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraSamoBrojevi_StringSadrziSlova_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraSamoBrojevi("123cetiri");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraSamoBrojevi_StringSadrziSamoBrojeve_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraSamoBrojevi("12456123123");
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraTelefon_NeispravanBrojTelefona_VracaFalse()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraTelefon("092124281241");
+            //Assert
+            Assert.False(uspjesno);
+        }
+
+        [Fact]
+
+        public void provjeraTelefon_IspravanBrojTelefona_VracaTrue()
+        {
+            //Arrange
+            Validacija valid = kreirajValidaciju();
+            //Act
+            bool uspjesno = valid.provjeraTelefon("0992718252");
+            //Assert
+            Assert.True(uspjesno);
+        }
     }
 }
