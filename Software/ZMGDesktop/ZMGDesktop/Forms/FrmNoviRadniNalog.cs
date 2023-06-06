@@ -53,7 +53,7 @@ namespace ZMGDesktop
 
             try
             {
-                if (txtKolicina.Text == "" || status == "")
+                if (txtKolicina.Text == "" || status == null)
                 {
                     MessageBox.Show("Morate upisati količinu i status!");
                 }
