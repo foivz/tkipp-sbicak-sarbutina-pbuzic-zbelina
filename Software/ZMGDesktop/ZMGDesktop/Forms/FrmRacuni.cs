@@ -25,6 +25,7 @@ namespace ZMGDesktop
         Poslodavac poslodavac;
         Klijent selektirani;
         Radnik radnik;
+        private PretrazivanjeSortiranje SearchSort;
 
         public FrmRacuni(Radnik _radnik)
         {
@@ -34,6 +35,13 @@ namespace ZMGDesktop
             klijentServis= new KlijentServices(new KlijentRepository());
             racunServis = new RacunService(new RacunRepository());
             radnik = _radnik;
+            PostaviSearchSort();
+        }
+
+        private void PostaviSearchSort()
+        {
+            SearchSort.Pretrazivanje = 0;
+            SearchSort.Sortiranje = 0;
         }
 
         private void ucitajPomoc()
@@ -86,8 +94,7 @@ namespace ZMGDesktop
 
         private void btnOcisti_Click(object sender, EventArgs e)
         {
-            pretrazivanje = 0;
-            sortiranje = 0;
+            PostaviSearchSort();
             //pretrazivanje
             rbtnDatumIzdaje.Checked = false;
             rbtnVasiRacuni.Checked = false;
@@ -99,8 +106,7 @@ namespace ZMGDesktop
             Osvjezi();
         }
 
-        int pretrazivanje = 0;
-        int sortiranje = 0;
+        
         private void rbtnDatumIzdaje_CheckedChanged(object sender, EventArgs e)
         {
             pretrazivanje = 1;
