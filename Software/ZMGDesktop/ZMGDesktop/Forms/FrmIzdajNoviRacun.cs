@@ -56,13 +56,17 @@ namespace ZMGDesktop
             poslodavac = poslodavacServis.GetPoslodavac();
             cmbKlijenti.DataSource = klijentServis.DohvatiKlijente();
             InitTextBoxPoslodavac(poslodavac);
+            InitStaticniTxt();
+            racun.Radnik = radnik;
+        }
+
+        private void InitStaticniTxt()
+        {
             txtNacinPlacanja.Text = "(T) Transakcijski račun";
             txtRokPlacanja.Text = "do 15 dana";
             txtUkupniIznos.Text = "0";
             txtUkupno.Text = "0";
             txtPDV.Text = "0";
-
-            racun.Radnik = radnik;
         }
 
         private void cmbKlijenti_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,7 +77,6 @@ namespace ZMGDesktop
             Osvjezi();
         }
 
-
         // inicijalizacija textboxova
         private void InitTextBoxKlijent(Klijent klijent)
         {
@@ -81,10 +84,8 @@ namespace ZMGDesktop
             txtK_Naziv.Text = klijent.Naziv;
             txtK_OIB.Text = klijent.OIB;
             txtK_Email.Text = klijent.Email;
-
             racun.Klijent = klijent;
         }
-
 
         private void InitTextBoxPoslodavac(Poslodavac poslodavac)
         {
@@ -100,7 +101,6 @@ namespace ZMGDesktop
             txtP_Naziv.Text = poslodavac.Naziv;
             txtP_IBAN.Text = poslodavac.IBAN;
             txtP_OIB.Text = poslodavac.OIB;
-
             racun.Poslodavac = poslodavac;
         }
 
@@ -128,17 +128,30 @@ namespace ZMGDesktop
             pdv = racunanjeAPI.RacunanjePDV(ukupno);
             ukupnoiznos = racunanjeAPI.RacunanjeUkupnogPDV(ukupno, pdv);
 
+            Zaokruzi();
+            PostaviTxtZaUkupno();
+            PostaviUkupnoRacun();
+        }
+
+        private void Zaokruzi()
+        {
             ukupno = Math.Round(ukupno, 2);
             pdv = Math.Round(pdv, 2);
             ukupnoiznos = Math.Round(ukupnoiznos, 2);
+        }
 
+        private void PostaviTxtZaUkupno()
+        {
             txtUkupno.Text = ukupno.ToString();
             txtPDV.Text = pdv.ToString();
             txtUkupniIznos.Text = ukupnoiznos.ToString();
+        }
 
+        private void PostaviUkupnoRacun()
+        {
             racun.UkupnaCijena = ukupnoiznos;
             racun.PDV = pdv;
-            racun.UkupnoStavke = ukupno;    
+            racun.UkupnoStavke = ukupno;
         }
 
         private void Poruka()
@@ -152,15 +165,15 @@ namespace ZMGDesktop
 
         private async void btnIzdajRacun_Click(object sender, EventArgs e)
         {
-            var izdajRacun = Task.Run(() => IzdajRacunAsync());
+            var izdajRacun = Task.Run(() => IzdajRacun());
             await izdajRacun;
-            if (izdajRacun.Result == true)
+            if (izdajRacun.Result)
             {
                 Dispose();
             }
         }
 
-        private async Task<bool> IzdajRacunAsync()
+        private bool IzdajRacun()
         {
             if (txtOpis.Text.Length >= 100)
             {
@@ -169,7 +182,7 @@ namespace ZMGDesktop
             }
             else if (GlobalListaStavki.stavkaRacunaList.Count != 0 && txtOpis.Text != "")
             {
-               
+
 
                 if (chkAutoEmail.Checked)
                 {
