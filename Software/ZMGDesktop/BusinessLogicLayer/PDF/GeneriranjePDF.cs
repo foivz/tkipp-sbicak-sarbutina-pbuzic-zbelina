@@ -153,12 +153,6 @@ namespace BusinessLogicLayer.PDF
             DodajRazmakNaVisinu(dodatak, specificniDodatak);
         }
 
-        private static void CrtajUzSirinu(string tekst, double dodatak, bool specificniDodatak = false)
-        {
-            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
-            DodajRazmakNaSirinu(dodatak, specificniDodatak);
-        }
-
         private static void Crtaj(string tekst, object obj, string propertyPath)
         {
             var propertyNames = propertyPath.Split('.');
@@ -182,7 +176,7 @@ namespace BusinessLogicLayer.PDF
             }
         }
 
-        private static void Crtaj(string tekst, object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
+        private static void Crtaj(object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
@@ -200,12 +194,18 @@ namespace BusinessLogicLayer.PDF
             }
             if (currentObject != null)
             {
-                gfx.DrawString($"{tekst}: {currentObject}", font, XBrushes.Black, x, y);
+                gfx.DrawString($"{currentObject}", font, XBrushes.Black, x, y);
                 DodajRazmakNaVisinu(dodatak, specificniDodatak);
             }
         }
 
-        private static void CrtajUzSirinu(string tekst, object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
+        private static void CrtajUzSirinu(string tekst, double dodatak, bool specificniDodatak = false)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+            DodajRazmakNaSirinu(dodatak, specificniDodatak);
+        }
+
+        private static void CrtajUzSirinu(object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
@@ -223,7 +223,7 @@ namespace BusinessLogicLayer.PDF
             }
             if (currentObject != null)
             {
-                gfx.DrawString($"{tekst}{currentObject}", font, XBrushes.Black, x, y);
+                gfx.DrawString($"{currentObject}", font, XBrushes.Black, x, y);
                 DodajRazmakNaSirinu(dodatak, specificniDodatak);
             }
         }
@@ -329,60 +329,51 @@ namespace BusinessLogicLayer.PDF
                     stavka = listaStavki[i - 1];
 
                     DodajRazmakNaSirinu(24, true);
-                    CrtajUzSirinu("", stavka, "Usluga.Naziv", 70, true);
-                    CrtajUzSirinu("", stavka, "Roba.Naziv", 70, true);
-                    CrtajUzSirinu("", stavka, "KolikoRobePoJedinici", 70, true);
-                    CrtajUzSirinu("", stavka, "DatumIzrade", 70, true);
-                    CrtajUzSirinu("", stavka, "KolicinaRobe", 70, true);
-                    CrtajUzSirinu("", stavka, "JedinicnaCijena", 70, true);
-                    CrtajUzSirinu("", stavka, "UkupnaCijenaStavke", 0, true);
+                    CrtajUzSirinu(stavka, "Usluga.Naziv", 70, true);
+                    CrtajUzSirinu(stavka, "Roba.Naziv", 70, true);
+                    CrtajUzSirinu(stavka, "KolikoRobePoJedinici", 70, true);
+                    gfx.DrawString($"{stavka.DatumIzrade.Value.ToShortDateString()}", font, XBrushes.Black, x, y);
+                    DodajRazmakNaSirinu(70, true);
+                    CrtajUzSirinu(stavka, "KolicinaRobe", 70, true);
+                    CrtajUzSirinu(stavka, "JedinicnaCijena", 70, true);
+                    CrtajUzSirinu(stavka, "UkupnaCijenaStavke", 0, true);
                 }
-                //kraj
                 DodajRazmakNaVisinu(5);
-                y += ls + 5;
-                x = 50;
                 PostaviSirinu(50);
             }
-            font = new XFont("Arial", 10, XFontStyle.Bold);
-            y -= ls;
-            gfx.DrawLine(pen, new XPoint(x, y), new XPoint(550, y));
-            x = 424;
-            y += ls;
-            gfx.DrawString($"Ukupno:", font, XBrushes.Black, x, y);
-            x = 494;
-            gfx.DrawString($"{racun.UkupnoStavke}", font, XBrushes.Black, x, y);
-            y += ls + 3;
-            x = 424;
-            gfx.DrawString($"PDV(25%):", font, XBrushes.Black, x, y);
-            x = 494;
-            gfx.DrawString($"{racun.PDV}", font, XBrushes.Black, x, y);
-            y += ls + 3;
-            x = 424;
-            gfx.DrawString($"Ukupno(EUR):", font, XBrushes.Black, x, y);
-            x = 494;
-            gfx.DrawString($"{racun.UkupnaCijena}", font, XBrushes.Black, x, y);
-            y += 5;
-            gfx.DrawLine(pen, new XPoint(424, y), new XPoint(550, y));
-            y += ls + ls + ls;
+            DefinirajFont("Arial", 10, XFontStyle.Bold);
+            UkloniRazmakNaVisinu();
+            CrtajLiniju(x, y, 550, y);
+            PostaviSirinu(424);
+            DodajRazmakNaVisinu();
+            CrtajBezRazmaka("Ukupno:");
+            PostaviSirinu(494);
+            Crtaj(racun, "UkupnoStavke", 3);
+            PostaviSirinu(424);
+            CrtajBezRazmaka("PDV(25%):");
+            PostaviSirinu(494);
+            Crtaj(racun, "PDV", 3);
+            PostaviSirinu(424);
+            CrtajBezRazmaka("Ukupno(EUR):");
+            PostaviSirinu(494);
+            Crtaj(racun, "UkupnaCijena", 3);
+            PostaviSirinu(424);
+            CrtajLiniju(x, y, 550, y, ls*3, true);
 
             // peti dio -- kraj racuna, izdan u takvom obliku, fakturirao itd.
-            x = 50;
-            font = new XFont("Arial", 9, XFontStyle.Regular);
+            PostaviSirinu(50);
+            DefinirajFont("Arial", 9, XFontStyle.Regular);
             gfx.DrawString($"Način plaćanja: {racun.NacinPlacanja} - rok plaćanja{racun.RokPlacanja}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Porez na dodanu vrijednost je zaračunat prema zakonu o PDV-u objavljenog u NN 47/95 - 87/09,94/09,22/12,136/12.", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"U slučaju ne plaćanja po dospijeću, ovaj račun može poslužiti kao vjerodostojna isprava za ovršni postupak.", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Reklamacije po ovom računu uvažavamo 8 (osam) dana po njegovom primitku.", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Valuta plaćanja je u EURIMA.", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Ovaj dokument je izdan u elektronskom obliku, te je valjan bez potpisa i pečata.", font, XBrushes.Black, x, y);
-            y += ls + ls + ls;
-            x = 354;
-            gfx.DrawString($"Fakturirao: {racun.Radnik.ToString()}", font, XBrushes.Black, x, y);
+            DodajRazmakNaVisinu();
+            Crtaj("Porez na dodanu vrijednost je zaračunat prema zakonu o PDV-u objavljenog u NN 47/95 - 87/09,94/09,22/12,136/12.");
+            Crtaj("U slučaju ne plaćanja po dospijeću, ovaj račun može poslužiti kao vjerodostojna isprava za ovršni postupak.");
+            Crtaj("Reklamacije po ovom računu uvažavamo 8 (osam) dana po njegovom primitku.");
+            Crtaj("Valuta plaćanja je u EURIMA.");
+            Crtaj("Ovaj dokument je izdan u elektronskom obliku, te je valjan bez potpisa i pečata.", ls*3, true);
+            PostaviSirinu(354);
 
+            gfx.DrawString($"Fakturirao: {racun.Radnik.ToString()}", font, XBrushes.Black, x, y);
+            Crtaj("Fakturirao", racun, "Radnik");
 
             nazivDatoteke = $"ZMG - RACUN BROJ {racun.Racun_ID}.pdf";
 
