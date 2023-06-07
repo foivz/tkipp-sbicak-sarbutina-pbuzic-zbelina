@@ -27,6 +27,7 @@ namespace BusinessLogicLayer.PDF
         static XFont font;
         static double x;
         static double y;
+        static double ls;
 
         private static void NapraviDokument()
         {
@@ -70,6 +71,36 @@ namespace BusinessLogicLayer.PDF
         {
             font = new XFont(kojiFont, velicina, stil);
         }
+        private static void DefinirajVertikalniRazmakPostavljenogFonta()
+        {
+            ls = font.GetHeight();
+        }
+        private static void DodajRazmakNaVisinu(double dodatak, bool specificniDodatak = false)
+        {
+            if(!specificniDodatak) y += ls + dodatak;
+            else y += dodatak;
+        }
+        private static void DodajRazmakNaVisinu()
+        {
+            y += ls;
+        }
+        
+        private static void Crtaj(string tekst)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+            DodajRazmakNaVisinu();
+        }
+        private static void Crtaj(string tekst, double dodatak, bool specificniDodatak = false)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+            DodajRazmakNaVisinu(dodatak);
+        }
+        private static void Crtaj(string tekst, double dodatak, Racun racun, bool specificniDodatak = false)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+            DodajRazmakNaVisinu(dodatak);
+        }
+
         public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
         {
             NapraviDokument();
@@ -79,27 +110,19 @@ namespace BusinessLogicLayer.PDF
             PostaviOlovku("black", 2.2);
             PostaviGFX();
             DefinirajFont("Arial", 20, XFontStyle.BoldItalic);
+            DefinirajVertikalniRazmakPostavljenogFonta();
 
-            double ls = font.GetHeight();
-            //Finally use XGraphics & font object to draw text in PDF Page
-            //gfx.DrawString($"My First PDF Document", font, XBrushes.Black, new XRect(0, 0, 0, 0), XStringFormats.Center);
-            //gfx.DrawString("My First PDF Documentkjhkhjkhj", font, XBrushes.Black, new XRect(0, 0, page.Width, 15), XStringFormats.CenterRight);
             // prvi dio racuna
-            gfx.DrawString("ZMG Damir Bičak", font, XBrushes.Black, x, y);
-            y += ls;
-            font = new XFont("Arial", 12, XFontStyle.Bold);
-            ls = font.GetHeight();
-            gfx.DrawString("ZAŠTITA METALNE GALANTERIJE", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString("Sveti Ivan Zelina", font, XBrushes.Black, x, y);
-            y += 20;
+            Crtaj("ZMG DAMIR BICAK");
+            DefinirajFont("Arial", 12, XFontStyle.Bold);
+            DefinirajVertikalniRazmakPostavljenogFonta();
+            Crtaj("ZAŠTITA METALNE GALANTERIJE");
+            Crtaj("Sveti Ivan Zelina", 20, true);
             //drugi dio racuna
-            font = new XFont("Arial", 10, XFontStyle.Regular);
-            ls = font.GetHeight();
-            gfx.DrawString("NKD 2007:25.61 - OBRADA I PREVLAČENJE METALA", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString("OPĆI MEHANIČKI RADOVI", font, XBrushes.Black, x, y);
-            y += ls + 3;
+            DefinirajFont("Arial", 10, XFontStyle.Regular);
+            DefinirajVertikalniRazmakPostavljenogFonta();
+            Crtaj("NKD 2007:25.61 - OBRADA I PREVLAČENJE METALA");
+            Crtaj("OPĆI MEHANIČKI RADOVI", 3);
             //treci dio
             //poslodavac
             gfx.DrawString($"UPIS U OBRTNI REGISTAR: {racun.Poslodavac.UpisObrtniRegistar}", font, XBrushes.Black, x, y);
