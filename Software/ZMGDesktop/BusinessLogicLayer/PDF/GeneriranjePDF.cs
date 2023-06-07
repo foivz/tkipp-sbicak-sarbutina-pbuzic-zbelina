@@ -163,7 +163,6 @@ namespace BusinessLogicLayer.PDF
                 var property = currentObject.GetType().GetProperty(propertyName);
                 if (property == null)
                 {
-                    // Property not found, break the loop
                     currentObject = null;
                     break;
                 }
@@ -186,7 +185,6 @@ namespace BusinessLogicLayer.PDF
                 var property = currentObject.GetType().GetProperty(propertyName);
                 if (property == null)
                 {
-                    // Property not found, break the loop
                     currentObject = null;
                     break;
                 }
