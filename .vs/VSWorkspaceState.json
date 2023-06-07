@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Software",
+    "\\Software\\AcceptanceTests\\ZMGDesktopTests",
+    "\\Software\\AcceptanceTests\\ZMGDesktopTests\\ZMGDesktopTests",
+    "\\Software\\ZMGDesktop"
   ],
-  "SelectedNode": "\\C:\\Users\\okwin\\Source\\Repos\\tkipp-sbicak-sarbutina-pbuzic-zbelina2",
+  "SelectedNode": "\\Software\\ZMGDesktop\\ZMGDesktop.sln",
   "PreviewInSolutionExplorer": false
 }

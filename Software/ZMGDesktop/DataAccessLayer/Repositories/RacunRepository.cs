@@ -17,9 +17,7 @@ namespace DataAccessLayer.Repositories
         public override int Add(Racun entity, bool saveChanges = true)
         {
             var klijent = Context.Klijent.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
-            var poslodavac = Context.Poslodavac.SingleOrDefault(p => p.Poslodavac_ID == entity.Poslodavac_ID);
-            var radnik = Context.Radnik.SingleOrDefault(r => r.Radnik_ID == entity.Radnik_ID);
-
+           
             bool[] provjera = new bool[2];
             provjera[0] = false;
             provjera[1] = false;
@@ -55,32 +53,31 @@ namespace DataAccessLayer.Repositories
                 Context.Roba.Attach(stavka.Roba);
             }
 
-            var racun = new Racun
+            var racun = InitRacun(entity, klijent);
+            Entities.Add(racun);
+            klijent.ukupniBrojRacuna = klijent.Racun.Count;
+            return saveChanges ? SaveChanges() : 0;
+        }
+
+        private Racun InitRacun(Racun entity, Klijent klijent)
+        {
+            Racun racun = new Racun
             {
                 Klijent = klijent,
-                Poslodavac = poslodavac,
-                Radnik = radnik,
+                Poslodavac = Context.Poslodavac.SingleOrDefault(p => p.Poslodavac_ID == entity.Poslodavac_ID),
+                Radnik = Context.Radnik.SingleOrDefault(r => r.Radnik_ID == entity.Radnik_ID),
                 Fakturirao = entity.Fakturirao,
                 Opis = entity.Opis,
                 NacinPlacanja = entity.NacinPlacanja,
                 UkupnaCijena = entity.UkupnaCijena,
-                PDV= entity.PDV,
-                UkupnoStavke= entity.UkupnoStavke,
-                DatumIzdavanja= entity.DatumIzdavanja,
-                StavkaRacun= entity.StavkaRacun,
-                RokPlacanja= entity.RokPlacanja
+                PDV = entity.PDV,
+                UkupnoStavke = entity.UkupnoStavke,
+                DatumIzdavanja = entity.DatumIzdavanja,
+                StavkaRacun = entity.StavkaRacun,
+                RokPlacanja = entity.RokPlacanja
             };
 
-            Entities.Add(racun);
-            klijent.ukupniBrojRacuna = klijent.Racun.Count;
-            if (saveChanges)
-            {
-                return SaveChanges();
-            }
-            else
-            {
-                return 0;
-            }
+            return racun;
         }
 
         public IQueryable<Racun> DohvatiRacuneZaKlijenta(Klijent entity)
