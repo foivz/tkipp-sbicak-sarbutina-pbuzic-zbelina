@@ -25,6 +25,7 @@ namespace ZMGDesktop
         Klijent selektiratiKlijent;
         Racun racun;
         Radnik radnik;
+        BindingList<StavkaRacun> bindingList = new BindingList<StavkaRacun>(GlobalListaStavki.stavkaRacunaList);
         // servisi
         KlijentServices klijentServis;
         PoslodavacServices poslodavacServis;
@@ -223,8 +224,9 @@ namespace ZMGDesktop
         private void Osvjezi()
         {
             this.Invalidate();
+            BindingSource source = new BindingSource(bindingList, null);
             dgvStavke.DataSource = null;
-            dgvStavke.DataSource = GlobalListaStavki.stavkaRacunaList;
+            dgvStavke.DataSource = source;
             dgvStavke.Columns[0].Visible = false;
             dgvStavke.Columns[1].Visible = false;
             dgvStavke.Columns[2].Visible = false;
