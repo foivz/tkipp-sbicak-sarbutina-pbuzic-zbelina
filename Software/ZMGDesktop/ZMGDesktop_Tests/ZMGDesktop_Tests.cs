@@ -722,12 +722,18 @@ namespace ZMGDesktop_Tests
         public void Add_UpisaniSviPodaciIspravno_DodanNoviMaterijal()
         {
             //Arrange
+            var fakeRepo = A.Fake<IRobaRepository>();
+            var fakeRoba = new Roba { Naziv = "fakeRoba" };
 
+            A.CallTo(() => fakeRepo.Add(fakeRoba, true)).Returns(1);
+
+            var fakeServis = new RobaService(fakeRepo);
 
             //Act
-
+            var dodanaRoba = fakeServis.Add(fakeRoba);
 
             //Assert
+            Assert.True(dodanaRoba);
         }
     }
 }
