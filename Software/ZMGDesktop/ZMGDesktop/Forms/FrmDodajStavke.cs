@@ -38,7 +38,7 @@ namespace ZMGDesktop
             robaServis= new RobaService();
             stavkaServis= new StavkaRacunService();
             klijent= _klijent;
-            racun= _racun;
+            racun = _racun;
             Osvjezi();
         }
 
@@ -98,7 +98,7 @@ namespace ZMGDesktop
                 DatumIzrade = dtpDatumIzrade.Value,
                 JedinicaMjere = txtJedinicaMjere.Text,
                 JedinicnaCijena = jedinicnaCijena,
-                UkupnaCijenaStavke = Math.Round((double)(jedinicnaCijena * kolikoRobe), 2)
+                UkupnaCijenaStavke = Math.Round((jedinicnaCijena * kolikoRobe), 2)
 
             };
             stavka = stavkaServis.InitStavka(stavka, selektiranaRoba, selektiranaUsluga);
