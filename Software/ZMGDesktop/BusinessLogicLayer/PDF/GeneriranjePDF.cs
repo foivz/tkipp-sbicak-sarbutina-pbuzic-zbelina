@@ -13,36 +13,72 @@ using PdfSharp.Pdf.Advanced;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace BusinessLogicLayer.PDF
 {
     public static class GeneriranjePDF
     {
         public static string nazivDatoteke = null;
+        static PdfDocument document;
+        static PdfPage page;
+        static XPen pen;
+        static XGraphics gfx;
+        static XFont font;
+        static double x;
+        static double y;
+
+        private static void NapraviDokument()
+        {
+            document = new PdfDocument();
+            page = document.AddPage();
+        }
+
+        private static void PostaviVelicinuDokumenta(PageSize velicina)
+        {
+            page.Size = velicina;
+        }
+
+        private static void PostaviMargine(double gornja, double desna, double donja, double lijeva)
+        {
+            page.TrimMargins.Top = gornja;
+            page.TrimMargins.Right = desna;
+            page.TrimMargins.Bottom = donja;
+            page.TrimMargins.Left = lijeva;
+           
+        }
+
+        private static void PostaviPocetnuSirinuVisinu(double sirina, double visina)
+        {
+            x = sirina; // width ---->
+            y = visina; // height gore/dolje
+        }
+
+        // postavljamo olovku za crtanje po pdfu.
+        private static void PostaviOlovku(string boja, double debljina)
+        {
+            pen = new XPen(XColor.FromName(boja), debljina);
+        }
+
+        // sluzi za crtanje u objektu tj. u pdfu.
+        private static void PostaviGFX()
+        {
+            gfx = XGraphics.FromPdfPage(page);
+        }
+
+        private static void DefinirajFont(string kojiFont, double velicina, XFontStyle stil)
+        {
+            font = new XFont(kojiFont, velicina, stil);
+        }
         public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
         {
-            //Create PDF Document
-            PdfDocument document = new PdfDocument();
-            //You will have to add Page in PDF Document
-            PdfPage page = document.AddPage();
-            page.Size = PageSize.A4;
-            page.TrimMargins.Top = 0.5;
-            page.TrimMargins.Right = 0.5;
-            page.TrimMargins.Bottom = 0.5;
-            page.TrimMargins.Left = 0.5;
-
-            
-
-            //pen
-            XPen pen = new XPen(XColor.FromName("black"), 2.2);
-
-            double x = 50; // width ---->
-            double y = 85; // height gore/dolje
-
-            //For drawing in PDF Page you will nedd XGraphics Object
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            //For Test you will have to define font to be used
-            XFont font = new XFont("Arial", 20, XFontStyle.BoldItalic);
+            NapraviDokument();
+            PostaviVelicinuDokumenta(PageSize.A4);
+            PostaviMargine(0.5,0.5,0.5,0.5);
+            PostaviPocetnuSirinuVisinu(50, 80);
+            PostaviOlovku("black", 2.2);
+            PostaviGFX();
+            DefinirajFont("Arial", 20, XFontStyle.BoldItalic);
 
             double ls = font.GetHeight();
             //Finally use XGraphics & font object to draw text in PDF Page
