@@ -78,7 +78,7 @@ namespace ZMGDesktop
             try
             {
                 kolikoRobe= int.Parse(txtKolikoRobePoJedinici.Text);
-                jedinicnaCijena = double.Parse(txtJedinicnaCijena.Text);
+                jedinicnaCijena = Math.Round(double.Parse(txtJedinicnaCijena.Text), 2);
                 kolicinaRobe = int.Parse(txtKolicina.Text);
 
             } catch(FormatException)
