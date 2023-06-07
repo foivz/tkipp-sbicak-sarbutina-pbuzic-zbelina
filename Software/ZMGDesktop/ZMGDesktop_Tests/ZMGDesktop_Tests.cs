@@ -568,5 +568,156 @@ namespace ZMGDesktop_Tests
             //Assert
             Assert.True(red == 0);
         }
+
+        //TESTOVI SERVISA RADNIH NALOGA
+
+        [Fact]
+        public void DohvatiRadneNaloge_RadniNaloziPostojeUBazi_VracaRadneNaloge()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRadniNalogRepository>();
+            var ocekivaniRadniNalozi = new List<RadniNalog>
+            {
+                new RadniNalog { Kolicina = 1},
+                new RadniNalog { Kolicina = 2}
+            };
+            A.CallTo(() => fakeRepo.DohvatiSveRadneNaloge()).Returns(ocekivaniRadniNalozi.AsQueryable());
+
+            var fakeServis = new RadniNalogService(fakeRepo);
+
+            //Act
+            var dobiveniRadniNalozi = fakeServis.DohvatiRadneNaloge();
+
+            //Assert
+            Assert.Equal(ocekivaniRadniNalozi, dobiveniRadniNalozi);
+        }
+
+        [Fact]
+        public void DohvatiRadneNalogePoStatusima_RadniNaloziPostojeUBazi_VracaRadneNalogePoStatusima()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRadniNalogRepository>();
+            var ocekivaniRadniNalozi = new List<RadniNalog>
+            {
+                new RadniNalog { Status = "Napravljen" },
+                new RadniNalog { Status = "U obradi" },
+                new RadniNalog { Status = "Dovršen" }
+            };
+            A.CallTo(() => fakeRepo.DohvatiRadneNalogePoStatusima()).Returns(ocekivaniRadniNalozi.AsQueryable());
+
+            var fakeServis = new RadniNalogService(fakeRepo);
+
+            //Act
+            var dobiveniRadniNalozi = fakeServis.DohvatiRadneNalogePoStatusima();
+
+            //Assert
+            Assert.Equal(ocekivaniRadniNalozi, dobiveniRadniNalozi);
+        }
+
+        [Fact]
+        public void DodajRadniNalog_UpisaniSviPodaciIspravno_RadniNalogUspjenoDodanUBazu()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRadniNalogRepository>();
+            var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
+            var fakeRadnik = new Radnik { Ime = "FakeRadnik" };
+            var fakeMaterijal = new List<Materijal> { new Materijal { Naziv = "FakeMaterijal" } };
+            var fakeRoba = new List<Roba> { new Roba { Naziv = "FakeRoba" } };
+            var fakeRadniNalog = new RadniNalog {
+                Kolicina = 15,
+                Opis = "Treba poniklati robu klijenta",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "Napravljen",
+                Radnik_ID = 2,
+                Klijent_ID = 3,
+                Klijent = fakeKlijent,
+                Radnik = fakeRadnik,
+                Materijal = fakeMaterijal,
+                Roba = fakeRoba
+            };
+
+            A.CallTo(() => fakeRepo.Add(fakeRadniNalog, true)).Returns(1); 
+
+            var fakeServis = new RadniNalogService(fakeRepo);
+
+            //Act
+            var dodaniRadniNalog = fakeServis.DodajRadniNalog(fakeRadniNalog);
+
+            //Assert
+            Assert.True(dodaniRadniNalog);
+        }
+
+        [Fact]
+        public void ObrisiRadniNalog_RadniNalogPostojiUBazi_RadniNalogUspjenoObrisan()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRadniNalogRepository>();
+            var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
+            var fakeRadnik = new Radnik { Ime = "FakeRadnik" };
+            var fakeMaterijal = new List<Materijal> { new Materijal { Naziv = "FakeMaterijal" } };
+            var fakeRoba = new List<Roba> { new Roba { Naziv = "FakeRoba" } };
+            var fakeRadniNalog = new RadniNalog {
+                Kolicina = 15,
+                Opis = "Treba poniklati robu klijenta",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "Napravljen",
+                Radnik_ID = 2,
+                Klijent_ID = 3,
+                Klijent = fakeKlijent,
+                Radnik = fakeRadnik,
+                Materijal = fakeMaterijal,
+                Roba = fakeRoba
+            };
+
+            A.CallTo(() => fakeRepo.Remove(fakeRadniNalog, true)).Returns(1);
+
+            var fakeServis = new RadniNalogService(fakeRepo);
+
+            //Act
+            var obrisaniRadniNalog = fakeServis.ObrisiRadniNalog(fakeRadniNalog);
+
+            //Assert
+            Assert.True(obrisaniRadniNalog);
+        }
+
+        [Fact]
+        public void AzurirajRadniNalog_IzmijenjenaKolicinaRadnogNaloga_RadniNalogUspjenoIzmjenjen()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRadniNalogRepository>();
+            var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
+            var fakeRadnik = new Radnik { Ime = "FakeRadnik" };
+            var fakeMaterijal = new List<Materijal> { new Materijal { Naziv = "FakeMaterijal" } };
+            var fakeRoba = new List<Roba> { new Roba { Naziv = "FakeRoba" } };
+            var fakeRadniNalog = new RadniNalog {
+                Kolicina = 20,
+                Opis = "Treba poniklati robu klijenta",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "Napravljen",
+                Radnik_ID = 2,
+                Klijent_ID = 3,
+                Klijent = fakeKlijent,
+                Radnik = fakeRadnik,
+                Materijal = fakeMaterijal,
+                Roba = fakeRoba
+            };
+
+            A.CallTo(() => fakeRepo.Update(fakeRadniNalog, true)).Returns(1);
+
+            var fakeServis = new RadniNalogService(fakeRepo);
+
+            //Act
+            var azuriraniRadniNalog = fakeServis.AzurirajRadniNalog(fakeRadniNalog);
+
+            //Assert
+            Assert.True(azuriraniRadniNalog);
+        }
+
+        // TESOVI SERVISA ROBE
+
+
     }
 }
