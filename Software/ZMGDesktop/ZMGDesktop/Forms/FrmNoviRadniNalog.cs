@@ -36,7 +36,7 @@ namespace ZMGDesktop
         }
 
         RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
-        RobaService robaServis = new RobaService();
+        RobaService robaServis = new RobaService(new RobaRepository());
 
         List<Materijal> materijali = new List<Materijal>();
         List<Roba> robaZaRadniNalog = new List<Roba>();

@@ -60,21 +60,26 @@ namespace BusinessLogicLayer.Services
         {
             bool uspjesno = false;
 
-            using (var repo = new RadniNalogRepository())
-            {
-                int red = repo.Remove(radniNalog);
+            //using (var repo = new RadniNalogRepository())
+            //{
+                int red = radniNalogRepository.Remove(radniNalog);
                 uspjesno = red > 0;
-            }
+            //}
 
             return uspjesno;
         }
 
-        public void AzurirajRadniNalog(RadniNalog radniNalog)
+        public bool AzurirajRadniNalog(RadniNalog radniNalog)
         {
+            bool uspjesno = false;
+
             //using (var repo = new RadniNalogRepository())
             //{
-            radniNalogRepository.Update(radniNalog);
+            int red = radniNalogRepository.Update(radniNalog);
+            uspjesno = red > 0;
             //}
+
+            return uspjesno;
         }
     }
 }

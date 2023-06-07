@@ -113,6 +113,20 @@ namespace DataAccessLayer.Repositories
             }
         }
 
+        public override int Remove(RadniNalog entity, bool saveChanges = true)
+        {
+            Entities.Attach(entity);
+            Entities.Remove(entity);
+            if (saveChanges)
+            {
+                return SaveChanges();
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         private void ProvjeriMaterijalIRobu(RadniNalog entity)
         {
             var materijali = entity.Materijal;

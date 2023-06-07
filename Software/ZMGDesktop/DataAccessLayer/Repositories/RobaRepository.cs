@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RobaRepository : Repository<Roba>
+    public class RobaRepository : Repository<Roba>, IRobaRepository
     {
         public RobaRepository() : base(new ZMGBaza())
         {
