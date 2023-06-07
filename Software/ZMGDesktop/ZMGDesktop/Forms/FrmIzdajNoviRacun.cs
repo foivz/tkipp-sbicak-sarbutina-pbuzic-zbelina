@@ -182,8 +182,6 @@ namespace ZMGDesktop
             }
             else if (GlobalListaStavki.stavkaRacunaList.Count != 0 && txtOpis.Text != "")
             {
-
-
                 if (chkAutoEmail.Checked)
                 {
                     InitRacun(racun);
