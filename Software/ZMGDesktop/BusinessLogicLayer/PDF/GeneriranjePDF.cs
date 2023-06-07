@@ -94,7 +94,30 @@ namespace BusinessLogicLayer.PDF
         {
             y += ls;
         }
-        
+
+        private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false) 
+        {
+            if (!specificniDodatak) x += ls + dodatak;
+            else x += dodatak;
+        }
+
+        private static void CrtajLiniju(double pocetakX, double pocetakY, double noviX, double noviY, double dodatak, bool specificniDodatak = false)
+        {
+            gfx.DrawLine(pen, new XPoint(pocetakX, pocetakY), new XPoint(noviX, noviY));
+            DodajRazmakNaVisinu(dodatak, specificniDodatak);
+        }
+
+        private static double GetNoviX(double dodatak)
+        {
+            return x + dodatak;
+        }
+
+        private static double GetNoviY(double dodatak)
+        {
+            return y + dodatak;
+        }
+
+
         private static void Crtaj(string tekst)
         {
             gfx.DrawString(tekst, font, XBrushes.Black, x, y);
@@ -103,7 +126,7 @@ namespace BusinessLogicLayer.PDF
         private static void Crtaj(string tekst, double dodatak, bool specificniDodatak = false)
         {
             gfx.DrawString(tekst, font, XBrushes.Black, x, y);
-            DodajRazmakNaVisinu(dodatak);
+            DodajRazmakNaVisinu(dodatak, specificniDodatak);
         }
         private static void Crtaj(string tekst, object obj, string propertyPath)
         {
@@ -147,7 +170,7 @@ namespace BusinessLogicLayer.PDF
             if (currentObject != null)
             {
                 gfx.DrawString($"{tekst}: {currentObject}", font, XBrushes.Black, x, y);
-                DodajRazmakNaVisinu(dodatak);
+                DodajRazmakNaVisinu(dodatak, specificniDodatak);
             }
         }
 
@@ -186,44 +209,30 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Banka", racun, "Poslodavac.Banka");
             PostaviVisinu(203);
             //treci dio -- drugio dio, druga strana
-            x += 150;
-            gfx.DrawString($"TEL. {racun.Poslodavac.TEL_FAX}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"GSM. {racun.Poslodavac.BrojTelefona}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"TEL/FAX. {racun.Poslodavac.TEL_FAX}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Email: {racun.Poslodavac.Email}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Žiro račun: {racun.Poslodavac.IBAN}", font, XBrushes.Black, x, y);
-            //telefone treba promijeniti
-            y = 180;
-            x += 210;
-            gfx.DrawString("Prima", font, XBrushes.Black, x, y);
-            y += 3;
-            gfx.DrawLine(pen, new XPoint(x, y), new XPoint(x+140, y));
-            y += 20;
+            DodajRazmakNaSirinu(150, true);
+            Crtaj("TEL.", racun, "Poslodavac.TEL_FAX");
+            Crtaj("GSM.", racun, "Poslodavac.BrojTelefona");
+            Crtaj("TEL/FAX.", racun, "Poslodavac.TEL_FAX");
+            Crtaj("Email", racun, "Poslodavac.Email");
+            Crtaj("Ziro racun", racun, "Poslodavac.IBAN");
+            PostaviVisinu(180);
+            DodajRazmakNaSirinu(210, true);
+            Crtaj("Prima", 3, true);
+            CrtajLiniju(x, y, GetNoviX(140), y, 20, true);
             //klijent
-            gfx.DrawString($"Naziv: {racun.Klijent.Naziv}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Adresa: {racun.Klijent.Adresa}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Mjesto: {racun.Klijent.Mjesto}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"OIB: {racun.Klijent.OIB}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawLine(pen, new XPoint(x, y), new XPoint(x + 140, y));
-            y += 40;
+            Crtaj("Naziv", racun, "Klijent.Naziv");
+            Crtaj("Adresa", racun, "Klijent.Adresa");
+            Crtaj("Mjesto", racun, "Klijent.Mjesto");
+            Crtaj("OIB", racun, "Klijent.OIB");
+            CrtajLiniju(x, y, GetNoviX(140), y, 40, true);
 
             // cetvrti dio -- racun i stavke
-
-            x = 50;
-            font = new XFont("Arial", 10, XFontStyle.Bold);
-            gfx.DrawString($"RAČUN BROJ: {racun.Racun_ID}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Stavke računa:", font, XBrushes.Black, x, y);
-            x = 390;
-            font = new XFont("Arial", 10, XFontStyle.Regular);
+            PostaviSirinu(50);
+            DefinirajFont("Arial", 10, XFontStyle.Bold);
+            Crtaj("RACUN BROJ", racun, "Racun_ID");
+            Crtaj("Stavke racuna");
+            PostaviSirinu(390);
+            DefinirajFont("Arial", 10, XFontStyle.Regular);
             if (racun.DatumIzdavanja == null)
             {
                 gfx.DrawString($"Datum izdavanja: nije uneseno", font, XBrushes.Black, x, y);
