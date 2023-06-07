@@ -163,6 +163,7 @@ namespace BusinessLogicLayer.PDF
                 var property = currentObject.GetType().GetProperty(propertyName);
                 if (property == null)
                 {
+    
                     currentObject = null;
                     break;
                 }
@@ -185,6 +186,7 @@ namespace BusinessLogicLayer.PDF
                 var property = currentObject.GetType().GetProperty(propertyName);
                 if (property == null)
                 {
+                    // Property not found, break the loop
                     currentObject = null;
                     break;
                 }
@@ -388,8 +390,6 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Valuta plaćanja je u EURIMA.");
             Crtaj("Ovaj dokument je izdan u elektronskom obliku, te je valjan bez potpisa i pečata.", ls * 3, true);
             PostaviSirinu(354);
-
-            gfx.DrawString($"Fakturirao: {racun.Radnik.ToString()}", font, XBrushes.Black, x, y);
             Crtaj("Fakturirao", racun, "Radnik");
         }
 
