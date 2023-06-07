@@ -95,12 +95,27 @@ namespace BusinessLogicLayer.PDF
             y += ls;
         }
 
+        private static void UkloniRazmakNaVisinu()
+        {
+            y -= ls;
+        }
+
+        private static void UkloniRazmakNaVisinu(double dodatak, bool specificniDodatak = false)
+        {
+            if (!specificniDodatak) y -= ls + dodatak;
+            else y -= dodatak;
+        }
+
         private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false) 
         {
             if (!specificniDodatak) x += ls + dodatak;
             else x += dodatak;
         }
-
+        private static void CrtajLiniju(double pocetakX, double pocetakY, double noviX, double noviY)
+        {
+            gfx.DrawLine(pen, new XPoint(pocetakX, pocetakY), new XPoint(noviX, noviY));
+            DodajRazmakNaVisinu();
+        }
         private static void CrtajLiniju(double pocetakX, double pocetakY, double noviX, double noviY, double dodatak, bool specificniDodatak = false)
         {
             gfx.DrawLine(pen, new XPoint(pocetakX, pocetakY), new XPoint(noviX, noviY));
@@ -117,6 +132,15 @@ namespace BusinessLogicLayer.PDF
             return y + dodatak;
         }
 
+        private static void CrtajBezRazmaka(string tekst)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+        }
+
+        private static void Crtaj(int broj)
+        {
+            gfx.DrawString($"{broj}.", font, XBrushes.Black, x, y);
+        }
 
         private static void Crtaj(string tekst)
         {
@@ -128,6 +152,13 @@ namespace BusinessLogicLayer.PDF
             gfx.DrawString(tekst, font, XBrushes.Black, x, y);
             DodajRazmakNaVisinu(dodatak, specificniDodatak);
         }
+
+        private static void CrtajUzSirinu(string tekst, double dodatak, bool specificniDodatak = false)
+        {
+            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
+            DodajRazmakNaSirinu(dodatak, specificniDodatak);
+        }
+
         private static void Crtaj(string tekst, object obj, string propertyPath)
         {
             var propertyNames = propertyPath.Split('.');
@@ -151,7 +182,7 @@ namespace BusinessLogicLayer.PDF
             }
         }
 
-        private static void Crtaj(string tekst, double dodatak, object obj, string propertyPath, bool specificniDodatak = false)
+        private static void Crtaj(string tekst, object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
@@ -171,6 +202,29 @@ namespace BusinessLogicLayer.PDF
             {
                 gfx.DrawString($"{tekst}: {currentObject}", font, XBrushes.Black, x, y);
                 DodajRazmakNaVisinu(dodatak, specificniDodatak);
+            }
+        }
+
+        private static void CrtajUzSirinu(string tekst, object obj, string propertyPath, double dodatak, bool specificniDodatak = false)
+        {
+            var propertyNames = propertyPath.Split('.');
+            object currentObject = obj;
+            foreach (var propertyName in propertyNames)
+            {
+                var property = currentObject.GetType().GetProperty(propertyName);
+                if (property == null)
+                {
+                    // Property not found, break the loop
+                    currentObject = null;
+                    break;
+                }
+
+                currentObject = property.GetValue(currentObject, null);
+            }
+            if (currentObject != null)
+            {
+                gfx.DrawString($"{tekst}{currentObject}", font, XBrushes.Black, x, y);
+                DodajRazmakNaSirinu(dodatak, specificniDodatak);
             }
         }
 
@@ -233,94 +287,61 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Stavke racuna");
             PostaviSirinu(390);
             DefinirajFont("Arial", 10, XFontStyle.Regular);
-            if (racun.DatumIzdavanja == null)
-            {
-                gfx.DrawString($"Datum izdavanja: nije uneseno", font, XBrushes.Black, x, y);
-            }
+            if (racun.DatumIzdavanja == null) CrtajBezRazmaka("Datum izdavanja: nije uneseno");
             else
             {
                 gfx.DrawString($"Datum izdavanja: {racun.DatumIzdavanja.Value.ToShortDateString()}", font, XBrushes.Black, x, y);
             }
-            y -= ls;
-            if (racun.DatumIzdavanja == null)
-            {
-                 gfx.DrawString($"Vrijeme izdavanja: nije uneseno", font, XBrushes.Black, x, y);
-            }
+            UkloniRazmakNaVisinu();
+            if (racun.DatumIzdavanja == null) CrtajBezRazmaka("Vrijeme izdavanja: nije uneseno");
             else
             {
                 gfx.DrawString($"Vrijeme izdavanja: {racun.DatumIzdavanja.Value.ToShortTimeString()}", font, XBrushes.Black, x, y);
             }
-            
-            y += ls;
-            x = 50;
-            y += ls - 3;
-            gfx.DrawLine(pen, new XPoint(x, y), new XPoint(550, y));
-            y += ls + 3;
+
+            DodajRazmakNaVisinu();
+            PostaviSirinu(50);
+            DodajRazmakNaVisinu();
+            CrtajLiniju(x, y, 550, y);
 
 
             // stavke
-            font = new XFont("Arial", 9, XFontStyle.Regular);
-            gfx.DrawString($"r.b.", font, XBrushes.Black, x, y);
-            // 5 stavki izemdu 50 i 550
-            x += 24;
-            gfx.DrawString($"Naziv usluge", font, XBrushes.Black, x, y);
-            //x = 74
-            x += 70;
-            gfx.DrawString($"Naziv robe", font, XBrushes.Black, x, y);
-            //x = 144
-            x += 70;
-            gfx.DrawString($"Jed. količina", font, XBrushes.Black, x, y);
-            //x = 214
-            x += 70;
-            gfx.DrawString($"Datum izrade", font, XBrushes.Black, x, y);
-            //x = 284
-            x += 70;
-            gfx.DrawString($"Količina(kg)", font, XBrushes.Black, x, y);
-            //x = 354;
-            x += 70;
-            gfx.DrawString($"Jed. cijena/kg", font, XBrushes.Black, x, y);
-            //x = 424
-            x += 70;
-            gfx.DrawString($"Ukupna cijena", font, XBrushes.Black, x, y);
-            //x = 494
+            DefinirajFont("Arial", 9, XFontStyle.Regular);
+            CrtajUzSirinu("r.b", 24, true);
+            CrtajUzSirinu("Naziv usluge", 70, true);
+            CrtajUzSirinu("Naziv robe", 70, true);
+            CrtajUzSirinu("Jed. kolicina", 70, true);
+            CrtajUzSirinu("Datum izrade", 70, true);
+            CrtajUzSirinu("Kolicina(kg)", 70, true);
+            CrtajUzSirinu("Jed. cijena/kg", 70, true);
+            CrtajBezRazmaka("Ukupna cijena");
 
+            PostaviSirinu(50);
+            DodajRazmakNaVisinu(5);
 
-            x = 50;
-            y += ls + 5;
             StavkaRacun stavka = new StavkaRacun();
             for (int i = 1; i <= 10; i++)
             {
-                gfx.DrawString($"{i}.", font, XBrushes.Black, x, y);
+                Crtaj(i);
                 // popunavanje izmedu
                 if (i <= listaStavki.Count && listaStavki != null)
                 {
                     stavka = listaStavki[i - 1];
 
-                    x += 24;
-                    gfx.DrawString($"{stavka.Usluga.Naziv}", font, XBrushes.Black, x, y);
-                    //x = 74
-                    x += 70;
-                    gfx.DrawString($"{stavka.Roba.Naziv}", font, XBrushes.Black, x, y);
-                    //x = 144
-                    x += 70;
-                    gfx.DrawString($"{stavka.KolikoRobePoJedinici}", font, XBrushes.Black, x, y);
-                    //x = 214
-                    x += 70;
-                    gfx.DrawString($"{stavka.DatumIzrade.Value.ToShortDateString()}", font, XBrushes.Black, x, y);
-                    //x = 284
-                    x += 70;
-                    gfx.DrawString($"{stavka.KolicinaRobe}", font, XBrushes.Black, x, y);
-                    //x = 354;
-                    x += 70;
-                    gfx.DrawString($"{stavka.JedinicnaCijena}", font, XBrushes.Black, x, y);
-                    //x = 424
-                    x += 70;
-                    gfx.DrawString($"{stavka.UkupnaCijenaStavke}", font, XBrushes.Black, x, y);
-                    //x = 494
+                    DodajRazmakNaSirinu(24, true);
+                    CrtajUzSirinu("", stavka, "Usluga.Naziv", 70, true);
+                    CrtajUzSirinu("", stavka, "Roba.Naziv", 70, true);
+                    CrtajUzSirinu("", stavka, "KolikoRobePoJedinici", 70, true);
+                    CrtajUzSirinu("", stavka, "DatumIzrade", 70, true);
+                    CrtajUzSirinu("", stavka, "KolicinaRobe", 70, true);
+                    CrtajUzSirinu("", stavka, "JedinicnaCijena", 70, true);
+                    CrtajUzSirinu("", stavka, "UkupnaCijenaStavke", 0, true);
                 }
                 //kraj
+                DodajRazmakNaVisinu(5);
                 y += ls + 5;
                 x = 50;
+                PostaviSirinu(50);
             }
             font = new XFont("Arial", 10, XFontStyle.Bold);
             y -= ls;
