@@ -718,6 +718,16 @@ namespace ZMGDesktop_Tests
 
         // TESOVI SERVISA ROBE
 
+        [Fact]
+        public void Add_UpisaniSviPodaciIspravno_DodanNoviMaterijal()
+        {
+            //Arrange
 
+
+            //Act
+
+
+            //Assert
+        }
     }
 }

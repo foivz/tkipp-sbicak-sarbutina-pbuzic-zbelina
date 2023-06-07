@@ -80,6 +80,7 @@
     <Compile Include="Repositories\IKlijentRepository.cs" />
     <Compile Include="Repositories\IRacunRepository.cs" />
     <Compile Include="Repositories\IRadniNalogRepository.cs" />
+    <Compile Include="Repositories\IRobaRepository.cs" />
     <Compile Include="Repositories\KlijentRepository.cs" />
     <Compile Include="Repositories\MaterijalRepository.cs" />
     <Compile Include="Repositories\PoslodavacRepository.cs" />

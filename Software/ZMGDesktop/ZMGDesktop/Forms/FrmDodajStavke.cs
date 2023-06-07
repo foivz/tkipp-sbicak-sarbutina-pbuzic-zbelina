@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using EntitiesLayer.GlobalniObjekti;
 using System;
@@ -34,7 +35,7 @@ namespace ZMGDesktop
             InitializeComponent();
             ucitajPomoc();
             uslugaServis= new UslugaServices();
-            robaServis= new RobaService();
+            robaServis= new RobaService(new RobaRepository());
             stavkaServis= new StavkaRacunService();
             klijent= _klijent;
             racun= _racun;

@@ -40,7 +40,7 @@ namespace ZMGDesktop
         List<Roba> robaZaRadniNalog = new List<Roba>();
 
         RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
-        RobaService robaServis = new RobaService();
+        RobaService robaServis = new RobaService(new RobaRepository());
 
         string QRKod = "";
         string status = "";

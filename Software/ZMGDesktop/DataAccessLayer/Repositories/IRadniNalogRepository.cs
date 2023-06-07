@@ -15,6 +15,5 @@ namespace DataAccessLayer.Repositories
         int Update(RadniNalog entity, bool saveChanges = true);
         int Add(RadniNalog entity, bool saveChanges = true);
         int Remove(RadniNalog entity, bool saveChanges = true);
-
     }
 }
