@@ -11,11 +11,18 @@ namespace BusinessLogicLayer.Services
 {
     public class UslugaServices
     {
+
+        private readonly IUslugaRepository uslugaRepository;
+
+        public UslugaServices(IUslugaRepository _uslugaRepository)
+        {
+            this.uslugaRepository = _uslugaRepository;
+        }
         public List<Usluga> DohvatiUsluge()
         {
             using (var repo = new UslugaRepository())
             {
-                var usluge = repo.GetAll().Distinct().ToList();
+                var usluge = uslugaRepository.GetAll().Distinct().ToList();
                 return usluge;
             }
         }
@@ -25,7 +32,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new UslugaRepository())
             {
-                var usluge = repo.DohvatiUslugeDistinct().Distinct().ToList();
+                var usluge = uslugaRepository.DohvatiUslugeDistinct().Distinct().ToList();
                 return usluge;
             }
         }
@@ -34,7 +41,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new UslugaRepository())
             {
-                var usluga = repo.DohvatiUsluguPoNazivu(selectedValue);
+                var usluga = uslugaRepository.DohvatiUsluguPoNazivu(selectedValue);
                 var vracenaUsluga = usluga.FirstOrDefault(u => u.Naziv == selectedValue);
                 return vracenaUsluga;
             }

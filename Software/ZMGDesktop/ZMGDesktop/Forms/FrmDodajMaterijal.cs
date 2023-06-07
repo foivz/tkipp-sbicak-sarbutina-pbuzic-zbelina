@@ -20,12 +20,13 @@ using ZMGDesktop.ValidacijaUnosa;
 using static EntitiesLayer.Entities.Enumeracije;
 using System.Windows.Markup;
 using System.Drawing;
+using DataAccessLayer.Repositories;
 
 namespace ZMGDesktop
 {
     public partial class FrmDodajMaterijal : Form
     {
-        MaterijalServices matServis = new MaterijalServices();
+        MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
         private Validacija validacija = new Validacija();
         public FrmDodajMaterijal()
         {

@@ -110,7 +110,7 @@ namespace ZMGDesktop
 
         private void UcitajMaterijale()
         {
-            MaterijalServices materijalServices= new MaterijalServices();
+            MaterijalServices materijalServices= new MaterijalServices(new MaterijalRepository());
             var materijali = materijalServices.DohvatiMaterijale();
             cmbMaterijali.DataSource = materijali;
         }

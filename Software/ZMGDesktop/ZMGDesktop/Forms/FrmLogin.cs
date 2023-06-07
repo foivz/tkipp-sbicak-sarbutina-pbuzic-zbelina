@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ZMGDesktop
 {
     public partial class FrmLogin : Form
     {
-        private RadnikServices servis = new RadnikServices();
+        private RadnikServices servis = new RadnikServices(new RadnikRepository());
         public FrmLogin()
         {
             InitializeComponent();

@@ -34,9 +34,9 @@ namespace ZMGDesktop
         {
             InitializeComponent();
             ucitajPomoc();
-            uslugaServis= new UslugaServices();
+            uslugaServis= new UslugaServices(new UslugaRepository());
             robaServis= new RobaService(new RobaRepository());
-            stavkaServis= new StavkaRacunService();
+            stavkaServis= new StavkaRacunService(new StavkaRepository());
             klijent= _klijent;
             racun= _racun;
         }

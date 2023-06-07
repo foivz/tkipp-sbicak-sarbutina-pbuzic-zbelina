@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class UslugaRepository : Repository<Usluga>
+    public class UslugaRepository : Repository<Usluga>, IUslugaRepository
     {
         public UslugaRepository() : base(new ZMGBaza())
         {

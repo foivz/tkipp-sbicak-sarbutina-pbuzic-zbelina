@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.PDF;
 using BusinessLogicLayer.Services;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace ZMGDesktop
             klijent= racun.Klijent;
             radnik= racun.Radnik;
 
-            stavkaServis = new StavkaRacunService();
+            stavkaServis = new StavkaRacunService(new StavkaRepository());
         }
 
         private void ucitajPomoc()

@@ -8,11 +8,18 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class MaterijalRepository : Repository<Materijal>
+    public class MaterijalRepository : Repository<Materijal>, IMaterijalRepository
     {
         public MaterijalRepository() : base(new ZMGBaza())
         {
 
+        }
+
+        public override IQueryable<Materijal> GetAll()
+        {
+            var query = from s in Entities
+                        select s;
+            return query;
         }
 
         public bool ProvjeriQR(string qrKod)

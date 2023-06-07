@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace ZMGDesktop
 {
     public partial class FrmKatalog : Form
     {
-        UslugaServices uslugaServis = new UslugaServices();
-        MaterijalServices matServis = new MaterijalServices();
+        UslugaServices uslugaServis = new UslugaServices(new UslugaRepository());
+        MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
         public FrmKatalog()
         {
             InitializeComponent();

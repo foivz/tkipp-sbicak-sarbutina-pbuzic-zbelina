@@ -73,23 +73,23 @@ namespace ZMGDesktop
             }
             catch (UserException ex)
             {
-                HandleException(ex);
+                HandleException("Postoji već klijent s ovim nazivom.");
             }
             catch (TelefonException ex)
             {
-                HandleException(ex);
+                HandleException("Postoji već klijent s ovim brojem telefona.");
             }
             catch (IBANException ex)
             {
-                HandleException(ex);
+                HandleException("Postoji već klijent s ovim IBAN računom.");
             }
             catch (OIBException ex)
             {
-                HandleException(ex);
+                HandleException("Postoji već klijent s ovim OIB-om.");
             }
             catch (EmailException ex)
             {
-                HandleException(ex);
+                HandleException("Postoji već klijent s ovim Email-om.");
             }
             catch (Exception ex)
             {
@@ -159,10 +159,10 @@ namespace ZMGDesktop
             dgvKlijentiXML.Columns[11].Visible = false;
         }
 
-        private void HandleException(Exception ex)
+        private void HandleException(string poruka)
         {
             dgvKlijentiXML.DataSource = servisKlijent.DohvatiKlijente();
-            MessageBox.Show(ex.Message);
+            MessageBox.Show(poruka);
         }
 
         private bool provjeri(Klijent klijent)

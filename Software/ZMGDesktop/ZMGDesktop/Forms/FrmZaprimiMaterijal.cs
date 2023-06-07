@@ -21,12 +21,13 @@ using AForge.Video.DirectShow;
 using iTextSharp.text.pdf;
 using ZXing;
 using System.Drawing.Imaging;
+using DataAccessLayer.Repositories;
 
 namespace ZMGDesktop
 {
     public partial class FrmZaprimiMaterijal : Form
     {
-        MaterijalServices matServis = new MaterijalServices();
+        MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
         string provjereniQR;
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice captureDevice = null;

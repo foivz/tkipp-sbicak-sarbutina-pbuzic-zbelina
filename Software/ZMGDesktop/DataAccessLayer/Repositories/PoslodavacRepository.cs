@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class PoslodavacRepository : Repository<Poslodavac>
+    public class PoslodavacRepository : Repository<Poslodavac>, IPoslodavacRepository
     {
         public PoslodavacRepository() : base(new ZMGBaza())
         {
