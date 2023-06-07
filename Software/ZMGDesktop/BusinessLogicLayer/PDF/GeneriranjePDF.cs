@@ -51,8 +51,18 @@ namespace BusinessLogicLayer.PDF
 
         private static void PostaviPocetnuSirinuVisinu(double sirina, double visina)
         {
-            x = sirina; // width ---->
-            y = visina; // height gore/dolje
+            PostaviSirinu(sirina); // width ---->
+            PostaviVisinu(visina); // height gore/dolje
+        }
+
+        private static void PostaviSirinu(double sirina)
+        {
+            x = sirina;
+        }
+
+        private static void PostaviVisinu(double visina)
+        {
+            y = visina;
         }
 
         // postavljamo olovku za crtanje po pdfu.
@@ -95,10 +105,50 @@ namespace BusinessLogicLayer.PDF
             gfx.DrawString(tekst, font, XBrushes.Black, x, y);
             DodajRazmakNaVisinu(dodatak);
         }
-        private static void Crtaj(string tekst, double dodatak, Racun racun, bool specificniDodatak = false)
+        private static void Crtaj(string tekst, object obj, string propertyPath)
         {
-            gfx.DrawString(tekst, font, XBrushes.Black, x, y);
-            DodajRazmakNaVisinu(dodatak);
+            var propertyNames = propertyPath.Split('.');
+            object currentObject = obj;
+            foreach (var propertyName in propertyNames)
+            {
+                var property = currentObject.GetType().GetProperty(propertyName);
+                if (property == null)
+                {
+                    // Property not found, break the loop
+                    currentObject = null;
+                    break;
+                }
+
+                currentObject = property.GetValue(currentObject, null);
+            }
+            if (currentObject != null)
+            {
+                gfx.DrawString($"{tekst}: {currentObject}", font, XBrushes.Black, x, y);
+                DodajRazmakNaVisinu();
+            }
+        }
+
+        private static void Crtaj(string tekst, double dodatak, object obj, string propertyPath, bool specificniDodatak = false)
+        {
+            var propertyNames = propertyPath.Split('.');
+            object currentObject = obj;
+            foreach (var propertyName in propertyNames)
+            {
+                var property = currentObject.GetType().GetProperty(propertyName);
+                if (property == null)
+                {
+                    // Property not found, break the loop
+                    currentObject = null;
+                    break;
+                }
+
+                currentObject = property.GetValue(currentObject, null);
+            }
+            if (currentObject != null)
+            {
+                gfx.DrawString($"{tekst}: {currentObject}", font, XBrushes.Black, x, y);
+                DodajRazmakNaVisinu(dodatak);
+            }
         }
 
         public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
@@ -125,22 +175,16 @@ namespace BusinessLogicLayer.PDF
             Crtaj("OPĆI MEHANIČKI RADOVI", 3);
             //treci dio
             //poslodavac
-            gfx.DrawString($"UPIS U OBRTNI REGISTAR: {racun.Poslodavac.UpisObrtniRegistar}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Br. OBRTNICE: {racun.Poslodavac.BrojObrtnice}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"OIB: {racun.Poslodavac.OIB}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Poslovnica: {racun.Poslodavac.Poslovnica}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Adresa: {racun.Poslodavac.Adresa}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Mjesto: 10380 {racun.Poslodavac.Mjesto}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Država: {racun.Poslodavac.Drzava}", font, XBrushes.Black, x, y);
-            y += ls;
-            gfx.DrawString($"Banka: {racun.Poslodavac.Banka}", font, XBrushes.Black, x, y);
-            y = 203;
+
+            Crtaj("UPIS U OBRTNI REGISTAR", racun, "Poslodavac.UpisObrtniRegistar");
+            Crtaj("Br. OBRTNICE", racun, "Poslodavac.BrojObrtnice");
+            Crtaj("OIB", racun, "Poslodavac.OIB");
+            Crtaj("Poslovnica", racun, "Poslodavac.Poslovnica");
+            Crtaj("Adresa", racun, "Poslodavac.Adresa");
+            Crtaj("Mjesto: 10380", racun, "Poslodavac.Mjesto");
+            Crtaj("Drzava", racun, "Poslodavac.Drzava");
+            Crtaj("Banka", racun, "Poslodavac.Banka");
+            PostaviVisinu(203);
             //treci dio -- drugio dio, druga strana
             x += 150;
             gfx.DrawString($"TEL. {racun.Poslodavac.TEL_FAX}", font, XBrushes.Black, x, y);
