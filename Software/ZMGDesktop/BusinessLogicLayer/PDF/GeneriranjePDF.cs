@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.CompilerServices;
 
 namespace BusinessLogicLayer.PDF
 {
@@ -46,7 +47,7 @@ namespace BusinessLogicLayer.PDF
             page.TrimMargins.Right = desna;
             page.TrimMargins.Bottom = donja;
             page.TrimMargins.Left = lijeva;
-           
+
         }
 
         private static void PostaviPocetnuSirinuVisinu(double sirina, double visina)
@@ -87,7 +88,7 @@ namespace BusinessLogicLayer.PDF
         }
         private static void DodajRazmakNaVisinu(double dodatak, bool specificniDodatak = false)
         {
-            if(!specificniDodatak) y += ls + dodatak;
+            if (!specificniDodatak) y += ls + dodatak;
             else y += dodatak;
         }
         private static void DodajRazmakNaVisinu()
@@ -106,7 +107,7 @@ namespace BusinessLogicLayer.PDF
             else y -= dodatak;
         }
 
-        private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false) 
+        private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false)
         {
             if (!specificniDodatak) x += ls + dodatak;
             else x += dodatak;
@@ -228,31 +229,37 @@ namespace BusinessLogicLayer.PDF
             }
         }
 
-        public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
+        private static void InitDokument()
         {
             NapraviDokument();
             PostaviVelicinuDokumenta(PageSize.A4);
-            PostaviMargine(0.5,0.5,0.5,0.5);
+            PostaviMargine(0.5, 0.5, 0.5, 0.5);
             PostaviPocetnuSirinuVisinu(50, 80);
             PostaviOlovku("black", 2.2);
             PostaviGFX();
             DefinirajFont("Arial", 20, XFontStyle.BoldItalic);
             DefinirajVertikalniRazmakPostavljenogFonta();
+        }
 
-            // prvi dio racuna
+        private static void InitPrviDioRacun()
+        {
             Crtaj("ZMG DAMIR BICAK");
             DefinirajFont("Arial", 12, XFontStyle.Bold);
             DefinirajVertikalniRazmakPostavljenogFonta();
             Crtaj("ZAŠTITA METALNE GALANTERIJE");
             Crtaj("Sveti Ivan Zelina", 20, true);
-            //drugi dio racuna
+        }
+
+        private static void InitDrugiDioRacun()
+        {
             DefinirajFont("Arial", 10, XFontStyle.Regular);
             DefinirajVertikalniRazmakPostavljenogFonta();
             Crtaj("NKD 2007:25.61 - OBRADA I PREVLAČENJE METALA");
             Crtaj("OPĆI MEHANIČKI RADOVI", 3);
-            //treci dio
-            //poslodavac
+        }
 
+        private static void InitTreciDioRacunPoslodavac(Racun racun)
+        {
             Crtaj("UPIS U OBRTNI REGISTAR", racun, "Poslodavac.UpisObrtniRegistar");
             Crtaj("Br. OBRTNICE", racun, "Poslodavac.BrojObrtnice");
             Crtaj("OIB", racun, "Poslodavac.OIB");
@@ -262,7 +269,6 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Drzava", racun, "Poslodavac.Drzava");
             Crtaj("Banka", racun, "Poslodavac.Banka");
             PostaviVisinu(203);
-            //treci dio -- drugio dio, druga strana
             DodajRazmakNaSirinu(150, true);
             Crtaj("TEL.", racun, "Poslodavac.TEL_FAX");
             Crtaj("GSM.", racun, "Poslodavac.BrojTelefona");
@@ -271,16 +277,21 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Ziro racun", racun, "Poslodavac.IBAN");
             PostaviVisinu(180);
             DodajRazmakNaSirinu(210, true);
+        }
+
+        private static void InitCetvrtiDioRacunKlijent(Racun racun)
+        {
             Crtaj("Prima", 3, true);
             CrtajLiniju(x, y, GetNoviX(140), y, 20, true);
-            //klijent
             Crtaj("Naziv", racun, "Klijent.Naziv");
             Crtaj("Adresa", racun, "Klijent.Adresa");
             Crtaj("Mjesto", racun, "Klijent.Mjesto");
             Crtaj("OIB", racun, "Klijent.OIB");
             CrtajLiniju(x, y, GetNoviX(140), y, 40, true);
+        }
 
-            // cetvrti dio -- racun i stavke
+        private static void InitPetiDioRacunRacun(Racun racun)
+        {
             PostaviSirinu(50);
             DefinirajFont("Arial", 10, XFontStyle.Bold);
             Crtaj("RACUN BROJ", racun, "Racun_ID");
@@ -303,8 +314,10 @@ namespace BusinessLogicLayer.PDF
             PostaviSirinu(50);
             DodajRazmakNaVisinu();
             CrtajLiniju(x, y, 550, y);
+        }
 
-
+        private static void InitSestiDioRacunStavke(List<StavkaRacun> listaStavki)
+        {
             // stavke
             DefinirajFont("Arial", 9, XFontStyle.Regular);
             CrtajUzSirinu("r.b", 24, true);
@@ -341,6 +354,10 @@ namespace BusinessLogicLayer.PDF
                 DodajRazmakNaVisinu(5);
                 PostaviSirinu(50);
             }
+        }
+
+        private static void InitSedmiDioRacunUkupno(Racun racun)
+        {
             DefinirajFont("Arial", 10, XFontStyle.Bold);
             UkloniRazmakNaVisinu();
             CrtajLiniju(x, y, 550, y);
@@ -358,9 +375,11 @@ namespace BusinessLogicLayer.PDF
             PostaviSirinu(494);
             Crtaj(racun, "UkupnaCijena", 3);
             PostaviSirinu(424);
-            CrtajLiniju(x, y, 550, y, ls*3, true);
+            CrtajLiniju(x, y, 550, y, ls * 3, true);
+        }
 
-            // peti dio -- kraj racuna, izdan u takvom obliku, fakturirao itd.
+        private static void InitOsmiDioRacunNapomene(Racun racun)
+        {
             PostaviSirinu(50);
             DefinirajFont("Arial", 9, XFontStyle.Regular);
             gfx.DrawString($"Način plaćanja: {racun.NacinPlacanja} - rok plaćanja{racun.RokPlacanja}", font, XBrushes.Black, x, y);
@@ -369,12 +388,25 @@ namespace BusinessLogicLayer.PDF
             Crtaj("U slučaju ne plaćanja po dospijeću, ovaj račun može poslužiti kao vjerodostojna isprava za ovršni postupak.");
             Crtaj("Reklamacije po ovom računu uvažavamo 8 (osam) dana po njegovom primitku.");
             Crtaj("Valuta plaćanja je u EURIMA.");
-            Crtaj("Ovaj dokument je izdan u elektronskom obliku, te je valjan bez potpisa i pečata.", ls*3, true);
+            Crtaj("Ovaj dokument je izdan u elektronskom obliku, te je valjan bez potpisa i pečata.", ls * 3, true);
             PostaviSirinu(354);
 
             gfx.DrawString($"Fakturirao: {racun.Radnik.ToString()}", font, XBrushes.Black, x, y);
             Crtaj("Fakturirao", racun, "Radnik");
+        }
 
+        public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
+        {
+            InitDokument();
+            InitPrviDioRacun();
+            InitDrugiDioRacun();
+            InitTreciDioRacunPoslodavac(racun);
+            InitCetvrtiDioRacunKlijent(racun);
+            InitPetiDioRacunRacun(racun);
+            InitSestiDioRacunStavke(listaStavki);
+            InitSedmiDioRacunUkupno(racun);
+            InitOsmiDioRacunNapomene(racun);
+ 
             nazivDatoteke = $"ZMG - RACUN BROJ {racun.Racun_ID}.pdf";
 
             try
@@ -386,7 +418,6 @@ namespace BusinessLogicLayer.PDF
                 MessageBox.Show("Proces za PDF je zauzet! Pričekajte.", "Prioritet", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-            //Load PDF File for viewing
         }
         public static void OtvoriPDF()
         {
