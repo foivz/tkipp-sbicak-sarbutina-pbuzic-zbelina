@@ -15,87 +15,58 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public bool ProvjeriQR(string qrKod)
-        {
-            var postoji = Entities.SingleOrDefault(k => k.QR_kod == qrKod);
-            if (postoji!=null) return true;
-            else return false;
+        private bool PostojiMaterijal(string naziv) {
+            return Entities.Any(k => k.Naziv == naziv);
         }
 
-        public Materijal Azuriraj(string qrKod, int kolicina)
-        {
+        public bool ProvjeriQR(string qrKod) {
             var postoji = Entities.SingleOrDefault(k => k.QR_kod == qrKod);
-            if (postoji != null)
-            {
+            return postoji != null;
+        }
+
+        public Materijal Azuriraj(string qrKod, int kolicina) {
+            var postoji = Entities.SingleOrDefault(k => k.QR_kod == qrKod);
+            if (postoji != null) {
                 postoji.Kolicina += kolicina;
                 SaveChanges();
-                return postoji;
             }
-            else return null;
+            return postoji;
         }
 
         public override int Add(Materijal entity, bool saveChanges = true) {
-            var primka = Context.Primka.SingleOrDefault(k => k.Primka_ID == entity.Primka_ID);
-            var usluga = Context.Usluga.SingleOrDefault(k => k.Usluga_ID == entity.Usluga_ID);
+            string provjereniOpis = entity.Opis?.ToString() ?? " ";
+            bool opasno = entity.OpasnoPoZivot != null;
 
-            string provjereniOpis;
-            if (entity.Opis == null)
-                provjereniOpis = " ";
-            else
-                provjereniOpis = entity.Opis.ToString();
-
-            bool opasno;
-            if (entity.OpasnoPoZivot == null)
-                opasno = false;
-            else
-                opasno = true;
-
-            var postoji = Entities.SingleOrDefault(k => k.Naziv == entity.Naziv);
-
-            if (postoji == null) {
-                var materijal = new Materijal {
-                    Naziv = entity.Naziv,
-                    CijenaMaterijala = entity.CijenaMaterijala,
-                    JedinicaMjere = entity.JedinicaMjere,
-                    Opis = provjereniOpis,
-                    OpasnoPoZivot = entity.OpasnoPoZivot,
-                    Kolicina = entity.Kolicina,
-                    QR_kod = entity.QR_kod,
-                    Usluga = usluga,
-                    Primka = primka
-                };
-                Entities.Add(materijal);
-                if (saveChanges) {
-                    return SaveChanges();
-                } else {
-                    return 0;
-                }
-            } else {
-                throw new Exception("Materijal već postoji");
+            if (PostojiMaterijal(entity.Naziv)) {
+                throw new InvalidOperationException("Materijal već postoji");
             }
+
+            var materijal = new Materijal {
+                Naziv = entity.Naziv,
+                CijenaMaterijala = entity.CijenaMaterijala,
+                JedinicaMjere = entity.JedinicaMjere,
+                Opis = provjereniOpis,
+                OpasnoPoZivot = opasno,
+                Kolicina = entity.Kolicina,
+                QR_kod = entity.QR_kod
+            };
+
+            Entities.Add(materijal);
+            if (saveChanges) {
+                return SaveChanges();
+            }
+            return 0;
         }
 
-
-
-        public override int Remove(Materijal entity, bool saveChanges = true)
-        {
-            Entities.Attach(entity);
-            if (entity.RadniNalog.Count == 0 && entity.Primka == null && entity.Usluga == null)
-            {
+        public override int Remove(Materijal entity, bool saveChanges = true) {
+            if (entity.RadniNalog.Count == 0 && entity.Primka == null && entity.Usluga == null) {
                 Entities.Remove(entity);
-                if (saveChanges)
-                {
+                if (saveChanges) {
                     return SaveChanges();
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
-            else
-            {
-                throw new BrisanjeMaterijalaException("Zabranjeno brisanje materijala koji se nalazi u radnom nalogu ili primci.");
-            }
+            throw new BrisanjeMaterijalaException("Zabranjeno brisanje materijala koji se nalazi u radnom nalogu ili primci.");
         }
 
 

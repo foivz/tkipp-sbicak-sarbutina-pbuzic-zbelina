@@ -62,7 +62,7 @@ namespace BusinessLogicLayer.Services
                 try {
                     repo.Add(materijal);
                     uspjeh = true;
-                } catch (Exception ex) {
+                } catch (InvalidOperationException ex) {
                     MessageBox.Show("Greška prilikom dodavanja materijala: " + ex.Message);
                 }
             }
