@@ -29,8 +29,7 @@ namespace ZMGDesktop
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
-        private async void Login(object sender, EventArgs e)
-        {
+        private async void Login(object sender, EventArgs e) {
             if (brojacNeuspjesnihPokusaja >= 3) {
                 MessageBox.Show("Prijava na korisnički račun je blokirana. Molimo kontaktirajte administratora.");
                 return;
@@ -38,13 +37,8 @@ namespace ZMGDesktop
 
             var korime = txtKorIme.Text;
             var lozinka = txtLozinka.Text;
-            Radnik radnik = new Radnik
-            {
-                Korime = korime,
-                Lozinka = lozinka
-            };
 
-            Radnik provjereniRadnik = await servis.ProvjeriRadnikaAsync(radnik);
+            Radnik provjereniRadnik = await servis.ProvjeriRadnikaAsync(korime, lozinka);
             if (provjereniRadnik != null) {
                 brojacNeuspjesnihPokusaja = 0;
                 FrmPocetna pocetna = new FrmPocetna(provjereniRadnik);
@@ -55,6 +49,7 @@ namespace ZMGDesktop
                 MessageBox.Show("Krivi podaci!");
             }
         }
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
