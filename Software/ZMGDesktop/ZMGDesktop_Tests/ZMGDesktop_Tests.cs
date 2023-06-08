@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.LogikaZaRacune;
+using BusinessLogicLayer.PDF;
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
 using DataAccessLayer.Repositories;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -720,7 +722,7 @@ namespace ZMGDesktop_Tests
 
         //sbicak20
         [Fact]
-        public void RacunanjeUkupnog_ProsljedenoNulaStavkiUListi_IznosjeNula()
+        public void RacunanjeUkupnog_ProsljedenaNullStavka_IznosjeNula()
         {
             //arrange
             RacunanjeAPI racunanjeAPI = new RacunanjeAPI();
@@ -732,6 +734,8 @@ namespace ZMGDesktop_Tests
             //assert
             Assert.Equal(0, ukupno);
         }
+
+
 
         [Fact]
         public void RacunanjeUkupnog_IzdavanjeNovogRacuna_IspravnoRacunanjeIznosaStavki()

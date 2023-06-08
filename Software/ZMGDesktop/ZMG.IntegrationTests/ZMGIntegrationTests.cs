@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer.PDF;
+using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
 using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
@@ -22,6 +23,8 @@ namespace ZMG.IntegrationTests
         private RadniNalogService RadniNalogService;
         private RadnikServices RadnikServices;
         private RobaService RobaService;
+        private UslugaServices UslugaServices;
+        private PoslodavacServices PoslodavacServices;
 
         private void kreirajServis()
         {
@@ -29,6 +32,9 @@ namespace ZMG.IntegrationTests
             RadniNalogService = new RadniNalogService(new RadniNalogRepository());
             RadnikServices = new RadnikServices(new RadnikRepository());
             RobaService = new RobaService(new RobaRepository());
+            UslugaServices = new UslugaServices(new UslugaRepository());
+            PoslodavacServices = new PoslodavacServices(new PoslodavacRepository());
+
         }
 
         private Validacija kreirajValidator()
@@ -505,6 +511,55 @@ namespace ZMG.IntegrationTests
 
             //Assert
             Assert.True(uspjesno);
+        }
+
+        //sbicak20
+        [Fact]
+        public void SacuvajPDF_ProsljedenRacunIJednaStavkaUListi_GeneriraniPDF()
+        {
+            //arrage
+            kreirajServis();
+
+            var radnik = RadnikServices.DohvatiSveRadnike().FirstOrDefault(r => r.Radnik_ID == 24);
+            var poslodavac = PoslodavacServices.GetPoslodavac();
+            var klijent = _klijentServices.DohvatiKlijente().FirstOrDefault(k => k.Klijent_ID == 150);
+
+            List<StavkaRacun> lista = new List<StavkaRacun>
+            {
+                new StavkaRacun
+                {
+                    KolikoRobePoJedinici = 123,
+                    KolicinaRobe = 123,
+                    DatumIzrade = DateTime.Now,
+                    JedinicaMjere = "kg",
+                    JedinicnaCijena = 123,
+                    UkupnaCijenaStavke = 123,
+                    Usluga = UslugaServices.DohvatiUsluguPoNazivu("Cincanje"),
+                    Roba = RobaService.DohvatiSvuRobu().FirstOrDefault()
+                }
+            };
+            Racun racun = new Racun
+            {
+                Klijent = klijent,
+                Poslodavac = poslodavac,
+                Radnik = radnik,
+                Fakturirao = "asddasf",
+                Opis = "asddasf",
+                NacinPlacanja = "asddasf",
+                UkupnaCijena = 1.2,
+                PDV = 1.2,
+                UkupnoStavke = 3.4,
+                DatumIzdavanja = DateTime.Now,
+                StavkaRacun = lista,
+                RokPlacanja = "asddasf"
+            };
+
+
+            //act
+            int rezultat = GeneriranjePDF.SacuvajPDF(racun, lista);
+
+            //assert
+            Assert.Equal(1, rezultat);
         }
     }
 }

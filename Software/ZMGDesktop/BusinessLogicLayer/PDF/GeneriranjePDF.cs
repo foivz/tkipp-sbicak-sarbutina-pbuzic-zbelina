@@ -158,6 +158,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -181,6 +182,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -210,6 +212,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -393,7 +396,7 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Fakturirao", racun, "Radnik");
         }
 
-        public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
+        public static int SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
         {
             InitDokument();
             InitPrviDioRacun();
@@ -410,10 +413,12 @@ namespace BusinessLogicLayer.PDF
             try
             {
                 document.Save(nazivDatoteke);
+                return 1;
             }
             catch (System.IO.IOException)
             {
                 MessageBox.Show("Proces za PDF je zauzet! Pričekajte.", "Prioritet", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return 0;
             }
 
         }

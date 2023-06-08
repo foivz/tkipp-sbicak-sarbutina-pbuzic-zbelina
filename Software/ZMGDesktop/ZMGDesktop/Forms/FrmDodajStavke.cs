@@ -94,6 +94,7 @@ namespace ZMGDesktop
 
             StavkaRacun stavka = new StavkaRacun
             {
+
                 KolikoRobePoJedinici = kolikoRobe,
                 KolicinaRobe = kolicinaRobe,
                 DatumIzrade = dtpDatumIzrade.Value,
