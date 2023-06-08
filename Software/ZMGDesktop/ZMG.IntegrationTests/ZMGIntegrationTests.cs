@@ -25,6 +25,8 @@ namespace ZMG.IntegrationTests
         private RobaService RobaService;
         private UslugaServices UslugaServices;
         private PoslodavacServices PoslodavacServices;
+        private RacunService RacunService;
+        private StavkaRacunService StavkaRacunService;
 
         private void kreirajServis()
         {
@@ -34,6 +36,8 @@ namespace ZMG.IntegrationTests
             RobaService = new RobaService(new RobaRepository());
             UslugaServices = new UslugaServices(new UslugaRepository());
             PoslodavacServices = new PoslodavacServices(new PoslodavacRepository());
+            RacunService = new RacunService(new RacunRepository());
+            StavkaRacunService = new StavkaRacunService(new StavkaRepository());
 
         }
 
