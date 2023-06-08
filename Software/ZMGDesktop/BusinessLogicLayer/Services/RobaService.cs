@@ -11,9 +11,9 @@ namespace BusinessLogicLayer.Services
     public class RobaService
     {
         private readonly IRobaRepository robaRepository;
-        public RobaService(IRobaRepository RobaRepository)
+        public RobaService(IRobaRepository robaRepository)
         {
-            this.robaRepository = RobaRepository;
+            this.robaRepository = robaRepository;
         }
         public List<Roba> DohvatiRobuKlijenta(int klijentID)
         {

@@ -19,10 +19,16 @@ namespace ZMG.IntegrationTests
     public class ZMGIntegrationTests
     {
         private KlijentServices _klijentServices;
+        private RadniNalogService RadniNalogService;
+        private RadnikServices RadnikServices;
+        private RobaService RobaService;
 
         private void kreirajServis()
         {
             _klijentServices = new KlijentServices(new KlijentRepository());
+            RadniNalogService = new RadniNalogService(new RadniNalogRepository());
+            RadnikServices = new RadnikServices(new RadnikRepository());
+            RobaService = new RobaService(new RobaRepository());
         }
 
         private Validacija kreirajValidator()
@@ -64,7 +70,7 @@ namespace ZMG.IntegrationTests
             //Arrange
             kreirajServis();
             var klijenti = _klijentServices.DohvatiKlijente();
-            var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Adriatic");
+            var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Toni");
             int brojKlijenata = klijenti.Count;
 
             //Act
@@ -77,11 +83,6 @@ namespace ZMG.IntegrationTests
         }
 
         [Fact]
-
-        /*
-         Ovaj test nakon što se pokrene, potrebno je pokrenuti aplikaciju i obrisati klijenta "Toni". Ako se to neće napraviti i ako 
-        pokušamo ponovno pokrenuti test, on neće proći iz razloga jer taj klijent već postoji u bazi i ne možemo dodati dva ista klijenta.
-         */
         public void DodajKlijenta_IspunjeniSviPodaci_KlijentDodanUBazu()
         {
             //Arrange
@@ -249,13 +250,12 @@ namespace ZMG.IntegrationTests
             //Arrange
             kreirajServis();
             var racunServis = new RacunService(new RacunRepository());
-            var radniNalogServis = new RadniNalogService(new RadniNalogRepository());
             var klijenti = _klijentServices.DohvatiKlijente();
             var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Impuls");
 
             //Act
             int racuni = racunServis.DohvatiRacuneZaKlijenta(klijent).Count;
-            int radniNalozi = radniNalogServis.DohvatiRadneNalogeZaKlijenta(klijent).Count;
+            int radniNalozi = RadniNalogService.DohvatiRadneNalogeZaKlijenta(klijent).Count;
 
             //Assert
             Assert.True(racuni == 2 && radniNalozi == 1);
@@ -335,6 +335,176 @@ namespace ZMG.IntegrationTests
 
             //Assert
             Assert.Equal(red, 0);
+        }
+
+        // INTEGRACIJSKI TESTOVI RADNIH NALOGA
+        [Fact]
+        public void DohvatiSveRadneNaloge_PostojeRadniNaloziUBazi_RadniNaloziUspjenoPrikazani()
+        {
+            //Arrange
+            kreirajServis();
+
+            //Act
+            List<RadniNalog> radniNalozi = RadniNalogService.DohvatiRadneNaloge();
+
+            //Assert
+            Assert.NotNull(radniNalozi);
+            Assert.IsType<List<RadniNalog>>(radniNalozi);
+        }
+
+        [Fact]
+        public void DohvatiRadneNalogePoStatusima_PostojeRadniNaloziUBazi_RadniNaloziPoStatusimaUspjenoPrikazani()
+        {
+            //Arrange
+            kreirajServis();
+
+            //Act
+            List<RadniNalog> radniNalozi = RadniNalogService.DohvatiRadneNalogePoStatusima();
+
+            //Assert
+            Assert.NotNull(radniNalozi);
+            Assert.IsType<List<RadniNalog>>(radniNalozi);
+        }
+
+        [Fact]
+        public void Add_IspunjeniSviPodaci_UspješnoDodanRadniNalogUBazu()
+        {
+            //Arrange
+            kreirajServis();
+
+            List<Materijal> materijal = new List<Materijal>();
+            List<Roba> roba = new List<Roba>();
+
+            var klijenti = _klijentServices.DohvatiKlijente();
+            var klijent = klijenti.FirstOrDefault(k => k.Klijent_ID == 152);
+            var radnici = RadnikServices.DohvatiSveRadnike();
+            var radnik = radnici.FirstOrDefault(r => r.Radnik_ID == 26);
+
+            materijal.Add(new Materijal { Materijal_ID = 40, Naziv = "Celik", CijenaMaterijala = 20, JedinicaMjere = "ppm", Kolicina = 1, Opis = "Materijal integracijskih testova", OpasnoPoZivot = false, QR_kod = "E463XXDVTR0J94Y6LE6H" });
+            roba.Add(new Roba { Roba_ID = 181, Naziv = "Šipka e2", Kolicina = "5", Klijent_ID = 149 });
+
+            var radniNalog = new RadniNalog {
+                Kolicina = 15,
+                Opis = "Treba integracijski testirat",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "Napravljen",
+                Radnik_ID = radnik.Radnik_ID,
+                Klijent_ID = klijent.Klijent_ID,
+                Klijent = klijent,
+                Radnik = radnik,
+                Materijal = materijal,
+                Roba = roba
+            };
+
+            //Act
+            bool uspjesno = RadniNalogService.DodajRadniNalog(radniNalog);
+
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+        public void Add_IspunjeniSviPodaciOsimMaterijalaIRobe_BacanjeIznimke()
+        {
+            //Arrange
+            kreirajServis();
+
+            List<Materijal> materijal = new List<Materijal>();
+            List<Roba> roba = new List<Roba>();
+
+            var klijenti = _klijentServices.DohvatiKlijente();
+            var klijent = klijenti.FirstOrDefault(k => k.Klijent_ID == 152);
+            var radnici = RadnikServices.DohvatiSveRadnike();
+            var radnik = radnici.FirstOrDefault(r => r.Radnik_ID == 26);
+
+            var radniNalog = new RadniNalog {
+                Kolicina = 15,
+                Opis = "Treba integracijski testirat",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "Napravljen",
+                Radnik_ID = radnik.Radnik_ID,
+                Klijent_ID = klijent.Klijent_ID,
+                Klijent = klijent,
+                Radnik = radnik,
+                Materijal = materijal,
+                Roba = roba
+            };
+
+            //Act
+            Action act = () => RadniNalogService.DodajRadniNalog(radniNalog);
+
+            //Assert
+            Assert.Throws<MaterijalRobaException>(() => act());
+        }
+
+        [Fact]
+        public void Update_IspunjeniSviPodaci_UspješnoAžuriranRadniNalog()
+        {
+            //Arrange
+            kreirajServis();
+
+            List<Materijal> materijal = new List<Materijal>();
+            List<Roba> roba = new List<Roba>();
+
+            var klijenti = _klijentServices.DohvatiKlijente();
+            var klijent = klijenti.FirstOrDefault(k => k.Klijent_ID == 152);
+            var radnici = RadnikServices.DohvatiSveRadnike();
+            var radnik = radnici.FirstOrDefault(r => r.Radnik_ID == 26);
+
+            var azuriraniRadniNalog = new RadniNalog {
+                RadniNalog_ID = 2060,
+                Kolicina = 20,
+                Opis = "Stvarno treba integracijski testirat",
+                QR_kod = "NEK1QR123KOD12345678",
+                DatumStvaranja = DateTime.Now,
+                Status = "U obradi",
+                Radnik_ID = radnik.Radnik_ID,
+                Klijent_ID = klijent.Klijent_ID,
+                Klijent = klijent,
+                Radnik = radnik
+            };
+
+            //Act
+            bool uspjesno = RadniNalogService.AzurirajRadniNalog(azuriraniRadniNalog);
+
+            //Assert
+            Assert.True(uspjesno);
+        }
+
+        [Fact]
+        public void Remove_BrisanjeRadnogNaloga_UspješnoObrisanRadniNalog()
+        {
+            //Arrange
+            kreirajServis();
+            var radniNalozi = RadniNalogService.DohvatiRadneNaloge();
+            var radniNalog = radniNalozi.LastOrDefault();
+
+            //Act
+            RadniNalogService.ObrisiRadniNalog(radniNalog);
+
+            //Assert
+            Assert.Equal(radniNalog, radniNalozi.LastOrDefault());
+        }
+
+        // INTEGRACIJSKI TESTOVI ROBE
+        [Fact]
+        public void Add_IspunjeniSviPodaci_UspješnoDodanaRobaUBazu()
+        {
+            //Arrange
+            kreirajServis();
+            var roba = new Roba {
+                Naziv = "Testna roba",
+                Kolicina = "1",
+                Klijent_ID = 152
+            };
+
+            //Act
+            bool uspjesno = RobaService.Add(roba);
+
+            //Assert
+            Assert.True(uspjesno);
         }
     }
 }
