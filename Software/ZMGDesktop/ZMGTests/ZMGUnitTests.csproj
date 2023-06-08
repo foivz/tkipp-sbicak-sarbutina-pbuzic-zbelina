@@ -84,10 +84,6 @@
       <Project>{9493449f-748d-401d-bc03-898405ce2019}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
-      <Project>{df1307f3-7420-45a3-9c7d-50fe8172602b}</Project>
-      <Name>DataAccessLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{969baf40-7473-43b9-b39d-c0371c085d3f}</Project>
       <Name>EntitiesLayer</Name>
