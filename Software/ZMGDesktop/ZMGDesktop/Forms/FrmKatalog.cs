@@ -19,6 +19,7 @@ namespace ZMGDesktop
     {
         UslugaServices uslugaServis = new UslugaServices(new UslugaRepository());
         MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
+        RobaService robaService = new RobaService(new RobaRepository());
         public FrmKatalog()
         {
             InitializeComponent();
@@ -75,6 +76,15 @@ namespace ZMGDesktop
         {
             PrikaziMaterijale();
             PrikaziUsluge();
+            UcitajRobu();
+        }
+
+        private void UcitajRobu()
+        {
+            var roba = robaService.DohvatiSvuRobu();
+            dgvRoba.DataSource = roba;
+            dgvRoba.Columns[5].Visible = false;
+            dgvRoba.Columns[6].Visible = false;
         }
 
         private void PrikaziUsluge()
