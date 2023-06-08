@@ -1,7 +1,9 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer.LogikaZaRacune;
+using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
 using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
+using EntitiesLayer.GlobalniObjekti;
 using FakeItEasy;
 using System;
 using System.Collections.Generic;
@@ -714,6 +716,42 @@ namespace ZMGDesktop_Tests
 
             //Assert
             Assert.True(azuriraniRadniNalog);
+        }
+
+        //sbicak20
+        [Fact]
+        public void RacunanjeUkupnog_ProsljedenoNulaStavkiUListi_IznosjeNula()
+        {
+            //arrange
+            RacunanjeAPI racunanjeAPI = new RacunanjeAPI();
+            List<StavkaRacun> lista = null;
+
+            //act
+            var ukupno = racunanjeAPI.RacunanjeUkupnog(lista);
+
+            //assert
+            Assert.Equal(0, ukupno);
+        }
+
+        [Fact]
+        public void RacunanjeUkupnog_IzdavanjeNovogRacuna_IspravnoRacunanjeIznosaStavki()
+        {
+            RacunanjeAPI racunanje = new RacunanjeAPI();
+            List<StavkaRacun> lista = new List<StavkaRacun>();
+            StavkaRacun stavka = new StavkaRacun()
+            {
+                UkupnaCijenaStavke = 300
+            };
+            lista.Add(stavka);
+            StavkaRacun stavka2 = new StavkaRacun()
+            {
+                UkupnaCijenaStavke = 300
+            };
+            lista.Add(stavka2);
+
+            double ukupno = racunanje.RacunanjeUkupnog(lista);
+
+            Assert.True(ukupno == 600);
         }
 
         // TESOVI SERVISA ROBE

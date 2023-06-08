@@ -13,7 +13,11 @@ namespace BusinessLogicLayer.LogikaZaRacune
         public double RacunanjeUkupnog(List<StavkaRacun> stavke)
         {
             double ukupno = 0;
-
+            if (stavke == null)
+            {
+                return ukupno;
+            }
+      
             foreach(var st in stavke)
             {
                 ukupno += st.UkupnaCijenaStavke;
