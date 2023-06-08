@@ -24,7 +24,7 @@ namespace Email
             multipart = new Multipart();
         }
 
-        public static void DodajPrilog(string path)
+        public static int DodajPrilog(string path)
         {
             var attachment = new MimePart("image", "gif")
             {
@@ -34,18 +34,20 @@ namespace Email
                 FileName = Path.GetFileName(path)
             };
             multipart.Add(attachment);
+            return 1;
         }
 
-        public static void NapraviEmail(string from, string to, string subject, string text)
+        public static int NapraviEmail(string from, string to, string subject, string text)
         { 
             email.From.Add(MailboxAddress.Parse(from));
             email.To.Add(MailboxAddress.Parse(to));
             email.Subject = subject;
             var body = new TextPart(TextFormat.Html) { Text = $"<p>{text}<p>" };
             multipart.Add(body);
+            return 1;
         }
 
-        public static void Posalji()
+        public static int Posalji()
         {
             email.Body = multipart;
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
@@ -53,6 +55,7 @@ namespace Email
             smtp.Send(email);
             smtp.Disconnect(true);
             Reset();
+            return 1;
         }
     }
 }

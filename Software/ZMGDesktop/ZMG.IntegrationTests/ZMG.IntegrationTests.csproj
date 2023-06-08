@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Email\Email.csproj" />
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj" />
     <ProjectReference Include="..\ZMGDesktop\ZMGDesktop.csproj" />
   </ItemGroup>

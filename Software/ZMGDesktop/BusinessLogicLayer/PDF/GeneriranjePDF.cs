@@ -101,12 +101,6 @@ namespace BusinessLogicLayer.PDF
             y -= ls;
         }
 
-        private static void UkloniRazmakNaVisinu(double dodatak, bool specificniDodatak = false)
-        {
-            if (!specificniDodatak) y -= ls + dodatak;
-            else y -= dodatak;
-        }
-
         private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false)
         {
             if (!specificniDodatak) x += ls + dodatak;
@@ -126,11 +120,6 @@ namespace BusinessLogicLayer.PDF
         private static double GetNoviX(double dodatak)
         {
             return x + dodatak;
-        }
-
-        private static double GetNoviY(double dodatak)
-        {
-            return y + dodatak;
         }
 
         private static void CrtajBezRazmaka(string tekst)

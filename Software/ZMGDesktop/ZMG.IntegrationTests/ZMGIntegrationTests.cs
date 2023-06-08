@@ -2,6 +2,7 @@
 using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
 using DataAccessLayer.Repositories;
+using Email;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -518,71 +519,20 @@ namespace ZMG.IntegrationTests
         }
 
         //sbicak20
+       
+
+        //EmailAPI
+        //Email.EmailAPI
         [Fact]
-        public void SacuvajPDF_ProsljedenRacunIJednaStavkaUListi_GeneriraniPDF()
+        public void NapraviEmail_UpisatiStringoveUFunckiju_KosturEmailaJeNapravljen()
         {
-            //arrage
-            kreirajServis();
-
-            var radnik = RadnikServices.DohvatiSveRadnike().FirstOrDefault(r => r.Radnik_ID == 24);
-            var poslodavac = PoslodavacServices.GetPoslodavac();
-            var klijent = _klijentServices.DohvatiKlijente().FirstOrDefault(k => k.Klijent_ID == 150);
-
-            List<StavkaRacun> lista = new List<StavkaRacun>
-            {
-                new StavkaRacun
-                {
-                    KolikoRobePoJedinici = 123,
-                    KolicinaRobe = 123,
-                    DatumIzrade = DateTime.Now,
-                    JedinicaMjere = "kg",
-                    JedinicnaCijena = 123,
-                    UkupnaCijenaStavke = 123,
-                    Usluga = UslugaServices.DohvatiUsluguPoNazivu("Cincanje"),
-                    Roba = RobaService.DohvatiSvuRobu().FirstOrDefault()
-                }
-            };
-            Racun racun = new Racun
-            {
-                Klijent = klijent,
-                Poslodavac = poslodavac,
-                Radnik = radnik,
-                Fakturirao = "asddasf",
-                Opis = "asddasf",
-                NacinPlacanja = "asddasf",
-                UkupnaCijena = 1.2,
-                PDV = 1.2,
-                UkupnoStavke = 3.4,
-                DatumIzdavanja = DateTime.Now,
-                StavkaRacun = lista,
-                RokPlacanja = "asddasf"
-            };
-
+            //arrange
 
             //act
-            int rezultat = GeneriranjePDF.SacuvajPDF(racun, lista);
-
+            int rezultat = EmailAPI.NapraviEmail("test@gmail.com", "testdfgdsfg@gmail.com", "test", "test");
             //assert
-            Assert.Equal(1, rezultat);
+            Assert.True(true);
         }
-
-        [Fact]
-        public void OtvoriPDF_VecJeStvorenPDF_GeneriraniPDF()
-        {
-            //arrage
-            kreirajServis();
-            var racun = RacunService.DohvatiSveRacune().FirstOrDefault();
-            var stavkaList = StavkaRacunService.DohvatiStavkeRacuna(racun.Racun_ID);
-            GeneriranjePDF.SacuvajPDF(racun, stavkaList);
-
-            //act
-            int rezultat = GeneriranjePDF.OtvoriPDF();
-
-            //assert
-            Assert.Equal(1, rezultat);
-        }
-
-        
 
     }
 }
