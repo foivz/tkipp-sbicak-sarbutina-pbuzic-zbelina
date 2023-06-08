@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RobaRepository : Repository<Roba>
+    public class RobaRepository : Repository<Roba>, IRobaRepository
     {
         public RobaRepository() : base(new ZMGBaza())
         {
@@ -36,6 +36,12 @@ namespace DataAccessLayer.Repositories
             var query = from p in Entities
                         where p.Klijent_ID == id
                         select p.Naziv;
+            return query;
+        }
+        public IQueryable<Roba> DohvatiSvuRobu()
+        {
+            var query = from p in Entities
+                        select p;
             return query;
         }
 

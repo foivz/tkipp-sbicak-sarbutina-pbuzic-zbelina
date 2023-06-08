@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.Services;
 using DataAccessLayer.Iznimke;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,9 @@ namespace ZMGDesktop
 {
     public partial class FrmKatalog : Form
     {
-        UslugaServices uslugaServis = new UslugaServices();
-        MaterijalServices matServis = new MaterijalServices();
+        UslugaServices uslugaServis = new UslugaServices(new UslugaRepository());
+        MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
+        RobaService robaService = new RobaService(new RobaRepository());
         public FrmKatalog()
         {
             InitializeComponent();
@@ -74,6 +76,15 @@ namespace ZMGDesktop
         {
             PrikaziMaterijale();
             PrikaziUsluge();
+            UcitajRobu();
+        }
+
+        private void UcitajRobu()
+        {
+            var roba = robaService.DohvatiSvuRobu();
+            dgvRoba.DataSource = roba;
+            dgvRoba.Columns[5].Visible = false;
+            dgvRoba.Columns[6].Visible = false;
         }
 
         private void PrikaziUsluge()

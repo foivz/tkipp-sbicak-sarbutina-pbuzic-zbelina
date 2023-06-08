@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class StavkaRepository : Repository<StavkaRacun>
+    public class StavkaRepository : Repository<StavkaRacun>, IStavkaRepository
     {
         public StavkaRepository() : base(new ZMGBaza())
         {

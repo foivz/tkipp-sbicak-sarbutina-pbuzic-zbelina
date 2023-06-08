@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class RadnikRepository : Repository<Radnik>
+    public class RadnikRepository : Repository<Radnik>, IRadnikRepository
     {
         public RadnikRepository() : base(new ZMGBaza())
         {

@@ -10,11 +10,18 @@ namespace BusinessLogicLayer.Services
 {
     public class StavkaRacunService
     {
+
+        private readonly IStavkaRepository stavkaRepository;
+
+        public StavkaRacunService(IStavkaRepository _stavkaRepository)
+        {
+            this.stavkaRepository = _stavkaRepository;
+        }
         public List<StavkaRacun> DohvatiStavkeRacuna(int id)
         {
             using (var repo = new StavkaRepository())
             {
-                List<StavkaRacun> lista = repo.DohvatiStavkeZaRacun(id).ToList();
+                List<StavkaRacun> lista = stavkaRepository.DohvatiStavkeZaRacun(id).ToList();
                 return lista;
             }
         }
@@ -23,7 +30,7 @@ namespace BusinessLogicLayer.Services
         {
             using (var repo = new StavkaRepository())
             {
-                StavkaRacun stavka = repo.InitStavka(_stavka, roba, usluga);
+                StavkaRacun stavka = stavkaRepository.InitStavka(_stavka, roba, usluga);
                 return stavka;
             }
         }

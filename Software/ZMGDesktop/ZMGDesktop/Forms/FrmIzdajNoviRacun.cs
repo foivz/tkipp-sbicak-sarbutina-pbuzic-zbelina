@@ -35,7 +35,7 @@ namespace ZMGDesktop
             InitializeComponent();
             ucitajPomoc();
             klijentServis= new KlijentServices(new KlijentRepository());
-            poslodavacServis= new PoslodavacServices();
+            poslodavacServis = new PoslodavacServices(new PoslodavacRepository());
             racunanjeAPI= new RacunanjeAPI();
             racunServis= new RacunService(new RacunRepository());
 

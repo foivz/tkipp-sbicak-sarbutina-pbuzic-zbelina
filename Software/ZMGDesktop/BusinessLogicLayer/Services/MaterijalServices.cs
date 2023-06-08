@@ -10,11 +10,20 @@ namespace BusinessLogicLayer.Services
 {
     public class MaterijalServices
     {
+
+        private readonly IMaterijalRepository _materijalRepository;
+
+        public MaterijalServices(IMaterijalRepository materijalRepository)
+        {
+            this._materijalRepository = materijalRepository;
+        }
+
+
         public List<Materijal> DohvatiMaterijale()
         {
             using (var repo = new MaterijalRepository())
             {
-                var materijali = repo.GetAll().ToList();
+                var materijali = _materijalRepository.GetAll().ToList();
                 return materijali;
             }
         }
@@ -23,7 +32,7 @@ namespace BusinessLogicLayer.Services
         {
             using(var repo = new MaterijalRepository())
             {
-                var postoji = repo.ProvjeriQR(qrKod);
+                var postoji = _materijalRepository.ProvjeriQR(qrKod);
                 if (postoji) return true;
                 else return false;
             }
@@ -35,7 +44,7 @@ namespace BusinessLogicLayer.Services
 
             using (var repo = new MaterijalRepository())
             {
-                materijal = repo.Azuriraj(qrKod, kolicina);
+                materijal = _materijalRepository.Azuriraj(qrKod, kolicina);
             }
 
             return materijal;
@@ -47,7 +56,7 @@ namespace BusinessLogicLayer.Services
 
                 using (var repo = new MaterijalRepository())
                 {
-                    int redovi = repo.Remove(materijal);
+                    int redovi = _materijalRepository.Remove(materijal);
                     uspjeh = redovi > 0;
                 }
             
@@ -60,7 +69,7 @@ namespace BusinessLogicLayer.Services
             bool uspjeh = false;
             using (var repo = new MaterijalRepository())
             {
-                int affectedRows = repo.Add(materijal);
+                int affectedRows = _materijalRepository.Add(materijal);
                 uspjeh = affectedRows > 0;
             }
             return uspjeh;

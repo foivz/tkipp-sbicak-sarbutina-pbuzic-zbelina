@@ -79,7 +79,7 @@ namespace ZMG.IntegrationTests
         [Fact]
 
         /*
-         Ovaj test nakon što se pokrene, potrebno je pokrenuti aplikaciju i obrisati klijenta "Preis". Ako se to neće napraviti i ako 
+         Ovaj test nakon što se pokrene, potrebno je pokrenuti aplikaciju i obrisati klijenta "Toni". Ako se to neće napraviti i ako 
         pokušamo ponovno pokrenuti test, on neće proći iz razloga jer taj klijent već postoji u bazi i ne možemo dodati dva ista klijenta.
          */
         public void DodajKlijenta_IspunjeniSviPodaci_KlijentDodanUBazu()

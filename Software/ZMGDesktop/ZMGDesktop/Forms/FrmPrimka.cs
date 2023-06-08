@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using System.Windows.Media.Media3D;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-
+using DataAccessLayer.Repositories;
 
 namespace ZMGDesktop
 {
@@ -21,7 +21,7 @@ namespace ZMGDesktop
     {
         Materijal mat;
         int kol;
-        PrimkaServices primkaServis = new PrimkaServices();
+        PrimkaServices primkaServis = new PrimkaServices(new PrimkaRepository());
         public FrmPrimka(Materijal materijal, int kolicina)
         {
             mat = materijal;

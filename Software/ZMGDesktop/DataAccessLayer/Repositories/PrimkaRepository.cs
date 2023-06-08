@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class PrimkaRepository : Repository<Primka>
+    public class PrimkaRepository : Repository<Primka>, IPrimkaRepository
     {
         public PrimkaRepository() : base(new ZMGBaza())
         {

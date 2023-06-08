@@ -40,7 +40,7 @@ namespace ZMGDesktop
         List<Roba> robaZaRadniNalog = new List<Roba>();
 
         RadniNalogService servis = new RadniNalogService(new RadniNalogRepository());
-        RobaService robaServis = new RobaService();
+        RobaService robaServis = new RobaService(new RobaRepository());
 
         string QRKod = "";
         string status = "";
@@ -195,7 +195,7 @@ namespace ZMGDesktop
 
         private void UcitajMaterijale()
         {
-            MaterijalServices materijalServices = new MaterijalServices();
+            MaterijalServices materijalServices = new MaterijalServices(new MaterijalRepository());
             var materijali = materijalServices.DohvatiMaterijale();
             cmbMaterijali.DataSource = materijali;
         }

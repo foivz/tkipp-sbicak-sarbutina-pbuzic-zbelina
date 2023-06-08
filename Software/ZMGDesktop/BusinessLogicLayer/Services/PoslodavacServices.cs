@@ -11,6 +11,13 @@ namespace BusinessLogicLayer.Services
 {
     public class PoslodavacServices
     {
+
+        private readonly IPoslodavacRepository poslodavacRepository;
+
+        public PoslodavacServices(IPoslodavacRepository _poslodavacRepository)
+        {
+            this.poslodavacRepository = _poslodavacRepository;
+        }
         public Poslodavac GetPoslodavac()
         {
             int id = 1;
@@ -19,7 +26,7 @@ namespace BusinessLogicLayer.Services
 
             using (var repo = new PoslodavacRepository())
             {
-                lista = repo.DohvatiPoslodavca(id).ToList();
+                lista = poslodavacRepository.DohvatiPoslodavca(id).ToList();
             }
             poslodavac = lista.FirstOrDefault(p => p.Poslodavac_ID == id);
             return poslodavac;
