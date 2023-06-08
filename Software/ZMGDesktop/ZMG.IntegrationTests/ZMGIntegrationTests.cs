@@ -565,5 +565,24 @@ namespace ZMG.IntegrationTests
             //assert
             Assert.Equal(1, rezultat);
         }
+
+        [Fact]
+        public void OtvoriPDF_VecJeStvorenPDF_GeneriraniPDF()
+        {
+            //arrage
+            kreirajServis();
+            var racun = RacunService.DohvatiSveRacune().FirstOrDefault();
+            var stavkaList = StavkaRacunService.DohvatiStavkeRacuna(racun.Racun_ID);
+            GeneriranjePDF.SacuvajPDF(racun, stavkaList);
+
+            //act
+            int rezultat = GeneriranjePDF.OtvoriPDF();
+
+            //assert
+            Assert.Equal(1, rezultat);
+        }
+
+        
+
     }
 }

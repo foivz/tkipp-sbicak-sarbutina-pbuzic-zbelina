@@ -785,6 +785,21 @@ namespace ZMGDesktop_Tests
             Assert.True(ukupno == 5);
         }
 
+        //GeneriranjePDF
+        //BusinessLogicLayer.LogikaZaRacune.RacunanjeAPI
+        [Fact]
+        public void OtvoriPDF_NazivDatotekeJeNull_GeneriraniPDF()
+        {
+            //arrage
+            GeneriranjePDF.nazivDatoteke = null;
+
+            //act
+            int rezultat = GeneriranjePDF.OtvoriPDF();
+
+            //assert
+            Assert.Equal(0, rezultat);
+        }
+
 
         // TESOVI SERVISA ROBE
 

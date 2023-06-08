@@ -422,12 +422,14 @@ namespace BusinessLogicLayer.PDF
             }
 
         }
-        public static void OtvoriPDF()
+        public static int OtvoriPDF()
         {
             if (nazivDatoteke != null)
             {
                 Process.Start(nazivDatoteke);
+                return 1;
             }
+            return 0;
         }
     }
 }
