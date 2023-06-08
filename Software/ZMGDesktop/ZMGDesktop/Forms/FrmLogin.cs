@@ -16,6 +16,7 @@ namespace ZMGDesktop
     public partial class FrmLogin : Form
     {
         private RadnikServices servis = new RadnikServices();
+        int brojacNeuspjesnihPokusaja;
         public FrmLogin()
         {
             InitializeComponent();
@@ -30,6 +31,11 @@ namespace ZMGDesktop
 
         private async void Login(object sender, EventArgs e)
         {
+            if (brojacNeuspjesnihPokusaja >= 3) {
+                MessageBox.Show("Prijava na korisnički račun je blokirana. Molimo kontaktirajte administratora.");
+                return;
+            }
+
             var korime = txtKorIme.Text;
             var lozinka = txtLozinka.Text;
             Radnik radnik = new Radnik
@@ -39,13 +45,15 @@ namespace ZMGDesktop
             };
 
             Radnik provjereniRadnik = await servis.ProvjeriRadnikaAsync(radnik);
-            if (provjereniRadnik != null)
-            {
+            if (provjereniRadnik != null) {
+                brojacNeuspjesnihPokusaja = 0;
                 FrmPocetna pocetna = new FrmPocetna(provjereniRadnik);
                 pocetna.Show();
                 this.Hide();
+            } else {
+                brojacNeuspjesnihPokusaja++;
+                MessageBox.Show("Krivi podaci!");
             }
-            else MessageBox.Show("Krivi podaci!");
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {

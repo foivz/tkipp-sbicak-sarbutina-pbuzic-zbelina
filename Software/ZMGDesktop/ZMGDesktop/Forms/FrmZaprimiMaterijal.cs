@@ -53,17 +53,6 @@ namespace ZMGDesktop
 
             captureDevice = new VideoCaptureDevice(filterInfoCollection[cboDevice.SelectedIndex].MonikerString);
             captureDevice.NewFrame += CaptureDevice_NewFrame;
-
-            /*var barcodeWriter = new BarcodeWriter();
-            barcodeWriter.Format = BarcodeFormat.QR_CODE;
-            var result = barcodeWriter.Write("T5JNVEU7YEJ7ORLKYO0U");
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            string filePath = Path.Combine(desktopPath, "qrcode.png");
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                result.Save(stream, ImageFormat.Png);
-            }*/
         }
 
         private void btnKreni_Click(object sender, EventArgs e)
@@ -97,9 +86,10 @@ namespace ZMGDesktop
 
 
             var uspjeh = matServis.ProvjeriQR(skeniranQR);
-            if (!uspjeh) MessageBox.Show("Neuspješno skeniranje materijala");
-            else
-            {
+            if (!uspjeh) {
+                //MessageBox.Show("Neuspješno skeniranje materijala");
+            }
+            else {
                 provjereniQR = skeniranQR;
                 lblSkeniraj.Visible = false;
                 numKolicina.Visible = true;
@@ -125,7 +115,7 @@ namespace ZMGDesktop
                 primka.ShowDialog();
                 this.Close();
             }
-            else MessageBox.Show("Neuspješno zaprimljen materijal");
+            //else MessageBox.Show("Neuspješno zaprimljen materijal");
             
         }
 
