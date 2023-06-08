@@ -47,7 +47,8 @@ namespace BusinessLogicLayer.Services
 
         public List<Roba> DohvatiSvuRobu()
         {
-            return new List<Roba>();
+            var roba = robaRepository.DohvatiSvuRobu().ToList();
+            return roba;
         }
 
         public bool Add(Roba roba)

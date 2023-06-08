@@ -36,15 +36,18 @@
             this.btnNatrag = new System.Windows.Forms.Button();
             this.labelMaterijali = new System.Windows.Forms.Label();
             this.labelUsluge = new System.Windows.Forms.Label();
+            this.lblRoba = new System.Windows.Forms.Label();
+            this.dgvRoba = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterijali)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsluge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoba)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvMaterijali
             // 
             this.dgvMaterijali.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMaterijali.Location = new System.Drawing.Point(26, 20);
-            this.dgvMaterijali.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvMaterijali.Margin = new System.Windows.Forms.Padding(2);
             this.dgvMaterijali.Name = "dgvMaterijali";
             this.dgvMaterijali.RowHeadersWidth = 51;
             this.dgvMaterijali.RowTemplate.Height = 24;
@@ -55,7 +58,7 @@
             // 
             this.dgvUsluge.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsluge.Location = new System.Drawing.Point(26, 233);
-            this.dgvUsluge.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvUsluge.Margin = new System.Windows.Forms.Padding(2);
             this.dgvUsluge.Name = "dgvUsluge";
             this.dgvUsluge.RowHeadersWidth = 51;
             this.dgvUsluge.RowTemplate.Height = 24;
@@ -68,7 +71,7 @@
             this.btnDodaj.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnDodaj.ForeColor = System.Drawing.SystemColors.Control;
             this.btnDodaj.Location = new System.Drawing.Point(472, 28);
-            this.btnDodaj.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDodaj.Margin = new System.Windows.Forms.Padding(2);
             this.btnDodaj.Name = "btnDodaj";
             this.btnDodaj.Size = new System.Drawing.Size(109, 54);
             this.btnDodaj.TabIndex = 2;
@@ -82,7 +85,7 @@
             this.btnObrisi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnObrisi.ForeColor = System.Drawing.SystemColors.Control;
             this.btnObrisi.Location = new System.Drawing.Point(472, 97);
-            this.btnObrisi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnObrisi.Margin = new System.Windows.Forms.Padding(2);
             this.btnObrisi.Name = "btnObrisi";
             this.btnObrisi.Size = new System.Drawing.Size(109, 54);
             this.btnObrisi.TabIndex = 3;
@@ -96,7 +99,7 @@
             this.btnZaprimi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnZaprimi.ForeColor = System.Drawing.SystemColors.Control;
             this.btnZaprimi.Location = new System.Drawing.Point(472, 169);
-            this.btnZaprimi.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnZaprimi.Margin = new System.Windows.Forms.Padding(2);
             this.btnZaprimi.Name = "btnZaprimi";
             this.btnZaprimi.Size = new System.Drawing.Size(109, 54);
             this.btnZaprimi.TabIndex = 4;
@@ -109,8 +112,8 @@
             this.btnNatrag.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnNatrag.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnNatrag.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnNatrag.Location = new System.Drawing.Point(482, 310);
-            this.btnNatrag.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNatrag.Location = new System.Drawing.Point(493, 537);
+            this.btnNatrag.Margin = new System.Windows.Forms.Padding(2);
             this.btnNatrag.Name = "btnNatrag";
             this.btnNatrag.Size = new System.Drawing.Size(88, 37);
             this.btnNatrag.TabIndex = 5;
@@ -136,11 +139,33 @@
             this.labelUsluge.TabIndex = 7;
             this.labelUsluge.Text = "Usluge:";
             // 
+            // lblRoba
+            // 
+            this.lblRoba.AutoSize = true;
+            this.lblRoba.Location = new System.Drawing.Point(26, 368);
+            this.lblRoba.Name = "lblRoba";
+            this.lblRoba.Size = new System.Drawing.Size(36, 13);
+            this.lblRoba.TabIndex = 9;
+            this.lblRoba.Text = "Roba:";
+            // 
+            // dgvRoba
+            // 
+            this.dgvRoba.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRoba.Location = new System.Drawing.Point(26, 386);
+            this.dgvRoba.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvRoba.Name = "dgvRoba";
+            this.dgvRoba.RowHeadersWidth = 51;
+            this.dgvRoba.RowTemplate.Height = 24;
+            this.dgvRoba.Size = new System.Drawing.Size(419, 188);
+            this.dgvRoba.TabIndex = 8;
+            // 
             // FrmKatalog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(587, 580);
+            this.Controls.Add(this.lblRoba);
+            this.Controls.Add(this.dgvRoba);
             this.Controls.Add(this.labelUsluge);
             this.Controls.Add(this.labelMaterijali);
             this.Controls.Add(this.btnNatrag);
@@ -149,12 +174,13 @@
             this.Controls.Add(this.btnDodaj);
             this.Controls.Add(this.dgvUsluge);
             this.Controls.Add(this.dgvMaterijali);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmKatalog";
             this.Text = "FrmKatalog";
             this.Load += new System.EventHandler(this.FrmKatalog_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterijali)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsluge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoba)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,5 +196,7 @@
         private System.Windows.Forms.Button btnNatrag;
         private System.Windows.Forms.Label labelMaterijali;
         private System.Windows.Forms.Label labelUsluge;
+        private System.Windows.Forms.Label lblRoba;
+        private System.Windows.Forms.DataGridView dgvRoba;
     }
 }

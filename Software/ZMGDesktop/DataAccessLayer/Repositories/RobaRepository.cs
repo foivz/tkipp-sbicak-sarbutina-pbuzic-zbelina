@@ -38,6 +38,12 @@ namespace DataAccessLayer.Repositories
                         select p.Naziv;
             return query;
         }
+        public IQueryable<Roba> DohvatiSvuRobu()
+        {
+            var query = from p in Entities
+                        select p;
+            return query;
+        }
 
         public override int Add(Roba entity, bool saveChanges = true)
         {

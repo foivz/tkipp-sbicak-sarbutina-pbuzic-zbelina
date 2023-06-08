@@ -12,6 +12,7 @@ namespace DataAccessLayer.Repositories
         IQueryable<Roba> DohvatiRobuKlijenta(int klijentID);
         IQueryable<Roba> DohvatiRobuPoNazivu(string naziv);
         IQueryable<string> DohvatiRobuKlijentaDistinct(int id);
+        IQueryable<Roba> DohvatiSvuRobu();
         int Add(Roba entity, bool saveChanges = true);
         int Update(Roba entity, bool saveChanges = true);
 
