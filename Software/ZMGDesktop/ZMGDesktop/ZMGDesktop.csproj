@@ -370,6 +370,10 @@
       <Project>{9493449f-748d-401d-bc03-898405ce2019}</Project>
       <Name>BusinessLogicLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{DF1307F3-7420-45A3-9C7D-50FE8172602B}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Email\Email.csproj">
       <Project>{933F3363-D231-43AB-A2B2-8B8BB5F7583D}</Project>
       <Name>Email</Name>

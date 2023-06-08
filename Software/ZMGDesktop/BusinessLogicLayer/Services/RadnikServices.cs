@@ -22,19 +22,18 @@ namespace BusinessLogicLayer.Services
             using (var repo = new RadnikRepository())
             {
                 var radnik = await radnikRepository.DohvatiRadnikaAsync(prosljRadnik);
-            //using (var repo = new RadnikRepository())
-            //{
-                var radnik = await radnikRepository.DohvatiRadnikaAsync(prosljRadnik);
+                //using (var repo = new RadnikRepository())
+                //{
                 return radnik;
-            //}
+                //}
+            }
         }
-
         public List<Radnik> DohvatiSveRadnike()
         {
             //using (var repo = new RadnikRepository())
             //{
-                var radnici = radnikRepository.DohvatiSveRadnike().ToList();
-                return radnici;
+            var radnici = radnikRepository.DohvatiSveRadnike().ToList();
+            return radnici;
             //}
         }
     }
