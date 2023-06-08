@@ -735,5 +735,19 @@ namespace ZMGDesktop_Tests
             //Assert
             Assert.True(dodanaRoba);
         }
+
+        // TDD  - Test za funkcionalnost Pregled robe
+        [Fact]
+        public void DohvatiSvuRobu_RobaPostojiUBazi_DohvacenaRoba()
+        {
+            //Arrange
+            var robaService = new RobaService(new RobaRepository());
+
+            //Act
+            List<Roba> listaRobe = robaService.DohvatiSvuRobu();
+
+            //Assert
+            Assert.NotNull(listaRobe);
+        } 
     }
 }

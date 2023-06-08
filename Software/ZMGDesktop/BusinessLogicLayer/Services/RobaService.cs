@@ -45,6 +45,8 @@ namespace BusinessLogicLayer.Services
             //}
         }
 
+        
+
         public bool Add(Roba roba)
         {
             bool uspjesno = false;
