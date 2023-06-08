@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repositories
         IQueryable<Racun> DohvatiRacuneZaKlijenta(Klijent entity);
         IQueryable<Racun> DohvatiSveRacune();
         IQueryable<Racun> DohvatiOdredeniRacun(int id);
-        IQueryable<Racun> DohvatiPremaPretrazivanju(Klijent entity, int Radnik_ID, int pretrazivanje = 0, int _sortiranje = 0);
+        IQueryable<Racun> DohvatiPremaPretrazivanju(Klijent entity, int Radnik_ID, PretrazivanjeSortiranje SearchSort);
         int Update(Racun entity, bool saveChanges = true);
 
 

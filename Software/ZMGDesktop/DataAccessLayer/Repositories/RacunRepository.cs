@@ -9,7 +9,6 @@ namespace DataAccessLayer.Repositories
 {
     public class RacunRepository: Repository<Racun>, IRacunRepository
     {
-
         public RacunRepository(): base(new ZMGBaza())
         {
 
@@ -18,9 +17,7 @@ namespace DataAccessLayer.Repositories
         public override int Add(Racun entity, bool saveChanges = true)
         {
             var klijent = Context.Klijent.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
-            var poslodavac = Context.Poslodavac.SingleOrDefault(p => p.Poslodavac_ID == entity.Poslodavac_ID);
-            var radnik = Context.Radnik.SingleOrDefault(r => r.Radnik_ID == entity.Radnik_ID);
-
+           
             bool[] provjera = new bool[2];
             provjera[0] = false;
             provjera[1] = false;
@@ -56,32 +53,31 @@ namespace DataAccessLayer.Repositories
                 Context.Roba.Attach(stavka.Roba);
             }
 
-            var racun = new Racun
+            var racun = InitRacun(entity, klijent);
+            Entities.Add(racun);
+            klijent.ukupniBrojRacuna = klijent.Racun.Count;
+            return saveChanges ? SaveChanges() : 0;
+        }
+
+        private Racun InitRacun(Racun entity, Klijent klijent)
+        {
+            Racun racun = new Racun
             {
                 Klijent = klijent,
-                Poslodavac = poslodavac,
-                Radnik = radnik,
+                Poslodavac = Context.Poslodavac.SingleOrDefault(p => p.Poslodavac_ID == entity.Poslodavac_ID),
+                Radnik = Context.Radnik.SingleOrDefault(r => r.Radnik_ID == entity.Radnik_ID),
                 Fakturirao = entity.Fakturirao,
                 Opis = entity.Opis,
                 NacinPlacanja = entity.NacinPlacanja,
                 UkupnaCijena = entity.UkupnaCijena,
-                PDV= entity.PDV,
-                UkupnoStavke= entity.UkupnoStavke,
-                DatumIzdavanja= entity.DatumIzdavanja,
-                StavkaRacun= entity.StavkaRacun,
-                RokPlacanja= entity.RokPlacanja
+                PDV = entity.PDV,
+                UkupnoStavke = entity.UkupnoStavke,
+                DatumIzdavanja = entity.DatumIzdavanja,
+                StavkaRacun = entity.StavkaRacun,
+                RokPlacanja = entity.RokPlacanja
             };
 
-            Entities.Add(racun);
-            klijent.ukupniBrojRacuna = klijent.Racun.Count;
-            if (saveChanges)
-            {
-                return SaveChanges();
-            }
-            else
-            {
-                return 0;
-            }
+            return racun;
         }
 
         public IQueryable<Racun> DohvatiRacuneZaKlijenta(Klijent entity)
@@ -105,82 +101,33 @@ namespace DataAccessLayer.Repositories
         }
 
         //pretrazivanje
-        public IQueryable<Racun> DohvatiPremaPretrazivanju(Klijent entity, int Radnik_ID, int pretrazivanje = 0, int _sortiranje = 0)
+        public IQueryable<Racun> DohvatiPremaPretrazivanju(Klijent entity, int Radnik_ID, PretrazivanjeSortiranje SearchSort)
         {
-            IQueryable<Racun> query = null;
+            int pretrazivanje = SearchSort.DohvatiPretrazivanje();
+            int sortiranje = SearchSort.DohvatiSortiranje();
+
+            var query = Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
+                        .Where(r => r.Klijent_ID == entity.Klijent_ID);
+
             var klijent = Context.Klijent.SingleOrDefault(k => k.Klijent_ID == entity.Klijent_ID);
             // parametar pretrazivanje oznacava koji je radiobutton u toj grupi
 
             switch (pretrazivanje)
             {
                 case 0:
-                    if (_sortiranje == 1)
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.Racun_ID descending
-                                select r;
-                    }
-                    else {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.Racun_ID ascending
-                                select r;
-                    }
+                    query = sortiranje == 1 ? query.OrderByDescending(r => r.Racun_ID) : query.OrderBy(r => r.Racun_ID);
                     break;
-                // datum
                 case 1:
-                    if (_sortiranje == 1)
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.DatumIzdavanja descending
-                                select r;
-                    }
-                    else
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.DatumIzdavanja ascending
-                                select r;
-                    }
+                    query = sortiranje == 1 ? query.OrderByDescending(r => r.DatumIzdavanja) : query.OrderBy(r => r.DatumIzdavanja);
                     break;
-                // ukupno
                 case 2:
-                    if (_sortiranje == 1)
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.UkupnaCijena descending
-                                select r;
-                    }
-                    else
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID)
-                                orderby r.UkupnaCijena ascending
-                                select r;
-                    }
+                    query = sortiranje == 1 ? query.OrderByDescending(r => r.UkupnaCijena) : query.OrderBy(r => r.UkupnaCijena);
                     break;
-                // prema racunima radnika
                 case 3:
-                    if (_sortiranje == 1)
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
-                                orderby r.Radnik_ID descending
-                                select r;
-                    }
-                    else
-                    {
-                        query = from r in Entities.Include("Klijent").Include("Poslodavac").Include("Radnik")
-                                where (r.Klijent_ID == entity.Klijent_ID && r.Radnik_ID == Radnik_ID)
-                                orderby r.Radnik_ID ascending
-                                select r;
-                    }
+                    query = query.Where(r => r.Radnik_ID == Radnik_ID);
+                    query = sortiranje == 1 ? query.OrderByDescending(r => r.Racun_ID) : query.OrderBy(r => r.Racun_ID);
                     break;
             }
-
             return query;
         }
 

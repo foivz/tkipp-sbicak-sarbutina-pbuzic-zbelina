@@ -24,6 +24,7 @@ namespace ZMGDesktop
         Racun racun;
         Roba selektiranaRoba;
         Usluga selektiranaUsluga;
+        BindingList<StavkaRacun> bindingList = new BindingList<StavkaRacun>(GlobalListaStavki.stavkaRacunaList);
 
         //servisi
         UslugaServices uslugaServis;
@@ -38,7 +39,8 @@ namespace ZMGDesktop
             robaServis= new RobaService(new RobaRepository());
             stavkaServis= new StavkaRacunService(new StavkaRepository());
             klijent= _klijent;
-            racun= _racun;
+            racun = _racun;
+            Osvjezi();
         }
 
         private void ucitajPomoc()
@@ -56,11 +58,13 @@ namespace ZMGDesktop
             Osvjezi();
         }
 
+        
         private void Osvjezi()
         {
             this.Invalidate();
+            BindingSource source = new BindingSource(bindingList, null);
             dgvStavkeDodaj.DataSource = null;
-            dgvStavkeDodaj.DataSource = GlobalListaStavki.stavkaRacunaList;
+            dgvStavkeDodaj.DataSource = source;
             dgvStavkeDodaj.Columns[0].Visible = false;
             dgvStavkeDodaj.Columns[1].Visible = false;
             dgvStavkeDodaj.Columns[2].Visible = false;
@@ -79,7 +83,7 @@ namespace ZMGDesktop
             try
             {
                 kolikoRobe= int.Parse(txtKolikoRobePoJedinici.Text);
-                jedinicnaCijena = double.Parse(txtJedinicnaCijena.Text);
+                jedinicnaCijena = Math.Round(double.Parse(txtJedinicnaCijena.Text), 2);
                 kolicinaRobe = int.Parse(txtKolicina.Text);
 
             } catch(FormatException)
@@ -95,7 +99,7 @@ namespace ZMGDesktop
                 DatumIzrade = dtpDatumIzrade.Value,
                 JedinicaMjere = txtJedinicaMjere.Text,
                 JedinicnaCijena = jedinicnaCijena,
-                UkupnaCijenaStavke = Math.Round((double)(jedinicnaCijena * kolikoRobe), 2)
+                UkupnaCijenaStavke = Math.Round((jedinicnaCijena * kolikoRobe), 2)
 
             };
             stavka = stavkaServis.InitStavka(stavka, selektiranaRoba, selektiranaUsluga);
