@@ -45,7 +45,10 @@ namespace BusinessLogicLayer.Services
             //}
         }
 
-        
+        public List<Roba> DohvatiSvuRobu()
+        {
+            return new List<Roba>();
+        }
 
         public bool Add(Roba roba)
         {
