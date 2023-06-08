@@ -113,9 +113,5 @@ namespace ZMGDesktop {
                 System.Diagnostics.Process.Start(path);
             }
         }
-
-        private void txtNaziv_TextChanged(object sender, EventArgs e) {
-            
-        }
     }
 }
