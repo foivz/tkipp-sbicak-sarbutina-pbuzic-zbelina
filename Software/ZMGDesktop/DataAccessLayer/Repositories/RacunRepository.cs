@@ -1,6 +1,7 @@
 ﻿using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,12 +32,14 @@ namespace DataAccessLayer.Repositories
                 if (provjera[0] == false && stavka.Usluga.Naziv == "Cincanje")
                 {
                     provjera[0] = true;
+                    Context.Entry(stavka.Usluga).State = EntityState.Detached;
                     cincanje = Context.Usluga.Attach(stavka.Usluga);
                 }
 
                 if (provjera[1] == false && stavka.Usluga.Naziv == "Niklanje")
                 {
                     provjera[1] = true;
+                    Context.Entry(stavka.Usluga).State = EntityState.Detached;
                     niklanje = Context.Usluga.Attach(stavka.Usluga);
                 }
 
