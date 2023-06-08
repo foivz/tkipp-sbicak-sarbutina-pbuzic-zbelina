@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class MaterijalRepository : Repository<Materijal>
-    {
-        public MaterijalRepository() : base(new ZMGBaza())
-        {
+    public class MaterijalRepository : Repository<Materijal> {
+        public MaterijalRepository() : base(new ZMGBaza()) {
 
         }
 
-        private bool PostojiMaterijal(string naziv) {
+        public bool PostojiMaterijal(string naziv) {
             return Entities.Any(k => k.Naziv == naziv);
         }
 
@@ -25,21 +23,38 @@ namespace DataAccessLayer.Repositories
         }
 
         public Materijal Azuriraj(string qrKod, int kolicina) {
-            var postoji = Entities.SingleOrDefault(k => k.QR_kod == qrKod);
+            var postoji = PronadjiMaterijal(qrKod);
+
             if (postoji != null) {
                 postoji.Kolicina += kolicina;
                 SaveChanges();
             }
+
             return postoji;
         }
 
-        public override int Add(Materijal entity, bool saveChanges = true) {
-            string provjereniOpis = entity.Opis?.ToString() ?? " ";
-            bool opasno = entity.OpasnoPoZivot != null;
+        private Materijal PronadjiMaterijal(string qrKod) {
+            return Entities.SingleOrDefault(k => k.QR_kod == qrKod);
+        }
 
+        public override int Add(Materijal entity, bool saveChanges = true) {
             if (PostojiMaterijal(entity.Naziv)) {
                 throw new InvalidOperationException("Materijal već postoji");
             }
+
+            var materijal = MapirajMaterijal(entity);
+            Entities.Add(materijal);
+
+            if (saveChanges) {
+                return SaveChanges();
+            }
+
+            return 0;
+        }
+
+        private Materijal MapirajMaterijal(Materijal entity) {
+            string provjereniOpis = entity.Opis?.ToString() ?? " ";
+            bool opasno = entity.OpasnoPoZivot != null;
 
             var materijal = new Materijal {
                 Naziv = entity.Naziv,
@@ -51,29 +66,30 @@ namespace DataAccessLayer.Repositories
                 QR_kod = entity.QR_kod
             };
 
-            Entities.Add(materijal);
-            if (saveChanges) {
-                return SaveChanges();
-            }
-            return 0;
+            return materijal;
         }
 
         public override int Remove(Materijal entity, bool saveChanges = true) {
-            if (entity.RadniNalog.Count == 0 && entity.Primka == null && entity.Usluga == null) {
+            if (MozeSeBrisati(entity)) {
                 Entities.Remove(entity);
+
                 if (saveChanges) {
                     return SaveChanges();
                 }
+
                 return 0;
             }
+
             throw new BrisanjeMaterijalaException("Zabranjeno brisanje materijala koji se nalazi u radnom nalogu ili primci.");
         }
 
+        private bool MozeSeBrisati(Materijal entity) {
+            return entity.RadniNalog.Count == 0 && entity.Primka == null && entity.Usluga == null;
+        }
 
-
-        public override int Update(Materijal entity, bool saveChanges = true)
-        {
+        public override int Update(Materijal entity, bool saveChanges = true) {
             throw new NotImplementedException();
         }
     }
+
 }
