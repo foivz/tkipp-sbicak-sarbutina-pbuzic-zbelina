@@ -34,21 +34,26 @@ namespace DataAccessLayer.Repositories
             else return null;
         }
 
-        public override int Add(Materijal entity, bool saveChanges = true)
-        {
+        public override int Add(Materijal entity, bool saveChanges = true) {
             var primka = Context.Primka.SingleOrDefault(k => k.Primka_ID == entity.Primka_ID);
             var usluga = Context.Usluga.SingleOrDefault(k => k.Usluga_ID == entity.Usluga_ID);
-            
+
             string provjereniOpis;
-            if (entity.Opis == null)  provjereniOpis = " ";
-            else provjereniOpis = entity.Opis.ToString();
+            if (entity.Opis == null)
+                provjereniOpis = " ";
+            else
+                provjereniOpis = entity.Opis.ToString();
 
-                var postoji = Entities.SingleOrDefault(k => k.Naziv == entity.Naziv);
+            bool opasno;
+            if (entity.OpasnoPoZivot == null)
+                opasno = false;
+            else
+                opasno = true;
 
-            if (postoji == null)
-            {
-                var materijal = new Materijal
-                {
+            var postoji = Entities.SingleOrDefault(k => k.Naziv == entity.Naziv);
+
+            if (postoji == null) {
+                var materijal = new Materijal {
                     Naziv = entity.Naziv,
                     CijenaMaterijala = entity.CijenaMaterijala,
                     JedinicaMjere = entity.JedinicaMjere,
@@ -60,20 +65,17 @@ namespace DataAccessLayer.Repositories
                     Primka = primka
                 };
                 Entities.Add(materijal);
-                if (saveChanges)
-                {
+                if (saveChanges) {
                     return SaveChanges();
-                }
-                else
-                {
+                } else {
                     return 0;
                 }
-            }
-            else {
+            } else {
                 throw new Exception("Materijal već postoji");
             }
-
         }
+
+
 
         public override int Remove(Materijal entity, bool saveChanges = true)
         {

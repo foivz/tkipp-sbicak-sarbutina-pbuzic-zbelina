@@ -63,18 +63,8 @@ namespace ZMGDesktop
                 float cijena = (float)txtCijena.Value;
                 string opis = txtOpis.Text;
                 bool opasno = txtOpasno.Checked;
-                //string qr_kod = GenerirajQR(naziv, kolicina);
 
                 string qr_kod = GenerirajRandomString();
-
-                /*using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
-                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(qr_kod, QRCodeGenerator.ECCLevel.Q))
-                using (QRCode qrCode = new QRCode(qrCodeData))
-                {
-                    Bitmap qrCodeImage = qrCode.GetGraphic(4);
-                    picQR.Image = qrCodeImage;
-                }*/
-
 
 
 
@@ -93,18 +83,6 @@ namespace ZMGDesktop
             }
         }
 
-        /*private string GenerirajQR(string naziv, int kolicina)
-        {
-            string qrCodeData = $"{naziv}";
-
-            QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCode = qrGenerator.CreateQrCode(qrCodeData, QRCodeGenerator.ECCLevel.Q);
-            Base64QRCode qrCodeEncoded = new Base64QRCode(qrCode);
-            string qrCodeAsBase64 = qrCodeEncoded.GetGraphic(20);
-
-            return qrCodeAsBase64;
-
-        }*/
 
         string GenerirajRandomString()
         {
@@ -117,7 +95,7 @@ namespace ZMGDesktop
 
         private bool provjeriUnos()
         {
-            if (txtNaziv.Text == "" || txtCijena.Value == 0 || txtKolicina.Value == 0 || cmbMjernaJedinica.SelectedItem == null || !txtOpasno.Checked || txtOpis.Text == null)
+            if (txtNaziv.Text == "" || txtCijena.Value == 0 || txtKolicina.Value == 0 || cmbMjernaJedinica.SelectedItem == null || txtOpis.Text == null)
             {
                 MessageBox.Show("Potrebno je ispuniti sva polja", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
