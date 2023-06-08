@@ -452,9 +452,11 @@ namespace ZMG.IntegrationTests
             var klijent = klijenti.FirstOrDefault(k => k.Klijent_ID == 152);
             var radnici = RadnikServices.DohvatiSveRadnike();
             var radnik = radnici.FirstOrDefault(r => r.Radnik_ID == 26);
+            var radniNalozi = RadniNalogService.DohvatiRadneNaloge();
+            var radniNalog = radniNalozi.LastOrDefault();
 
             var azuriraniRadniNalog = new RadniNalog {
-                RadniNalog_ID = 2060,
+                RadniNalog_ID = radniNalog.RadniNalog_ID,
                 Kolicina = 20,
                 Opis = "Stvarno treba integracijski testirat",
                 QR_kod = "NEK1QR123KOD12345678",
