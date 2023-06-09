@@ -25,17 +25,17 @@ jobs:
         
       - name: Restore NuGet Packages
         run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln -SolutionDirectory Software/ZMGDesktop,
-        
-      - name: Navigate to solution folder
-        run: cd Software/ZMGDesktop
-        
+    
       - name: Build Solution
+        working-directory: Software/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release
         
       - name: Run Unit tests
+        working-directory: Software/ZMGDesktop
         run: dotnet test --configuration Release --filter ZMGDesktop_Tests.ZMGDesktop_Tests
         
       - name: Run Integration tests
+        working-directory: Software/ZMGDesktop
         run: dotnet test --configuration Release --filter ZMG.IntegrationTests.ZMGIntegrationTests
       
       - name: Navigate to startup project
