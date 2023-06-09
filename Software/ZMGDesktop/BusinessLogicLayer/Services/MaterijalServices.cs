@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BusinessLogicLayer.Services
 {
@@ -16,6 +17,11 @@ namespace BusinessLogicLayer.Services
         public MaterijalServices(IMaterijalRepository materijalRepository)
         {
             this._materijalRepository = materijalRepository;
+        }
+
+        public MaterijalServices()
+        {
+            
         }
 
 
@@ -64,16 +70,20 @@ namespace BusinessLogicLayer.Services
             return uspjeh;
         }
 
-        public bool dodajMaterijal(Materijal materijal)
-        {
+        public bool dodajMaterijal(Materijal materijal) {
             bool uspjeh = false;
-            using (var repo = new MaterijalRepository())
-            {
-                int affectedRows = _materijalRepository.Add(materijal);
-                uspjeh = affectedRows > 0;
+            using (var repo = new MaterijalRepository()) {
+                try {
+                    repo.Add(materijal);
+                    uspjeh = true;
+                } catch (InvalidOperationException ex) {
+                    MessageBox.Show("Greška prilikom dodavanja materijala: " + ex.Message);
+                }
             }
             return uspjeh;
         }
+
+
 
 
     }

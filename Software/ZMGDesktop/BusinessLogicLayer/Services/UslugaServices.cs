@@ -18,6 +18,12 @@ namespace BusinessLogicLayer.Services
         {
             this.uslugaRepository = _uslugaRepository;
         }
+
+        public UslugaServices()
+        {
+            
+        }
+
         public List<Usluga> DohvatiUsluge()
         {
             using (var repo = new UslugaRepository())

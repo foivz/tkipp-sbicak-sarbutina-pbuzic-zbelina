@@ -106,7 +106,6 @@
             this.txtNaziv.ReadOnly = true;
             this.txtNaziv.Size = new System.Drawing.Size(195, 26);
             this.txtNaziv.TabIndex = 4;
-            this.txtNaziv.TextChanged += new System.EventHandler(this.txtNaziv_TextChanged);
             // 
             // labelDatum
             // 
@@ -155,7 +154,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrmPrimka";
             this.Text = "FrmPrimka";
-            this.Load += new System.EventHandler(this.FrmPrimka_Load);
+            this.Load += new System.EventHandler(this.UcitajPrimku);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -10,31 +10,37 @@ namespace BusinessLogicLayer.Services
 {
     public class RadnikServices
     {
-
         private readonly IRadnikRepository radnikRepository;
 
-        public RadnikServices(IRadnikRepository _radnikRepository)
-        {
-            this.radnikRepository = _radnikRepository;
+        public RadnikServices(IRadnikRepository radnikRepository) {
+            this.radnikRepository = radnikRepository;
         }
-        public async Task<Radnik> ProvjeriRadnikaAsync(Radnik prosljRadnik)
+        public RadnikServices()
         {
-            using (var repo = new RadnikRepository())
-            {
-                var radnik = await radnikRepository.DohvatiRadnikaAsync(prosljRadnik);
-                //using (var repo = new RadnikRepository())
-                //{
+            
+        }
+        public async Task<Radnik> ProvjeriRadnikaAsync(string korime, string lozinka) {
+            //using (var repo = new RadnikRepository()) {
+                var radnik = await radnikRepository.DohvatiRadnikaAsync(korime, lozinka);
                 return radnik;
-                //}
-            }
+                
+            //}
         }
+        /*public Radnik ProvjeriRadnikaAsync(string korime, string lozinka) {
+            //using (var repo = new RadnikRepository()) {
+                var radnik =  radnikRepository.DohvatiRadnikaAsync(korime, lozinka); // await
+                return radnik;
+
+            //}
+        }*/
+
         public List<Radnik> DohvatiSveRadnike()
         {
-            //using (var repo = new RadnikRepository())
-            //{
-            var radnici = radnikRepository.DohvatiSveRadnike().ToList();
+            using (var repo = new RadnikRepository()) {
+            
+            var radnici = repo.DohvatiSveRadnike().ToList();
             return radnici;
-            //}
+            }
         }
     }
 }
