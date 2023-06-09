@@ -1,61 +1,60 @@
-name: ZMGDesktop Workflow - CI
+name: ZMGDesktop Workflow CI
 
 on:
   push:
     branches: [master]
   pull_request:
     branches: [master]
-    
+
 jobs:
   build:
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3.5.2
-        
+
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
-        
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
-      
+
       - name: Navigate to root folder
-        run: cd $GITHUB_WORKSPACE
-        
+        run: cd Software/ZMGDesktop/ZMGDesktop
+
       - name: Restore NuGet Packages
-        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln -SolutionDirectory Software/ZMGDesktop,
-    
+        working-directory: Software/ZMGDesktop
+        run: nuget restore ZMGDesktop.sln
+
       - name: Build Solution
         working-directory: Software/ZMGDesktop
-        run: msbuild /p:platform="Any CPU" /p:configuration=Release
-        
+        run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
+
       - name: Run Unit tests
-        working-directory: Software/ZMGDesktop
+        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
         run: dotnet test --configuration Release --filter ZMGDesktop_Tests.ZMGDesktop_Tests
-        
+
       - name: Run Integration tests
-        working-directory: Software/ZMGDesktop
+        working-directory: Software/ZMGDesktop/ZMG.IntegrationTests
         run: dotnet test --configuration Release --filter ZMG.IntegrationTests.ZMGIntegrationTests
-      
-      - name: Navigate to startup project
-        run: cd ZMGDesktop
-        
+
       - name: Publish applications
-        run: msbuild /t:publish /p:configuration=Release /p:PublishDir=publish/
-        
+        run: msbuild /t:publish /p:configuration=Release /p:PublishDir=publish/ Software/ZMGDesktop/ZMGDesktop.csproj
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3.1.2
         with:
           name: ZMGDesktopSetup
-          path: ZMGDesktop/publish/
-      
+          path: Software/ZMGDesktop/ZMGDesktop/publish/
+
       - name: Install SonarLint
         run: |
           dotnet tool install --global dotnet-sonarscanner
           dotnet sonarscanner begin /k:"ZMGDesktop" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-        
+
       - name: Build and Analyze with SonarLint
+        working-directory: Software/ZMGDesktop
         run: |
           msbuild /t:restore
           msbuild /t:build /t:sonarqube /p:Configuration=Release /p:Platform="Any CPU" /p:SonarQubeAnalysisConfigPath=sonar-project.properties
