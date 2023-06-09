@@ -30,6 +30,10 @@ jobs:
       - name: Restore NuGet Packages for ZMGDesktop_Tests
         working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
         run: nuget restore
+        
+      - name: Restore NuGet Packages for ZMGIntegration
+        working-directory: Software/ZMGDesktop/ZMG.IntegrationTests
+        run: nuget restore
 
       - name: Build Solution
         working-directory: Software/ZMGDesktop
