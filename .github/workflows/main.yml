@@ -21,29 +21,29 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
       
       - name: Navigate to root folder
-        run: cd $GITHUB_WORKSPACE
+        run: cd Software/ZMGDesktop
         
       - name: Restore NuGet Packages
-        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln -SolutionDirectory Software/ZMGDesktop
+        run: nuget restore
         
-      - name: Restore NuGet Packages
-        working-directory: Software/ZMGDesktop/ZMGDesktop
-        run: nuget restore -PackagesDirectory
+     # - name: Restore NuGet Packages
+     #   working-directory: Software/ZMGDesktop/ZMGDesktop
+     #   run: nuget restore -PackagesDirectory
     
       - name: Build Solution
-        working-directory: Software/ZMGDesktop
+       # working-directory: Software/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release
         
       - name: Run Unit tests
-        working-directory: Software/ZMGDesktop
+     #   working-directory: Software/ZMGDesktop
         run: dotnet test --configuration Release --filter ZMGDesktop_Tests.ZMGDesktop_Tests
         
       - name: Run Integration tests
-        working-directory: Software/ZMGDesktop
+      #  working-directory: Software/ZMGDesktop
         run: dotnet test --configuration Release --filter ZMG.IntegrationTests.ZMGIntegrationTests
       
-      - name: Navigate to startup project
-        run: cd ZMGDesktop
+   #   - name: Navigate to startup project
+   #     run: cd ZMGDesktop
         
       - name: Publish applications
         run: msbuild /t:publish /p:configuration=Release /p:PublishDir=publish/
