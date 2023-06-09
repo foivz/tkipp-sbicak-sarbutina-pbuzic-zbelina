@@ -24,7 +24,7 @@ jobs:
         run: cd $GITHUB_WORKSPACE
         
       - name: Restore NuGet Packages
-        run: nuget restore ZMGDesktop/ZMGDesktop.sln
+        run: nuget restore Software/ZMGDesktop/ZMGDesktop
         
       - name: Build Solution
         run: msbuild /p:platform="Any CPU" /p:configuration=Release
@@ -56,7 +56,3 @@ jobs:
         run: |
           msbuild /t:restore
           msbuild /t:build /t:sonarqube /p:Configuration=Release /p:Platform="Any CPU" /p:SonarQubeAnalysisConfigPath=sonar-project.properties
-
-
-        
-      
