@@ -1029,9 +1029,29 @@ namespace ZMGDesktop_Tests
             var rezultat = fakeServis.IzvozMaterijala();
 
                 // Assert
-           Assert.Equal(string.Empty, rezultat);
+           Assert.False(rezultat);
             
 
+        }
+
+        [Fact]
+        public void IzvozMaterijala_SaMaterijalima_IspravanCSV() {
+            var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala=46, JedinicaMjere= "kg", OpasnoPoZivot=false };
+            var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
+
+            var lista = new List<Materijal> { materijal1, materijal2, materijal3 };
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+
+            // Act
+            var rezultat = fakeServis.IzvozMaterijala();
+
+            // Assert
+            Assert.True(rezultat);
         }
 
     }

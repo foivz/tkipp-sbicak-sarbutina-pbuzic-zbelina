@@ -1,8 +1,12 @@
-﻿using DataAccessLayer.Repositories;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -74,8 +78,27 @@ namespace BusinessLogicLayer.Services
             return uspjeh;
         }
 
-        public string IzvozMaterijala() {
-            return string.Empty;
+        public bool IzvozMaterijala() {
+            var materijali = _materijalRepository.GetAll().ToList();
+
+            using (var saveFileDialog = new SaveFileDialog()) {
+                saveFileDialog.Filter = "CSV datoteke (*.csv)|*.csv";
+                saveFileDialog.Title = "Odaberi mjesto za pohranu CSV datoteke";
+                saveFileDialog.FileName = "Materijali.csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    var filePath = saveFileDialog.FileName;
+
+                    using (var writer = new StreamWriter(filePath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture))) {
+                        csv.WriteRecords(materijali);
+                    }
+
+                    MessageBox.Show("CSV datoteka je uspješno pohranjena.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                }
+            }
+            return false;
         }
 
 
