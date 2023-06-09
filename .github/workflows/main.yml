@@ -28,7 +28,7 @@ jobs:
         
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop/ZMGDesktop
-        run: nuget restore
+        run: nuget restore -PackagesDirectory
     
       - name: Build Solution
         working-directory: Software/ZMGDesktop
