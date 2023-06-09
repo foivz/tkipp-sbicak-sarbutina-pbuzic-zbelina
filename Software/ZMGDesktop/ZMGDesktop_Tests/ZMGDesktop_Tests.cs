@@ -736,18 +736,25 @@ namespace ZMGDesktop_Tests
             Assert.True(dodanaRoba);
         }
 
-        // TDD  - Test za funkcionalnost Pregled robe
         [Fact]
-        public void DohvatiSvuRobu_RobaPostojiUBazi_DohvacenaRoba()
+        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba()
         {
             //Arrange
-            var robaService = new RobaService(new RobaRepository());
+            var fakeRepo = A.Fake<IRobaRepository>();
+            var ocekivanaRoba = new List<Roba>{
+                new Roba { Naziv = "fakeRoba" },
+                new Roba { Naziv = "fakeRoba2" }
+            };
+
+            A.CallTo(() => fakeRepo.DohvatiRobuKlijenta(1)).Returns(ocekivanaRoba.AsQueryable());
+
+            var fakeServis = new RobaService(fakeRepo);
 
             //Act
-            List<Roba> listaRobe = robaService.DohvatiSvuRobu();
+            var vracenaRoba = fakeServis.DohvatiRobuKlijenta(1);
 
             //Assert
-            Assert.NotNull(listaRobe);
-        } 
+            Assert.Equal(ocekivanaRoba, vracenaRoba);
+        }
     }
 }
