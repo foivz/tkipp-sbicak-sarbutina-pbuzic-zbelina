@@ -27,7 +27,7 @@ namespace ZMGDesktop {
             var korime = txtKorIme.Text;
             var lozinka = txtLozinka.Text;
 
-            Radnik provjereniRadnik = await ProvjeriKorisnickePodatke(korime, lozinka);
+            Radnik provjereniRadnik = await ProvjeriKorisnickePodatke(korime, lozinka); // await
             if (provjereniRadnik != null) {
                 brojacNeuspjesnihPokusaja = 0;
                 PrikaziFrmPocetna(provjereniRadnik);
@@ -40,6 +40,10 @@ namespace ZMGDesktop {
         private async Task<Radnik> ProvjeriKorisnickePodatke(string korime, string lozinka) {
             return await servis.ProvjeriRadnikaAsync(korime, lozinka);
         }
+
+        /*private Radnik ProvjeriKorisnickePodatke(string korime, string lozinka) {
+            return  servis.ProvjeriRadnikaAsync(korime, lozinka); // await
+        }*/
 
         private void ProvjeriBrojNeuspjesnihPokusaja() {
             if (brojacNeuspjesnihPokusaja >= 3) {

@@ -3,6 +3,7 @@ using DataAccessLayer.Iznimke;
 using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using FakeItEasy;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -736,6 +737,49 @@ namespace ZMGDesktop_Tests
             Assert.True(dodanaRoba);
         }
 
+        [Fact]
+        public async Task Login_IspravniPodaci_VracaRadnika() {
+            // Arrange
+            var korime = "sarbutina20";
+            var lozinka = "12345";
+            var radnik = new Radnik{
+                Korime = korime,
+                Lozinka = lozinka
+            };
+
+            var fakeRepo = A.Fake<IRadnikRepository>();
+            A.CallTo(() => fakeRepo.DohvatiRadnikaAsync(korime, lozinka)).Returns(Task.FromResult(radnik));
+
+            // Act
+            var fakeServis = new RadnikServices(fakeRepo);
+            var provjereniRadnik = await fakeServis.ProvjeriRadnikaAsync(korime, lozinka);
+
+            // Assert
+            Assert.Equal(provjereniRadnik, radnik);
+            
+        }
+
+        [Fact]
+        public async Task Login_NeispravniPodaci_VracaNull() {
+            // Arrange
+            var korime = "sarbutina";
+            var lozinka = "123";
+            Radnik radnik = null;
+
+            var fakeRepo = A.Fake<IRadnikRepository>();
+            A.CallTo(() => fakeRepo.DohvatiRadnikaAsync(korime, lozinka)).Returns(Task.FromResult(radnik));
+
+            // Act
+            var fakeServis = new RadnikServices(fakeRepo);
+            var provjereniRadnik = await fakeServis.ProvjeriRadnikaAsync(korime, lozinka);
+
+            // Assert
+            Assert.Null(provjereniRadnik);
+        }
+
+
+
+
         // TDD  - Test za funkcionalnost Pregled robe
         [Fact]
         public void DohvatiSvuRobu_RobaPostojiUBazi_DohvacenaRoba()
@@ -748,6 +792,8 @@ namespace ZMGDesktop_Tests
 
             //Assert
             Assert.NotNull(listaRobe);
-        } 
+        }
+
+
     }
 }
