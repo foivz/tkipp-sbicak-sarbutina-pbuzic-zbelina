@@ -26,6 +26,10 @@ jobs:
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
         run: nuget restore ZMGDesktop.sln
+        
+      - name: Restore NuGet Packages for ZMGDesktop_Tests
+        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
+        run: nuget restore
 
       - name: Build Solution
         working-directory: Software/ZMGDesktop
