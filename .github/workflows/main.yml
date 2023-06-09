@@ -26,10 +26,15 @@ jobs:
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
         run: nuget restore
-
-      - name: Build Solution
+        
+      - name: Build Solution with dotnet
         working-directory: Software/ZMGDesktop
-        run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
+        run: dotnet build --configuration Release ZMGDesktop.sln
+
+
+   #   - name: Build Solution
+   #     working-directory: Software/ZMGDesktop
+   #     run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
 
       - name: Run Unit tests
         working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
