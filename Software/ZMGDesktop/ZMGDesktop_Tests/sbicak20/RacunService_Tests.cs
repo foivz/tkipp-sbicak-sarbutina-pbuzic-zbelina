@@ -81,7 +81,7 @@ namespace ZMGDesktop_Tests.sbicak20
         }
 
         [Fact]
-        public void DohvatiZadnjiRacun_DohvatitiZadnjiRacun_DohvacenZadnjiRacun()
+        public void DohvatiZadnjiRacun_PostojiNekolikoRacunaUBazi_DohvacenZadnjiRacun()
         {
             //arrange
             var fakeRepo = A.Fake<IRacunRepository>();
