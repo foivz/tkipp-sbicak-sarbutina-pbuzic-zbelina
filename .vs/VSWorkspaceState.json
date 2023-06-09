@@ -3,8 +3,13 @@
     "",
     "\\Software",
     "\\Software\\ZMGDesktop",
-    "\\Software\\ZMGDesktop\\Email"
+    "\\Software\\ZMGDesktop\\BusinessLogicLayer",
+    "\\Software\\ZMGDesktop\\BusinessLogicLayer\\LogikaZaRacune",
+    "\\Software\\ZMGDesktop\\Email",
+    "\\Software\\ZMGDesktop\\ZMGDesktop_Tests",
+    "\\Software\\ZMGDesktop\\ZMGDesktop_Tests\\sbicak20",
+    "\\Software\\ZMGDesktop\\ZMGTests"
   ],
-  "SelectedNode": "\\Software\\ZMGDesktop\\Email\\EmailAPI.cs",
+  "SelectedNode": "\\Software\\ZMGDesktop\\ZMGDesktop_Tests\\sbicak20\\EmailAPI_Tests.cs",
   "PreviewInSolutionExplorer": false
 }

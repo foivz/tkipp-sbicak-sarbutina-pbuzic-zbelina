@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZMGDesktop_Tests.sbicak20
 {
-    internal class EmailAPI_Tests
+    public class EmailAPI_Tests
     {
+
     }
 }

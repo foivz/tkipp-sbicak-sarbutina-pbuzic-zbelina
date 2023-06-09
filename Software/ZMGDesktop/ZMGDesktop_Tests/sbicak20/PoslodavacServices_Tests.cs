@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZMG.IntegrationTests.sbicak20_Integration
+namespace ZMGDesktop_Tests.sbicak20
 {
-    internal class EmailAPI_Integration
+    public class PoslodavacServices_Tests
     {
+
     }
 }
