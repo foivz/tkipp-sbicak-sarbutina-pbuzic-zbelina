@@ -14,6 +14,11 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        public override IQueryable<Primka> GetAll() {
+            return base.GetAll();   
+        }
+
+
         public override int Add(Primka entity, bool saveChanges = true) {
             CheckIfPrimkaExists(entity);
 

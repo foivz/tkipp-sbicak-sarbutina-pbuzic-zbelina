@@ -22,8 +22,7 @@ namespace BusinessLogicLayer.Services
 
         public List<Materijal> DohvatiMaterijale()
         {
-            
-            
+
                 var materijali = _materijalRepository.GetAll().ToList();
                 return materijali;
             

@@ -22,6 +22,9 @@ namespace ZMG.IntegrationTests
         private RadniNalogService RadniNalogService;
         private RadnikServices RadnikServices;
         private RobaService RobaService;
+        private PrimkaServices PrimkaService;
+        private MaterijalServices MaterijalService;
+        private UslugaServices UslugaService;
 
         private void kreirajServis()
         {
@@ -29,6 +32,9 @@ namespace ZMG.IntegrationTests
             RadniNalogService = new RadniNalogService(new RadniNalogRepository());
             RadnikServices = new RadnikServices(new RadnikRepository());
             RobaService = new RobaService(new RobaRepository());
+            PrimkaService = new PrimkaServices(new PrimkaRepository());
+            MaterijalService = new MaterijalServices(new MaterijalRepository());
+            UslugaService = new UslugaServices(new UslugaRepository());
         }
 
         private Validacija kreirajValidator()
@@ -537,5 +543,346 @@ namespace ZMG.IntegrationTests
             //Assert
             Assert.NotNull(listaRobe);
         }
+
+
+        // TESTOVI ZA SERVIS I REPOZITORIJ RADNIKA
+        [Fact]
+        public async Task ProvjeriRadnikaAsync_IspravniPodaci_VracaRadnika() {
+            //Arrange
+            kreirajServis();
+            var radnici = RadnikServices.DohvatiSveRadnike();
+            var radnik = radnici.FirstOrDefault(k => k.Korime == "sarbutina20");
+
+            string korime = radnik.Korime;
+            string lozinka = "12345"; // MORAO SAM JER BI INAČE MORAO ODHASHIRATI LOZINKU ŠTO JE LOŠIJA OPCIJA OD OVOGA
+            //Act
+            Radnik provjereniRadnik = await RadnikServices.ProvjeriRadnikaAsync(korime, lozinka);
+
+            //Assert
+            Assert.Equal(radnik, provjereniRadnik);
+            
+        }
+
+        [Fact]
+        public async Task ProvjeriRadnikaAsync_NeispravniPodaci_VracaNull() {
+            //Arrange
+            kreirajServis();
+            
+            //Act
+            Radnik provjereniRadnik = await RadnikServices.ProvjeriRadnikaAsync("", "");
+
+            //Assert
+            Assert.Null(provjereniRadnik);
+
+        }
+
+        // TESTOVI ZA SERVIS I REPOZITORIJ MATERIJALA
+        public void DohvatiMaterijale_IspravnoPozvanaMetoda_VracaListuMaterijala() {
+            // Arrange
+            kreirajServis();
+
+            // Act
+            List<Materijal> materijali = MaterijalService.DohvatiMaterijale();
+
+
+            // Assert
+            Assert.NotNull(materijali);
+        }
+
+
+        [Fact]
+        public void ProvjeriQR_IspravanQRKod_VracaTrue() {
+            // Arrange
+            kreirajServis();
+
+            var materijali = MaterijalService.DohvatiMaterijale();
+            var materijal = materijali.FirstOrDefault(k => k.Naziv == "Celik");
+
+
+            // Act
+            var rezultat = MaterijalService.ProvjeriQR(materijal.QR_kod);
+
+            // Assert
+            Assert.True(rezultat);
+        }
+
+        [Fact]
+        public void ProvjeriQR_NeispravanQRKod_VracaFalse() {
+            // Arrange
+            kreirajServis();
+
+
+            // Act
+            var rezultat = MaterijalService.ProvjeriQR(null);
+
+            // Assert
+            Assert.False(rezultat);
+        }
+
+        [Fact]
+        public void AzurirajMaterijal_IspravanQRiKolicina_VracaMaterijal() {
+            // Arrange
+            kreirajServis();
+
+            var materijali = MaterijalService.DohvatiMaterijale();
+            var materijal = materijali.FirstOrDefault(k => k.Naziv == "Celik");
+
+            // Act
+            var rezultat = MaterijalService.AzurirajMaterijal(materijal.QR_kod, materijal.Kolicina);
+
+            // Assert
+            Assert.Equal(materijal, rezultat);
+        }
+
+        [Fact]
+        public void ObrisiMaterijal_IspravanMaterijal_VracaTrue() {
+            // Arrange
+            kreirajServis();
+            var materijali = MaterijalService.DohvatiMaterijale();
+            var materijal = materijali.FirstOrDefault(k => k.QR_kod == "AR33EDGHUDDW2SVESA22RF");
+
+            // Act
+            var rezultat = MaterijalService.ObrisiMaterijal(materijal);
+
+            // Assert
+            Assert.True(rezultat);
+        }
+
+        [Fact]
+        public void ObrisiMaterijal_PostojeciMaterijal_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            var materijali = MaterijalService.DohvatiMaterijale();
+            var materijal = materijali.FirstOrDefault(k => k.Naziv == "Celik");
+
+            //Act
+            Action act = () => MaterijalService.ObrisiMaterijal(materijal);
+
+            // Assert
+            Assert.Throws<BrisanjeMaterijalaException>(() => act());
+        }
+
+
+
+        [Fact]
+        public void DodajMaterijal_IspravanMaterijal_VracaTrue() {
+            // Arrange
+            kreirajServis();
+            Materijal materijal = new Materijal {
+                Naziv = "Testni materijal",
+                Kolicina = 156,
+                QR_kod = "AR33EDGHUDDW2SVESA22RF",
+                Opis = " ",
+                OpasnoPoZivot = false,
+                CijenaMaterijala = 157.4,
+                JedinicaMjere = "kg"
+            };
+
+            // Act
+            var rezultat = MaterijalService.DodajMaterijal(materijal);
+
+            // Assert
+            Assert.True(rezultat);
+        }
+
+        [Fact]
+        public void Add_IspravanMaterijal_SaveChangesJeFalse() {
+            // Arrange
+            kreirajServis();
+            Materijal materijal = new Materijal {
+                Naziv = "Testni materijal 2",
+                Kolicina = 124,
+                QR_kod = "AR33EDGHUAAVV2SVESA11RF",
+                Opis = " ",
+                OpasnoPoZivot = false,
+                CijenaMaterijala = 157.4,
+                JedinicaMjere = "kg"
+            };
+
+            MaterijalRepository repo = new MaterijalRepository();
+            // Act
+            var rezultat = repo.Add(materijal, false);
+
+            // Assert
+            Assert.Equivalent(rezultat, 0);
+        }
+        /*
+        [Fact]
+        public void Remove_IspravanMaterijal_SaveChangesJeFalse() {
+            // Arrange
+            kreirajServis();
+            var materijali = MaterijalService.DohvatiMaterijale();
+            var materijal = materijali.FirstOrDefault(k => k.Naziv == "Testni materijal 2");
+
+            MaterijalRepository repo = new MaterijalRepository();
+            // Act
+            var rezultat = repo.Remove(materijal, false);
+
+            // Assert
+            Assert.Equivalent(rezultat, 0);
+        }*/
+
+        [Fact]
+        public void DodajMaterijal_NeispravanMaterijal_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            Materijal materijal = new Materijal {
+                Naziv = "Celik"
+            };
+
+            //Act
+            Action act = () => MaterijalService.DodajMaterijal(materijal);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => act());
+        }
+
+
+
+        // TESTOVI ZA SERVIS I REPOZITORIJ USLUGA
+        [Fact]
+        public void DohvatiUsluge_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            kreirajServis();
+
+
+            // Act
+            var rezultat = UslugaService.DohvatiUsluge();
+
+            // Assert
+            Assert.NotNull(rezultat);
+        }
+
+        [Fact]
+        public void DohvatiUslugeDistinct_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            kreirajServis();
+
+            var rezultat = UslugaService.DohvatiUslugeDistinct();
+
+            // Assert
+            Assert.NotNull(rezultat);
+        }
+
+        [Fact]
+        public void DohvatiUsluguPoNazivu_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            kreirajServis();
+
+            string naziv = "Cincanje";
+
+            var rezultat = UslugaService.DohvatiUsluguPoNazivu(naziv);
+
+            // Assert
+            Assert.NotNull(rezultat);
+        }
+
+
+
+
+        // TESTOVI ZA SERVIS I REPOZITORIJ PRIMKE
+        [Fact]
+        public void DodajPrimku_IspravnaPrimka_VracaTrue() {
+            // Arrange
+            kreirajServis();
+            Primka primka = new Primka {
+                Naziv_Materijal = "Celik",
+                Kolicina = 146,
+                Datum = DateTime.Now
+            };
+
+            var rezultat = PrimkaService.DodajPrimku(primka);
+
+            // Assert
+            Assert.True(rezultat);
+        }
+
+        [Fact]
+        public void Add_ProsljedenSaveChangesFalse_VracaFalse() {
+            // Arrange
+            kreirajServis();
+            Primka primka = new Primka {
+                Naziv_Materijal = "Celik",
+                Kolicina = 146,
+                Datum = DateTime.Now
+            };
+
+            PrimkaRepository repo = new PrimkaRepository();
+            var rezultat = repo.Add(primka, false);
+
+
+            // Assert
+            Assert.Equivalent(rezultat, 0);
+        }
+
+        [Fact]
+        public void Add_PostojecaPrimka_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            PrimkaRepository repo = new PrimkaRepository();
+            var primke = repo.GetAll().ToList();
+            var primka = primke.LastOrDefault();
+
+            Action act = () => repo.Add(primka, false);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => act());
+        }
+
+
+
+        // NEOSTAVARENE METODE
+
+        [Fact]
+        public void PrimkaUpdate_PravilnoPozvano_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            PrimkaRepository repo = new PrimkaRepository();
+            Primka primka = new Primka();
+            Action act = () => repo.Update(primka, false);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(() => act());
+        }
+
+        [Fact]
+        public void RadnikUpdate_PravilnoPozvano_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            Radnik radnik = new Radnik();
+            RadnikRepository repo = new RadnikRepository();
+
+            Action act = () => repo.Update(radnik, false);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(() => act());
+        }
+
+        [Fact]
+        public void MaterijalUpdate_PravilnoPozvano_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            Materijal materijal = new Materijal();
+            MaterijalRepository repo = new MaterijalRepository();
+
+            Action act = () => repo.Update(materijal, false);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(() => act());
+        }
+
+        [Fact]
+        public void UslugaUpdate_PravilnoPozvano_VracaIznimku() {
+            // Arrange
+            kreirajServis();
+            Usluga usluga = new Usluga();
+            UslugaRepository repo = new UslugaRepository();
+
+            Action act = () => repo.Update(usluga, false);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(() => act());
+        }
+
     }
 }
