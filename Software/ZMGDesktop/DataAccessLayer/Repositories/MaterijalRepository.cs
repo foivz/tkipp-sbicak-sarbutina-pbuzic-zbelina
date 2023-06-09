@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories
 {
-    public class MaterijalRepository : Repository<Materijal> {
+    public class MaterijalRepository : Repository<Materijal>, IMaterijalRepository {
         public MaterijalRepository() : base(new ZMGBaza()) {
 
         }

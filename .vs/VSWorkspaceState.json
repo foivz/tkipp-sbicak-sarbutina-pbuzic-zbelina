@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Software",
-    "\\Software\\ZMGDesktop",
-    "\\Software\\ZMGDesktop\\Email"
+    ""
   ],
-  "SelectedNode": "\\ZMGDesktop.sln",
+  "SelectedNode": "\\ZMGDesktopTests.sln",
   "PreviewInSolutionExplorer": false
 }

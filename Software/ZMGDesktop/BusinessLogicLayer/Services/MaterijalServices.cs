@@ -19,6 +19,11 @@ namespace BusinessLogicLayer.Services
             this._materijalRepository = materijalRepository;
         }
 
+        public MaterijalServices()
+        {
+            
+        }
+
 
         public List<Materijal> DohvatiMaterijale()
         {

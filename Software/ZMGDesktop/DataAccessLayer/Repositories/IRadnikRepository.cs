@@ -9,7 +9,7 @@ namespace DataAccessLayer.Repositories
 {
     public interface IRadnikRepository
     {
-        Task<Radnik> DohvatiRadnikaAsync(Radnik entity);
+        Task<Radnik> DohvatiRadnikaAsync(string korime, string lozinka);
         IQueryable<Radnik> DohvatiSveRadnike();
         int Update(Radnik entity, bool saveChanges = true);
     }

@@ -16,6 +16,12 @@ namespace BusinessLogicLayer.Services
         {
             this.primkaRepository = _primkaRepository;
         }
+
+        public PrimkaServices()
+        {
+            
+        }
+
         public bool dodajPrimku(Primka primka)
         {
             bool uspjeh = false;
