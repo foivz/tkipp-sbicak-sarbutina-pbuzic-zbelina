@@ -6,10 +6,11 @@ using System.IO;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using ZXing;
+using DataAccessLayer.Repositories;
 
 namespace ZMGDesktop {
     public partial class FrmZaprimiMaterijal : Form {
-        private readonly MaterijalServices matServis = new MaterijalServices();
+        private readonly MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
         private string provjereniQR;
         private FilterInfoCollection filterInfoCollection;
         private VideoCaptureDevice captureDevice = null;

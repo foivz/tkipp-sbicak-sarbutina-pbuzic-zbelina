@@ -17,19 +17,14 @@ namespace BusinessLogicLayer.Services
             this.primkaRepository = _primkaRepository;
         }
 
-        public PrimkaServices()
-        {
-            
-        }
-
-        public bool dodajPrimku(Primka primka)
+        public bool DodajPrimku(Primka primka)
         {
             bool uspjeh = false;
-            using (var repo = new PrimkaRepository())
-            {
+            
+            
                 int affectedRows = primkaRepository.Add(primka);
                 uspjeh = affectedRows > 0;
-            }
+            
             return uspjeh;
         }
     }

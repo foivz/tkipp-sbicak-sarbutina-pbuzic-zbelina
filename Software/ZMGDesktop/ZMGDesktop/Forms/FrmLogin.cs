@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ZMGDesktop {
     public partial class FrmLogin : Form {
-        private RadnikServices servis = new RadnikServices();
+        private RadnikServices servis = new RadnikServices(new RadnikRepository());
         private int brojacNeuspjesnihPokusaja;
 
         public FrmLogin() {
@@ -22,12 +22,13 @@ namespace ZMGDesktop {
         }
 
         private async void Login(object sender, EventArgs e) {
-            ProvjeriBrojNeuspjesnihPokusaja();
+            bool uspjehProvjere = ProvjeriBrojNeuspjesnihPokusaja(brojacNeuspjesnihPokusaja);
+            if (uspjehProvjere == true) return;
 
             var korime = txtKorIme.Text;
             var lozinka = txtLozinka.Text;
 
-            Radnik provjereniRadnik = await ProvjeriKorisnickePodatke(korime, lozinka); // await
+            Radnik provjereniRadnik = await ProvjeriKorisnickePodatke(korime, lozinka);
             if (provjereniRadnik != null) {
                 brojacNeuspjesnihPokusaja = 0;
                 PrikaziFrmPocetna(provjereniRadnik);
@@ -41,15 +42,11 @@ namespace ZMGDesktop {
             return await servis.ProvjeriRadnikaAsync(korime, lozinka);
         }
 
-        /*private Radnik ProvjeriKorisnickePodatke(string korime, string lozinka) {
-            return  servis.ProvjeriRadnikaAsync(korime, lozinka); // await
-        }*/
-
-        private void ProvjeriBrojNeuspjesnihPokusaja() {
-            if (brojacNeuspjesnihPokusaja >= 3) {
+        private bool ProvjeriBrojNeuspjesnihPokusaja(int brojac) {
+            if (brojac >= 3) {
                 PrikaziPorukuGreske("Prijava na korisnički račun je blokirana. Molimo kontaktirajte administratora.");
-                return;
-            }
+                return true;
+            } else return false;
         }
 
         private void PrikaziFrmPocetna(Radnik radnik) {

@@ -28,18 +28,6 @@ namespace DataAccessLayer.Repositories
             }
         }
 
-        /*public Radnik DohvatiRadnikaAsync(string korime, string lozinka) {
-            using (var sha256 = SHA256.Create()) {
-                var enteredBytes = Encoding.UTF8.GetBytes(lozinka);
-                var enteredHashedPassword = BitConverter.ToString(sha256.ComputeHash(enteredBytes)).Replace("-", "").ToLower();
-
-                var query =  (from s in Entities // await
-                              where (s.Korime == korime && s.Lozinka == enteredHashedPassword)
-                                   select s).FirstOrDefault(); // FirstOrDefaultAsync
-                return query;
-            }
-        }*/
-
 
         public IQueryable<Radnik> DohvatiSveRadnike()
         {

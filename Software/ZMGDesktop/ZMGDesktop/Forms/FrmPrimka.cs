@@ -12,7 +12,7 @@ namespace ZMGDesktop {
     public partial class FrmPrimka : Form {
         private Materijal mat;
         private int kol;
-        private PrimkaServices primkaServis = new PrimkaServices();
+        private PrimkaServices primkaServis = new PrimkaServices(new PrimkaRepository());
 
         public FrmPrimka(Materijal materijal, int kolicina) {
             mat = materijal;
@@ -42,7 +42,7 @@ namespace ZMGDesktop {
                 Datum = DateTime.Now.Date
             };
 
-            primkaServis.dodajPrimku(primka);
+            primkaServis.DodajPrimku(primka);
         }
 
         private void PostaviPolja() {

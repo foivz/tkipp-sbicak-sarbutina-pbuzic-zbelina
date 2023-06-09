@@ -18,11 +18,9 @@ using ZMGDesktop.ValidacijaUnosa;
 
 namespace ZMGDesktop_Tests
 {
-    public class ZMGDesktop_Tests
-    {
+    public class ZMGDesktop_Tests {
         [Fact]
-        public void UcitajKlijente_KlijentiPostojeuBazi_KlijentiSePrikazujuUSustavu()
-        {
+        public void UcitajKlijente_KlijentiPostojeuBazi_KlijentiSePrikazujuUSustavu() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var ocekivaniKlijenti = new List<Klijent> { new Klijent { Naziv = "Klijent 1" }, new Klijent { Naziv = "Klijent 2" } };
@@ -38,8 +36,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Remove_KlijentImaRacun_BacaGresku()
-        {
+        public void Remove_KlijentImaRacun_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var servis = new KlijentServices(fakeRepo);
@@ -57,8 +54,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Remove_KlijentNemaRacunRadniNalogIliRobu_KlijentUspjesnoObrisan()
-        {
+        public void Remove_KlijentNemaRacunRadniNalogIliRobu_KlijentUspjesnoObrisan() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var servis = new KlijentServices(fakeRepo);
@@ -74,8 +70,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Remove_KlijentImaRadniNalog_BacaGresku()
-        {
+        public void Remove_KlijentImaRadniNalog_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = new Klijent { Naziv = "Ime" };
@@ -91,10 +86,8 @@ namespace ZMGDesktop_Tests
             Assert.Throws<BrisanjeKlijentaException>(() => act());
         }
 
-        private Klijent kreirajKlijenta(string naziv, string oib, string adresa, string iban, string brojTelefona, string email, string mjesto)
-        {
-            return new Klijent
-            {
+        private Klijent kreirajKlijenta(string naziv, string oib, string adresa, string iban, string brojTelefona, string email, string mjesto) {
+            return new Klijent {
                 Naziv = naziv,
                 OIB = oib,
                 Adresa = adresa,
@@ -106,8 +99,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_IspunjeniSviPodaciZaKlijenta_KlijentUspjesnoDodan()
-        {
+        public void Add_IspunjeniSviPodaciZaKlijenta_KlijentUspjesnoDodan() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
 
@@ -123,11 +115,10 @@ namespace ZMGDesktop_Tests
             A.CallTo(() => fakeRepo.Add(klijent, true)).MustHaveHappenedOnceExactly();
         }
 
-        
+
 
         [Fact]
-        public void Add_KlijentSPostojecimImenom_BacaGresku()
-        {
+        public void Add_KlijentSPostojecimImenom_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Aggreko", "21694361376", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
@@ -143,12 +134,11 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_KlijentSPostojecimOibom_BacaGresku()
-        {
+        public void Add_KlijentSPostojecimOibom_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Klijent", "21852758212", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
-            
+
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new OIBException("Postoji korisnik s ovim OIBOM"));
@@ -161,12 +151,11 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_KlijentSPostojecimEmailom_BacaGresku()
-        {
+        public void Add_KlijentSPostojecimEmailom_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Klijent", "28152726125", "Lobor 35", "HR2817528125291258271", "0976401323", "email@gmail.com", "Lobor");
-            
+
             var servis = new KlijentServices(fakeRepo);
 
             A.CallTo(() => fakeRepo.Add(klijent, true)).Throws(new EmailException("Postoji korisnik s ovim mailom"));
@@ -179,8 +168,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_KlijentSPostojecimTelefonom_BacaGresku()
-        {
+        public void Add_KlijentSPostojecimTelefonom_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Klijent", "85721527125", "Lobor 35", "HR2817528915291258271", "0913955196", "email@gmail.com", "Lobor");
@@ -196,8 +184,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_KlijentSPostojecimIBANRacunom_BacaGresku()
-        {
+        public void Add_KlijentSPostojecimIBANRacunom_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Belina", "0962124281", "Lobor 21", "HR2817521258682125921", "0992712642", "email@gmail.com", "Lobor");
@@ -213,8 +200,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiDesetNajboljih_PostojeDesetNajvecihKlijenata_KaoRezultatVracaDesetNajvecihKlijenata()
-        {
+        public void DohvatiDesetNajboljih_PostojeDesetNajvecihKlijenata_KaoRezultatVracaDesetNajvecihKlijenata() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             List<Klijent> desetNajvecih = new List<Klijent>()
@@ -241,8 +227,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiDesetNajboljihKlijenata_NemaDovoljnoPodatkaUBaziZaDesetNajvecihKlijenata_BacaGresku()
-        {
+        public void DohvatiDesetNajboljihKlijenata_NemaDovoljnoPodatkaUBaziZaDesetNajvecihKlijenata_BacaGresku() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             A.CallTo(() => fakeRepo.DohvatiDesetNajboljih()).Throws(new Exception("Nema dovoljno podatka za prikaz deset najvecih klijenata"));
@@ -256,8 +241,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void AzurirajKlijenta_PostaviNazivNaPostojeciUBazi_VratiGreskuDaVecPostojiKlijentSTakvimNazivomUBazi()
-        {
+        public void AzurirajKlijenta_PostaviNazivNaPostojeciUBazi_VratiGreskuDaVecPostojiKlijentSTakvimNazivomUBazi() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Klijent", "21694361376", "Lobor 35", "HR6324020061696361472", "0976401323", "email@gmail.com", "Lobor");
@@ -272,8 +256,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void AzurirajKlijenta_PromijeniOdgovarajuceSvojstvo_UspjesnoAzuriranKlijent()
-        {
+        public void AzurirajKlijenta_PromijeniOdgovarajuceSvojstvo_UspjesnoAzuriranKlijent() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Karlobag", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
@@ -288,8 +271,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiRacuneZaKlijenta_PostojeViseRacunaZaKlijenta_VracaPopisRacunaVezanihZaKlijenta()
-        {
+        public void DohvatiRacuneZaKlijenta_PostojeViseRacunaZaKlijenta_VracaPopisRacunaVezanihZaKlijenta() {
             //Arrange
             var fakeRepo = A.Fake<IRacunRepository>();
             var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
@@ -310,8 +292,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiRadneNalogeZaKlijenta_PostojeRadniNaloziZaKlijenta_VracaPopisRadnihNalogaVezanihZaKlijenta()
-        {
+        public void DohvatiRadneNalogeZaKlijenta_PostojeRadniNaloziZaKlijenta_VracaPopisRadnihNalogaVezanihZaKlijenta() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
@@ -331,15 +312,13 @@ namespace ZMGDesktop_Tests
             Assert.Equal(klijentRadniNalozi, radniNalozi);
         }
 
-        private Validacija kreirajValidaciju()
-        {
+        private Validacija kreirajValidaciju() {
             return new Validacija();
         }
 
         [Fact]
 
-        public void ProvjeraOib_OIBNeispravan_VracaFalse()
-        {
+        public void ProvjeraOib_OIBNeispravan_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -350,8 +329,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void ProvjeraOib_OIBIspravan_VracaTrue()
-        {
+        public void ProvjeraOib_OIBIspravan_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -362,8 +340,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void ProvjeraMaila_MailNeispravan_VracaFalse()
-        {
+        public void ProvjeraMaila_MailNeispravan_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -374,8 +351,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void ProvjeraMaila_MailIspravan_VracaTrue()
-        {
+        public void ProvjeraMaila_MailIspravan_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -386,8 +362,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void ProvjeraRacuna_RacunNeispravan_VracaFalse()
-        {
+        public void ProvjeraRacuna_RacunNeispravan_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -398,8 +373,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void ProvjeraRacuna_RacunIspravan_VracaTrue()
-        {
+        public void ProvjeraRacuna_RacunIspravan_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -410,8 +384,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraSamoSlova_NeispravanNaziv_VracaFalse()
-        {
+        public void provjeraSamoSlova_NeispravanNaziv_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -422,8 +395,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraSamoSlova_IspravanNaziv_VracaTrue()
-        {
+        public void provjeraSamoSlova_IspravanNaziv_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -434,8 +406,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraMjesta_NeispravnoMjesto_VracaFalse()
-        {
+        public void provjeraMjesta_NeispravnoMjesto_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -446,8 +417,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraMjesta_IspravnoMjesto_VracaTrue()
-        {
+        public void provjeraMjesta_IspravnoMjesto_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -458,8 +428,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraUlica_NeispravnaUlica_VracaFalse()
-        {
+        public void provjeraUlica_NeispravnaUlica_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -470,8 +439,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraUlica_IspravnaUlica_VracaTrue()
-        {
+        public void provjeraUlica_IspravnaUlica_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -482,8 +450,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraSamoBrojevi_StringSadrziSlova_VracaFalse()
-        {
+        public void provjeraSamoBrojevi_StringSadrziSlova_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -494,8 +461,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraSamoBrojevi_StringSadrziSamoBrojeve_VracaTrue()
-        {
+        public void provjeraSamoBrojevi_StringSadrziSamoBrojeve_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -506,8 +472,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraTelefon_NeispravanBrojTelefona_VracaFalse()
-        {
+        public void provjeraTelefon_NeispravanBrojTelefona_VracaFalse() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -518,8 +483,7 @@ namespace ZMGDesktop_Tests
 
         [Fact]
 
-        public void provjeraTelefon_IspravanBrojTelefona_VracaTrue()
-        {
+        public void provjeraTelefon_IspravanBrojTelefona_VracaTrue() {
             //Arrange
             Validacija valid = kreirajValidaciju();
             //Act
@@ -529,12 +493,11 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Add_ProslijediKaoParametarKlijentaIFalse_Vraca0()
-        {
+        public void Add_ProslijediKaoParametarKlijentaIFalse_Vraca0() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
-            
+
             //Act
             int red = fakeRepo.Add(klijent, false);
 
@@ -543,8 +506,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Update_ProslijediKaoParametarKlijentaIFalse_Vraca0()
-        {
+        public void Update_ProslijediKaoParametarKlijentaIFalse_Vraca0() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
@@ -557,8 +519,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void Remove_ProslijediKaoParametarKlijentaIFalse_Vraca0()
-        {
+        public void Remove_ProslijediKaoParametarKlijentaIFalse_Vraca0() {
             //Arrange
             var fakeRepo = A.Fake<IKlijentRepository>();
             var klijent = kreirajKlijenta("Preis", "82812572912", "Lobor 35", "HR6322120061696361472", "0916401323", "email@gmail.com", "Lobor");
@@ -573,8 +534,7 @@ namespace ZMGDesktop_Tests
         //TESTOVI SERVISA RADNIH NALOGA
 
         [Fact]
-        public void DohvatiRadneNaloge_RadniNaloziPostojeUBazi_VracaRadneNaloge()
-        {
+        public void DohvatiRadneNaloge_RadniNaloziPostojeUBazi_VracaRadneNaloge() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var ocekivaniRadniNalozi = new List<RadniNalog>
@@ -594,8 +554,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiRadneNalogePoStatusima_RadniNaloziPostojeUBazi_VracaRadneNalogePoStatusima()
-        {
+        public void DohvatiRadneNalogePoStatusima_RadniNaloziPostojeUBazi_VracaRadneNalogePoStatusima() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var ocekivaniRadniNalozi = new List<RadniNalog>
@@ -616,8 +575,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DodajRadniNalog_UpisaniSviPodaciIspravno_RadniNalogUspjenoDodanUBazu()
-        {
+        public void DodajRadniNalog_UpisaniSviPodaciIspravno_RadniNalogUspjenoDodanUBazu() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
@@ -638,7 +596,7 @@ namespace ZMGDesktop_Tests
                 Roba = fakeRoba
             };
 
-            A.CallTo(() => fakeRepo.Add(fakeRadniNalog, true)).Returns(1); 
+            A.CallTo(() => fakeRepo.Add(fakeRadniNalog, true)).Returns(1);
 
             var fakeServis = new RadniNalogService(fakeRepo);
 
@@ -650,8 +608,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void ObrisiRadniNalog_RadniNalogPostojiUBazi_RadniNalogUspjenoObrisan()
-        {
+        public void ObrisiRadniNalog_RadniNalogPostojiUBazi_RadniNalogUspjenoObrisan() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
@@ -684,8 +641,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void AzurirajRadniNalog_IzmijenjenaKolicinaRadnogNaloga_RadniNalogUspjenoIzmjenjen()
-        {
+        public void AzurirajRadniNalog_IzmijenjenaKolicinaRadnogNaloga_RadniNalogUspjenoIzmjenjen() {
             //Arrange
             var fakeRepo = A.Fake<IRadniNalogRepository>();
             var fakeKlijent = new Klijent { Naziv = "FakeKlijent" };
@@ -720,8 +676,7 @@ namespace ZMGDesktop_Tests
         // TESOVI SERVISA ROBE
 
         [Fact]
-        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba()
-        {
+        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba() {
             //Arrange
             var fakeRepo = A.Fake<IRobaRepository>();
             var ocekivanaRoba = new List<Roba>{
@@ -741,8 +696,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DohvatiSvuRobu_PostojiRobaUBazi_VraćenaRoba()
-        {
+        public void DohvatiSvuRobu_PostojiRobaUBazi_VraćenaRoba() {
             //Arrange
             var fakeRepo = A.Fake<IRobaRepository>();
             var ocekivanaRoba = new List<Roba>{
@@ -764,8 +718,7 @@ namespace ZMGDesktop_Tests
         // DRUGI TESTOVI
 
         [Fact]
-        public void Add_UpisaniSviPodaciIspravno_DodanNoviMaterijal()
-        {
+        public void Add_UpisaniSviPodaciIspravno_DodanaNovaRoba() {
             //Arrange
             var fakeRepo = A.Fake<IRobaRepository>();
             var fakeRoba = new Roba { Naziv = "fakeRoba" };
@@ -781,12 +734,16 @@ namespace ZMGDesktop_Tests
             Assert.True(dodanaRoba);
         }
 
+
+        // TESTOVI ZA SERVIS RADNIKA
+
+
         [Fact]
-        public async Task Login_IspravniPodaci_VracaRadnika() {
+        public async Task ProvjeriRadnikaAsync_IspravniPodaci_VracaRadnika() {
             // Arrange
             var korime = "sarbutina20";
             var lozinka = "12345";
-            var radnik = new Radnik{
+            var radnik = new Radnik {
                 Korime = korime,
                 Lozinka = lozinka
             };
@@ -800,11 +757,11 @@ namespace ZMGDesktop_Tests
 
             // Assert
             Assert.Equal(provjereniRadnik, radnik);
-            
+
         }
 
         [Fact]
-        public async Task Login_NeispravniPodaci_VracaNull() {
+        public async Task ProvjeriRadnikaAsync_NeispravniPodaci_VracaNull() {
             // Arrange
             var korime = "sarbutina";
             var lozinka = "123";
@@ -820,5 +777,243 @@ namespace ZMGDesktop_Tests
             // Assert
             Assert.Null(provjereniRadnik);
         }
+
+        [Fact]
+        public void DohvatiSveRadnike_IspravnoPozvanaMetoda_VracaListuRadnika() {
+            // Arrange
+            IQueryable<Radnik> listaRadnika = new List<Radnik>() {
+        new Radnik {Korime = "sarbutina20", Lozinka = "12345"},
+        new Radnik {Korime = "sbicak20", Lozinka = "12345"}
+    }.AsQueryable();
+
+            
+
+            var fakeRepo = A.Fake<IRadnikRepository>();
+            A.CallTo(() => fakeRepo.DohvatiSveRadnike()).Returns(listaRadnika);
+
+            // Act
+            var fakeServis = new RadnikServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiSveRadnike();
+
+            // Assert
+            Assert.Equal(listaRadnika, rezultat);
+        }
+
+        // TESTOVI ZA SERVIS MATERIJALA
+        [Fact]
+        public void DohvatiMaterijale_IspravnoPozvanaMetoda_VracaListuMaterijala() {
+            // Arrange
+            IQueryable<Materijal> listaMaterijala = new List<Materijal>() {
+        new Materijal {Naziv = "Celik"},
+        new Materijal {Naziv = "Cink"}
+    }.AsQueryable();
+
+
+            
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(listaMaterijala);
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiMaterijale();
+
+            // Assert
+            Assert.Equal(listaMaterijala, rezultat);
+        }
+
+        [Fact]
+        public void ProvjeriQR_IspravanQRKod_VracaTrue() {
+            // Arrange
+            bool postoji = true;
+            string qr = "AR33EDGHUDDW2SVESA22RF";
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.ProvjeriQR(qr)).Returns(postoji);
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.ProvjeriQR(qr);
+
+            // Assert
+            Assert.Equal(postoji, rezultat);
+        }
+
+        [Fact]
+        public void ProvjeriQR_NeispravanQRKod_VracaFalse() {
+            // Arrange
+            bool postoji = false;
+            string qr = "AR33EDGHUDDW2SVESA22RF";
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.ProvjeriQR(qr)).Returns(postoji);
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.ProvjeriQR(qr);
+
+            // Assert
+            Assert.Equal(postoji, rezultat);
+        }
+
+        [Fact]
+        public void AzurirajMaterijal_IspravanQRiKolicina_VracaMaterijal() {
+            // Arrange
+            Materijal materijal = new Materijal();
+            string qr = "AR33EDGHUDDW2SVESA22RF";
+            int kolicina = 10;
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.Azuriraj(qr, kolicina)).Returns(materijal);
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.AzurirajMaterijal(qr, kolicina);
+
+            // Assert
+            Assert.Equal(materijal, rezultat);
+        }
+
+        [Fact]
+        public void ObrisiMaterijal_IspravanMaterijal_VracaTrue() {
+            // Arrange
+            Materijal materijal = new Materijal();
+            int uspjeh = 1;
+            
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.Remove(materijal, true)).Returns(uspjeh);
+            
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.ObrisiMaterijal(materijal);
+            var rezInt = Convert.ToInt32(rezultat);
+
+            // Assert
+            Assert.Equivalent(uspjeh, rezInt);
+        }
+
+        [Fact]
+        public void DodajMaterijal_IspravanMaterijal_VracaTrue() {
+            // Arrange
+            Materijal materijal = new Materijal {
+                Naziv = "Nepoznat materijal",
+                Kolicina = 156,
+                QR_kod= "AR33EDGHUDDW2SVESA22RF",
+                Opis=" ",
+                OpasnoPoZivot=false,
+                CijenaMaterijala = 157.4,
+                JedinicaMjere="kg"
+            };
+            int uspjeh = 1;
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.Add(materijal, true)).Returns(uspjeh);
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+            var rezultat = fakeServis.DodajMaterijal(materijal);
+            var rezInt = Convert.ToInt32(rezultat);
+
+            // Assert
+            Assert.Equivalent(uspjeh, rezInt);
+        }
+
+        [Fact]
+        public void DodajMaterijal_NeispravanMaterijal_VracaIznimku() {
+            // Arrange
+            Materijal materijal = new Materijal { Naziv = "Celik" };
+            int uspjeh = 0;
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+
+            A.CallTo(() => fakeRepo.Add(materijal, true)).Throws(new InvalidOperationException("Greška prilikom dodavanja materijala:"));
+
+            // Act
+            var fakeServis = new MaterijalServices(fakeRepo);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => fakeServis.DodajMaterijal(materijal));
+        }
+
+        // TESTOVI ZA SERVIS USLUGA
+        [Fact]
+        public void DohvatiUsluge_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            IQueryable<Usluga> listaUsluga = new List<Usluga>() {
+        new Usluga {Naziv = "Cincanje"},
+        new Usluga {Naziv = "Niklanje"}
+    }.AsQueryable();
+
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(listaUsluga);
+
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUsluge();
+
+            // Assert
+            Assert.Equal(rezultat, listaUsluga);
+        }
+
+        [Fact]
+        public void DohvatiUslugeDistinct_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            IQueryable<string> listaUsluga = new List<string>() {
+                "usluga1",
+                "usluga2"
+    }.AsQueryable();
+
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.DohvatiUslugeDistinct()).Returns(listaUsluga);
+
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUslugeDistinct();
+
+            // Assert
+            Assert.Equal(rezultat, listaUsluga);
+        }
+        [Fact]
+        public void DohvatiUsluguPoNazivu_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            List<Usluga> usluge = new List<Usluga>() {
+               new Usluga {Naziv="Celik"}
+            };
+
+            string naziv = "Celik";
+
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.DohvatiUsluguPoNazivu(naziv)).Returns(usluge.AsQueryable());
+
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUsluguPoNazivu(naziv);
+
+            // Assert
+            Assert.Equal(rezultat, usluge.FirstOrDefault());
+        }
+
+        // TESTOVI ZA SERVIS PRIMKE
+
+        [Fact]
+        public void DodajPrimku_IspravnaPrimka_VracaTrue() {
+            // Arrange
+            Primka primka = new Primka {
+                Naziv_Materijal = "Celik",
+                Kolicina=146,
+                Datum=DateTime.Now
+            };
+            int uspjeh = 1;
+
+            var fakeRepo = A.Fake<IPrimkaRepository>();
+            A.CallTo(() => fakeRepo.Add(primka, true)).Returns(uspjeh);
+
+            // Act
+            var fakeServis = new PrimkaServices(fakeRepo);
+            var rezultat = fakeServis.DodajPrimku(primka);
+            var rezInt = Convert.ToInt32(rezultat);
+
+            // Assert
+            Assert.Equivalent(uspjeh, rezInt);
+        }
+
     }
-}
+
+    }
