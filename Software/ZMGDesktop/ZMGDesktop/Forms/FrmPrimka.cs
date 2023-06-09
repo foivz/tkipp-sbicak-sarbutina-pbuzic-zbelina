@@ -12,7 +12,7 @@ namespace ZMGDesktop {
     public partial class FrmPrimka : Form {
         private Materijal mat;
         private int kol;
-        private PrimkaServices primkaServis = new PrimkaServices();
+        private PrimkaServices primkaServis = new PrimkaServices(new PrimkaRepository());
 
         public FrmPrimka(Materijal materijal, int kolicina) {
             mat = materijal;

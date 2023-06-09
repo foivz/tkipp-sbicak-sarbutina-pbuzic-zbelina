@@ -7,11 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using static EntitiesLayer.Entities.Enumeracije;
-
+using DataAccessLayer.Repositories;
 
 namespace ZMGDesktop {
     public partial class FrmDodajMaterijal : Form {
-        private MaterijalServices matServis = new MaterijalServices();
+        private MaterijalServices matServis = new MaterijalServices(new MaterijalRepository());
         private Validacija validacija = new Validacija();
 
         public FrmDodajMaterijal() {

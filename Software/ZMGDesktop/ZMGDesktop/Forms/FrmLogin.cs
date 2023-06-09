@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ZMGDesktop {
     public partial class FrmLogin : Form {
-        private RadnikServices servis = new RadnikServices();
+        private RadnikServices servis = new RadnikServices(new RadnikRepository());
         private int brojacNeuspjesnihPokusaja;
 
         public FrmLogin() {

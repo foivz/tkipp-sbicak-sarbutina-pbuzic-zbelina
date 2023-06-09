@@ -11,11 +11,13 @@ namespace ZMGDesktop {
     public partial class FrmKatalog : Form {
         private readonly UslugaServices uslugaServis;
         private readonly MaterijalServices matServis;
+        private readonly RobaService robaService;
 
         public FrmKatalog() {
             InitializeComponent();
-            uslugaServis = new UslugaServices();
-            matServis = new MaterijalServices();
+            uslugaServis = new UslugaServices(new UslugaRepository());
+            matServis = new MaterijalServices(new MaterijalRepository());
+            robaService = new RobaService(new RobaRepository());
             ucitajPomoc();
         }
 
@@ -56,6 +58,15 @@ namespace ZMGDesktop {
         private void FrmKatalog_Load(object sender, EventArgs e) {
             OsvjeziPrikazMaterijala();
             OsvjeziPrikazUsluga();
+            UcitajRobu();
+        }
+
+        private void UcitajRobu()
+        {
+            var roba = robaService.DohvatiSvuRobu();
+            dgvRoba.DataSource = roba;
+            dgvRoba.Columns[5].Visible = false;
+            dgvRoba.Columns[6].Visible = false;
         }
 
         private async void OsvjeziPrikazUsluga() {

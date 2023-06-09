@@ -15,10 +15,6 @@ namespace BusinessLogicLayer.Services
         public RadnikServices(IRadnikRepository radnikRepository) {
             this.radnikRepository = radnikRepository;
         }
-        public RadnikServices()
-        {
-            
-        }
         public async Task<Radnik> ProvjeriRadnikaAsync(string korime, string lozinka) {
             //using (var repo = new RadnikRepository()) {
                 var radnik = await radnikRepository.DohvatiRadnikaAsync(korime, lozinka);
