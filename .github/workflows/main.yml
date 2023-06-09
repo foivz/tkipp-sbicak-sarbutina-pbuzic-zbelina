@@ -22,6 +22,10 @@ jobs:
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop/ZMGDesktop
+        
+      - name: Clean Solution
+        working-directory: Software/ZMGDesktop
+        run: dotnet clean ZMGDesktop.sln --configuration Release
 
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
