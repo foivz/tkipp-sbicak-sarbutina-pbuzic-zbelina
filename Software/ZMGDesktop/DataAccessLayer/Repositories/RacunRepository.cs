@@ -32,15 +32,21 @@ namespace DataAccessLayer.Repositories
                 if (provjera[0] == false && stavka.Usluga.Naziv == "Cincanje")
                 {
                     provjera[0] = true;
-                    Context.Entry(stavka.Usluga).State = EntityState.Detached;
-                    cincanje = Context.Usluga.Attach(stavka.Usluga);
+                    if (Context.Entry(stavka.Usluga).State != EntityState.Detached)
+                    {
+                        Context.Entry(stavka.Usluga).State = EntityState.Detached;
+                    }
+                    cincanje = Context.Usluga.SingleOrDefault(u => u.Naziv == "Cincanje") ?? stavka.Usluga;
                 }
 
                 if (provjera[1] == false && stavka.Usluga.Naziv == "Niklanje")
                 {
                     provjera[1] = true;
-                    Context.Entry(stavka.Usluga).State = EntityState.Detached;
-                    niklanje = Context.Usluga.Attach(stavka.Usluga);
+                    if (Context.Entry(stavka.Usluga).State != EntityState.Detached)
+                    {
+                        Context.Entry(stavka.Usluga).State = EntityState.Detached;
+                    }
+                    niklanje = Context.Usluga.SingleOrDefault(u => u.Naziv == "Niklanje") ?? stavka.Usluga;
                 }
 
                 if (stavka.Usluga.Naziv == "Cincanje")
@@ -52,6 +58,12 @@ namespace DataAccessLayer.Repositories
                 {
                     stavka.Usluga = niklanje;
                 }
+
+                if (Context.Entry(stavka.Roba).State != EntityState.Detached)
+                {
+                    Context.Entry(stavka.Roba).State = EntityState.Detached;
+                }
+                stavka.Roba = Context.Roba.SingleOrDefault(r => r.Roba_ID == stavka.Roba.Roba_ID) ?? stavka.Roba;
 
                 Context.Roba.Attach(stavka.Roba);
             }

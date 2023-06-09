@@ -101,12 +101,6 @@ namespace BusinessLogicLayer.PDF
             y -= ls;
         }
 
-        private static void UkloniRazmakNaVisinu(double dodatak, bool specificniDodatak = false)
-        {
-            if (!specificniDodatak) y -= ls + dodatak;
-            else y -= dodatak;
-        }
-
         private static void DodajRazmakNaSirinu(double dodatak, bool specificniDodatak = false)
         {
             if (!specificniDodatak) x += ls + dodatak;
@@ -126,11 +120,6 @@ namespace BusinessLogicLayer.PDF
         private static double GetNoviX(double dodatak)
         {
             return x + dodatak;
-        }
-
-        private static double GetNoviY(double dodatak)
-        {
-            return y + dodatak;
         }
 
         private static void CrtajBezRazmaka(string tekst)
@@ -158,6 +147,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -181,6 +171,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -210,6 +201,7 @@ namespace BusinessLogicLayer.PDF
         {
             var propertyNames = propertyPath.Split('.');
             object currentObject = obj;
+            if (currentObject == null) return;
             foreach (var propertyName in propertyNames)
             {
                 var property = currentObject.GetType().GetProperty(propertyName);
@@ -393,7 +385,7 @@ namespace BusinessLogicLayer.PDF
             Crtaj("Fakturirao", racun, "Radnik");
         }
 
-        public static void SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
+        public static int SacuvajPDF(Racun racun, List<StavkaRacun> listaStavki = null)
         {
             InitDokument();
             InitPrviDioRacun();
@@ -410,19 +402,23 @@ namespace BusinessLogicLayer.PDF
             try
             {
                 document.Save(nazivDatoteke);
+                return 1;
             }
             catch (System.IO.IOException)
             {
                 MessageBox.Show("Proces za PDF je zauzet! Pričekajte.", "Prioritet", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return 0;
             }
 
         }
-        public static void OtvoriPDF()
+        public static int OtvoriPDF()
         {
             if (nazivDatoteke != null)
             {
                 Process.Start(nazivDatoteke);
+                return 1;
             }
+            return 0;
         }
     }
 }

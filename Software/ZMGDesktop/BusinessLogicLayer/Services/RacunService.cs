@@ -35,12 +35,13 @@ namespace BusinessLogicLayer.Services
             //}
         }
 
-        public void DodajRacun(Racun racun)
+        public int DodajRacun(Racun racun)
         {
             //using (var repo = new RacunRepository())
             //{
             racunRepository.Add(racun);
             //}
+            return 1;
         }
 
         public Racun DohvatiOdredeniRacun(int id)
@@ -50,9 +51,7 @@ namespace BusinessLogicLayer.Services
             //{
             listaRacuna = racunRepository.DohvatiOdredeniRacun(id).ToList();
             //}
-            Racun racun;
-            racun = listaRacuna[0];
-            return racun;
+            return listaRacuna[0];
         }
 
         public Racun DohvatiZadnjiRacun()
@@ -62,9 +61,7 @@ namespace BusinessLogicLayer.Services
             //{
             listaRacuna = racunRepository.DohvatiSveRacune().ToList();
             //}
-            Racun racun;
-            racun = listaRacuna.Last();
-            return racun;
+            return listaRacuna.Last();
         }
 
         public List<Racun> DohvatiRacunePretrazivanje(Klijent klijent, int id, PretrazivanjeSortiranje SearchSort)
