@@ -29,7 +29,7 @@ jobs:
 
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
-        run: nuget restore
+        run: dotnet restore
 
       - name: Build Solution
         working-directory: Software/ZMGDesktop
