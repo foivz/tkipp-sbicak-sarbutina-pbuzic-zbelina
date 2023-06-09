@@ -42,7 +42,7 @@ namespace ZMGDesktop {
                 Datum = DateTime.Now.Date
             };
 
-            primkaServis.dodajPrimku(primka);
+            primkaServis.DodajPrimku(primka);
         }
 
         private void PostaviPolja() {

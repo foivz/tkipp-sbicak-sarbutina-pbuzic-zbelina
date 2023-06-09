@@ -916,7 +916,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void DodajMaterijal_NeispravanMaterijal_VracaTrue() {
+        public void DodajMaterijal_NeispravanMaterijal_VracaIznimku() {
             // Arrange
             Materijal materijal = new Materijal { Naziv = "Celik" };
             int uspjeh = 0;
@@ -932,9 +932,88 @@ namespace ZMGDesktop_Tests
             Assert.Throws<InvalidOperationException>(() => fakeServis.DodajMaterijal(materijal));
         }
 
+        // TESTOVI ZA SERVIS USLUGA
+        [Fact]
+        public void DohvatiUsluge_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            IQueryable<Usluga> listaUsluga = new List<Usluga>() {
+        new Usluga {Naziv = "Cincanje"},
+        new Usluga {Naziv = "Niklanje"}
+    }.AsQueryable();
 
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(listaUsluga);
 
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUsluge();
+
+            // Assert
+            Assert.Equal(rezultat, listaUsluga);
+        }
+
+        [Fact]
+        public void DohvatiUslugeDistinct_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            IQueryable<string> listaUsluga = new List<string>() {
+                "usluga1",
+                "usluga2"
+    }.AsQueryable();
+
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.DohvatiUslugeDistinct()).Returns(listaUsluga);
+
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUslugeDistinct();
+
+            // Assert
+            Assert.Equal(rezultat, listaUsluga);
+        }
+        [Fact]
+        public void DohvatiUsluguPoNazivu_IspravnoPozvanaMetoda_VracaListuUsluga() {
+            // Arrange
+            List<Usluga> usluge = new List<Usluga>() {
+               new Usluga {Naziv="Celik"}
+            };
+
+            string naziv = "Celik";
+
+            var fakeRepo = A.Fake<IUslugaRepository>();
+            A.CallTo(() => fakeRepo.DohvatiUsluguPoNazivu(naziv)).Returns(usluge.AsQueryable());
+
+            // Act
+            var fakeServis = new UslugaServices(fakeRepo);
+            var rezultat = fakeServis.DohvatiUsluguPoNazivu(naziv);
+
+            // Assert
+            Assert.Equal(rezultat, usluge.FirstOrDefault());
+        }
+
+        // TESTOVI ZA SERVIS PRIMKE
+
+        [Fact]
+        public void DodajPrimku_IspravnaPrimka_VracaTrue() {
+            // Arrange
+            Primka primka = new Primka {
+                Naziv_Materijal = "Celik",
+                Kolicina=146,
+                Datum=DateTime.Now
+            };
+            int uspjeh = 1;
+
+            var fakeRepo = A.Fake<IPrimkaRepository>();
+            A.CallTo(() => fakeRepo.Add(primka, true)).Returns(uspjeh);
+
+            // Act
+            var fakeServis = new PrimkaServices(fakeRepo);
+            var rezultat = fakeServis.DodajPrimku(primka);
+            var rezInt = Convert.ToInt32(rezultat);
+
+            // Assert
+            Assert.Equivalent(uspjeh, rezInt);
+        }
 
     }
 
-}
+    }
