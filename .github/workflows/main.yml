@@ -28,7 +28,7 @@ jobs:
         run: nuget restore
 
       - name: Build Solution
-        working-directory: Software/ZMGDesktop/ZMG.IntegrationTests
+        working-directory: Software/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
 
       - name: Run Unit tests
