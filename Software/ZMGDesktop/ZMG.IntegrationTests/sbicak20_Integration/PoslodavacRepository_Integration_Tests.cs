@@ -31,4 +31,5 @@ namespace ZMG.IntegrationTests.sbicak20_Integration
                 StavkaRacunService = new StavkaRacunService(new StavkaRepository());
             }
         }
+    }
 }
