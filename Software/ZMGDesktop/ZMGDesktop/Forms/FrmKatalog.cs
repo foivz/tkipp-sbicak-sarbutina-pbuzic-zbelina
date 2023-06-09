@@ -36,7 +36,7 @@ namespace ZMGDesktop {
             var odabraniMaterijal = dgvMaterijali.CurrentRow.DataBoundItem as Materijal;
             if (odabraniMaterijal != null) {
                 try {
-                    await Task.Run(() => matServis.obrisiMaterijal(odabraniMaterijal));
+                    await Task.Run(() => matServis.ObrisiMaterijal(odabraniMaterijal));
                 } catch (BrisanjeMaterijalaException iznimka) {
                     MessageBox.Show(iznimka.Poruka, "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

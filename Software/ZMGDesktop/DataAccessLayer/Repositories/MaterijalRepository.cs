@@ -38,8 +38,8 @@ namespace DataAccessLayer.Repositories
         }
 
         public override int Add(Materijal entity, bool saveChanges = true) {
-            if (PostojiMaterijal(entity.Naziv)) {
-                throw new InvalidOperationException("Materijal već postoji");
+            if (PostojiMaterijal(entity.Naziv) || entity == null) {
+                throw new InvalidOperationException("Materijal već postoji ili je null");
             }
 
             var materijal = MapirajMaterijal(entity);

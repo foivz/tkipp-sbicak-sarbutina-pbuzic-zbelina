@@ -26,5 +26,6 @@ namespace BusinessLogicLayer.Services
             var radnici = radnikRepository.DohvatiSveRadnike().ToList();
             return radnici;
         }
+        
     }
 }
