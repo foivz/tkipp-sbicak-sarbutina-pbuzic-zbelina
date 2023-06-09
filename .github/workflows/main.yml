@@ -1,4 +1,4 @@
-name: ZMGDesktop Workflow - CI
+name: ZMGDesktop Workflow CI
 
 on:
   push:
