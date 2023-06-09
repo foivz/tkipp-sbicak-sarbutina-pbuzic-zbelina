@@ -67,7 +67,7 @@ namespace ZMGDesktop {
         }
 
         private void DodajMaterijal(Materijal materijal) {
-            matServis.dodajMaterijal(materijal);
+            matServis.DodajMaterijal(materijal);
         }
 
         private void ZatvoriFormu() {

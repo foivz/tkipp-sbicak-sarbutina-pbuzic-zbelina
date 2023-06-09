@@ -22,7 +22,7 @@ namespace ZMGDesktop {
         }
 
         private async void Login(object sender, EventArgs e) {
-            bool uspjehProvjere = ProvjeriBrojNeuspjesnihPokusaja();
+            bool uspjehProvjere = ProvjeriBrojNeuspjesnihPokusaja(brojacNeuspjesnihPokusaja);
             if (uspjehProvjere == true) return;
 
             var korime = txtKorIme.Text;
@@ -42,8 +42,8 @@ namespace ZMGDesktop {
             return await servis.ProvjeriRadnikaAsync(korime, lozinka);
         }
 
-        private bool ProvjeriBrojNeuspjesnihPokusaja() {
-            if (brojacNeuspjesnihPokusaja >= 3) {
+        private bool ProvjeriBrojNeuspjesnihPokusaja(int brojac) {
+            if (brojac >= 3) {
                 PrikaziPorukuGreske("Prijava na korisnički račun je blokirana. Molimo kontaktirajte administratora.");
                 return true;
             } else return false;
