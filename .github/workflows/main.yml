@@ -24,11 +24,14 @@ jobs:
         run: cd $GITHUB_WORKSPACE
         
       - name: Restore NuGet Packages
-        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln -SolutionDirectory Software/ZMGDesktop,
+        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln -SolutionDirectory Software/ZMGDesktop
+        
+      - name: Restore NuGet Packages
+        run: nuget restore
     
-    # - name: Build Solution
-    #   working-directory: Software/ZMGDesktop
-    #   run: msbuild /p:platform="Any CPU" /p:configuration=Release
+      - name: Build Solution
+        working-directory: Software/ZMGDesktop
+        run: msbuild /p:platform="Any CPU" /p:configuration=Release
         
       - name: Run Unit tests
         working-directory: Software/ZMGDesktop
