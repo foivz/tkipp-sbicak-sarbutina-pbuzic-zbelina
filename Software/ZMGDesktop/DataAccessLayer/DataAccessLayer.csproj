@@ -105,6 +105,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Email\Email.csproj">
+      <Project>{933f3363-d231-43ab-a2b2-8b8bb5f7583d}</Project>
+      <Name>Email</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EntitiesLayer\EntitiesLayer.csproj">
       <Project>{969baf40-7473-43b9-b39d-c0371c085d3f}</Project>
       <Name>EntitiesLayer</Name>
