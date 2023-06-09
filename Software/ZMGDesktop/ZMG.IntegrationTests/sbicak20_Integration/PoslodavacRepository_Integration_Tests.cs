@@ -10,8 +10,6 @@ namespace ZMG.IntegrationTests.sbicak20_Integration
 {
     public class PoslodavacRepository_Integration_Tests
     {
-        public class GeneriranjePDF_Integration_Tests
-        {
             private KlijentServices _klijentServices;
             private RadnikServices RadnikServices;
             private RobaService RobaService;
@@ -30,6 +28,5 @@ namespace ZMG.IntegrationTests.sbicak20_Integration
                 RacunService = new RacunService(new RacunRepository());
                 StavkaRacunService = new StavkaRacunService(new StavkaRepository());
             }
-        }
     }
 }
