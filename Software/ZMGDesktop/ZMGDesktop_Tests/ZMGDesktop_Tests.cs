@@ -4,6 +4,7 @@ using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using FakeItEasy;
 using Microsoft.SqlServer.Server;
+using Org.BouncyCastle.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1014,7 +1015,24 @@ namespace ZMGDesktop_Tests
             Assert.Equivalent(uspjeh, rezInt);
         }
 
+        // TESTOVI ZA NOVU FUNKCIONALNOST IZVOZA PODATAKA O MATERIJALIMA
+        [Fact]
+        public void IzvozMaterijala_NemaMaterijala_VracaPrazanCSV() {
+            List<Materijal> lista = new List<Materijal>();
+            
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
 
+            var fakeServis = new MaterijalServices(fakeRepo);
+
+            // Act
+            var rezultat = fakeServis.IzvozMaterijala();
+
+                // Assert
+           Assert.Equal(string.Empty, rezultat);
+            
+
+        }
 
     }
 

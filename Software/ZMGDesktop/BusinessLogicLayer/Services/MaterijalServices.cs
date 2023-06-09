@@ -74,7 +74,9 @@ namespace BusinessLogicLayer.Services
             return uspjeh;
         }
 
-
+        public string IzvozMaterijala() {
+            return string.Empty;
+        }
 
 
     }
