@@ -509,6 +509,21 @@ namespace ZMG.IntegrationTests
             Assert.True(uspjesno);
         }
 
+        [Fact]
+        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba()
+        {
+            //Arrange
+            kreirajServis();
+            var klijenti = _klijentServices.DohvatiKlijente();
+            var klijent = klijenti.FirstOrDefault(k => k.Klijent_ID == 152);
+
+            //Act
+            List<Roba> roba = RobaService.DohvatiRobuKlijenta(klijent.Klijent_ID);
+
+            //Assert
+            Assert.NotNull(roba);
+        }
+
         // TDD  - Test za funkcionalnost Pregled robe
         [Fact]
         public void DohvatiSvuRobu_RobaPostojiUBazi_DohvacenaRoba()
