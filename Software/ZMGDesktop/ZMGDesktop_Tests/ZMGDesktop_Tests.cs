@@ -720,6 +720,50 @@ namespace ZMGDesktop_Tests
         // TESOVI SERVISA ROBE
 
         [Fact]
+        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRobaRepository>();
+            var ocekivanaRoba = new List<Roba>{
+                new Roba { Naziv = "fakeRoba" },
+                new Roba { Naziv = "fakeRoba2" }
+            };
+
+            A.CallTo(() => fakeRepo.DohvatiRobuKlijenta(1)).Returns(ocekivanaRoba.AsQueryable());
+
+            var fakeServis = new RobaService(fakeRepo);
+
+            //Act
+            var vracenaRoba = fakeServis.DohvatiRobuKlijenta(1);
+
+            //Assert
+            Assert.NotNull(vracenaRoba);
+        }
+
+        [Fact]
+        public void DohvatiSvuRobu_PostojiRobaUBazi_VraćenaRoba()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IRobaRepository>();
+            var ocekivanaRoba = new List<Roba>{
+                new Roba { Naziv = "fakeRoba" },
+                new Roba { Naziv = "fakeRoba2" }
+            };
+
+            A.CallTo(() => fakeRepo.DohvatiSvuRobu());
+
+            var fakeServis = new RobaService(fakeRepo);
+
+            //Act
+            var vracenaRoba = fakeServis.DohvatiSvuRobu();
+
+            //Assert
+            Assert.NotNull(vracenaRoba);
+        }
+
+        // DRUGI TESTOVI
+
+        [Fact]
         public void Add_UpisaniSviPodaciIspravno_DodanNoviMaterijal()
         {
             //Arrange
@@ -776,32 +820,5 @@ namespace ZMGDesktop_Tests
             // Assert
             Assert.Null(provjereniRadnik);
         }
-
-
-
-
-        // TDD  - Test za funkcionalnost Pregled robe
-        [Fact]
-        public void DohvatiRobuKlijenta_PostojiKlijentSRobom_VraćenaKlijentovaRoba()
-        {
-            //Arrange
-            var fakeRepo = A.Fake<IRobaRepository>();
-            var ocekivanaRoba = new List<Roba>{
-                new Roba { Naziv = "fakeRoba" },
-                new Roba { Naziv = "fakeRoba2" }
-            };
-
-            A.CallTo(() => fakeRepo.DohvatiRobuKlijenta(1)).Returns(ocekivanaRoba.AsQueryable());
-
-            var fakeServis = new RobaService(fakeRepo);
-
-            //Act
-            var vracenaRoba = fakeServis.DohvatiRobuKlijenta(1);
-
-            //Assert
-            Assert.NotNull(listaRobe);
-        }
-
-
     }
 }
