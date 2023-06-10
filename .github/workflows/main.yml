@@ -21,10 +21,9 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Navigate to root folder
-        run: cd Software/ZMGDesktop
+        run: cd tkipp-sbicak-sarbutina-pbuzic-zbelina/Software/ZMGDesktop
 
       - name: Restore NuGet Packages
-        working-directory: Software/ZMGDesktop
         run: nuget restore ZMGDesktop.sln
             
       - name: Build Solution
