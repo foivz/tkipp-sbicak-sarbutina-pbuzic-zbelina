@@ -1,4 +1,4 @@
-name: ZMGDesktop Workflow CIa
+name: ZMGDesktop Workflow CI
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Navigate to root folder
-        run: cd tkipp-sbicak-sarbutina-pbuzic-zbelina/Software/ZMGDesktop
+        run: cd /Software/ZMGDesktop
 
       - name: Restore NuGet Packages
         run: nuget restore ZMGDesktop.sln
