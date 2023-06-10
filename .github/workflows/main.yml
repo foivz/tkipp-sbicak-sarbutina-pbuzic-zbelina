@@ -11,6 +11,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    
+      - name: Print path
+        run: Write-Host $env:GITHUB_WORKSPACE
+        shell: pwsh
+        
       - name: Checkout code
         uses: actions/checkout@v3.5.2
 
@@ -29,7 +34,7 @@ jobs:
         
       - name: Restore NuGet Packagesv2
         working-directory: Software/ZMGDesktop/ZMGDesktop
-        run: nuget restore
+        run: nuget restore packages.config
             
       - name: Build Solution
         working-directory: Software/ZMGDesktop
