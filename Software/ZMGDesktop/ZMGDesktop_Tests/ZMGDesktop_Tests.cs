@@ -1090,18 +1090,19 @@ namespace ZMGDesktop_Tests
             A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
 
             var fakeServis = new MaterijalServices(fakeRepo);
-            string ocekivaniCSV = "Naziv,Kolicina,CijenaMaterijala,JedinicaMjere,OpasnoPoZivot\r\n" +
-                      "Materijal 1,10,46,kg,False\r\n" +
-                      "Materijal 2,5,4,kg,False\r\n" +
-                      "Materijal 3,8,16,kg,False\r\n";
-            
-            
+            string ocekivaniCSV = "Materijal_ID,Naziv,CijenaMaterijala,JedinicaMjere,Kolicina,Opis,OpasnoPoZivot,QR_kod,Primka_ID,Usluga_ID,Primka_ID,Naziv_Materijal,Datum,Kolicina,Usluga_ID,Naziv,QR_kod,CijenaUsluge\r\n" +
+                       "0,Materijal 1,46,kg,10,,False,,,,0,,,,0,,,0\r\n" +
+                       "0,Materijal 2,4,kg,5,,False,,,,0,,,,0,,,0\r\n" +
+                       "0,Materijal 3,16,kg,8,,False,,,,0,,,,0,,,0\r\n";
+
+
+
             // Act
-            
+
             var rezultat = fakeServis.GeneracijaCSV(lista);
 
             // Assert
-            Assert.Empty(rezultat);
+            Assert.Equal(rezultat, ocekivaniCSV);
         }
 
 

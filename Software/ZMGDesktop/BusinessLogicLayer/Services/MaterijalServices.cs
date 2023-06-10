@@ -83,7 +83,7 @@ namespace BusinessLogicLayer.Services
             var materijali = DohvatiMaterijale();
             if (materijali.Count > 0) {
                 string generiraniString = GeneracijaCSV(materijali);
-                if (generiraniString != string.Empty) return true;
+                if (generiraniString != string.Empty && generiraniString != null) return true;
                 else return false;
             } else return false;
 
