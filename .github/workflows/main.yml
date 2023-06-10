@@ -30,8 +30,8 @@ jobs:
     #  - name: Setup MSBuild
     #   uses: microsoft/setup-msbuild@v1.3.1
         
-      - name: Setup .net
-        uses: EasyDesk/action-dotnet-build@v1.0.0
+    #  - name: Setup .net
+    #    uses: EasyDesk/action-dotnet-build@v1.0.0
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
