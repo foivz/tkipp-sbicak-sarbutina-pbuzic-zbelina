@@ -79,12 +79,12 @@ namespace BusinessLogicLayer.Services
             return uspjeh;
         }
 
-        public bool IzvozMaterijala() {
+        public string IzvozMaterijala() {
             var materijali = DohvatiMaterijale();
             if (materijali.Count > 0) {
                 string generiraniString = GeneracijaCSV(materijali);
-                if (generiraniString != string.Empty && generiraniString != null) return true;
-                else return false;
+                return generiraniString;
+                
             } else return false;
 
         }
