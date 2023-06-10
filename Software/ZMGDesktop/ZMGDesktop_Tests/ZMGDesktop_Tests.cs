@@ -1017,7 +1017,7 @@ namespace ZMGDesktop_Tests
 
         // TESTOVI ZA NOVU FUNKCIONALNOST IZVOZA PODATAKA O MATERIJALIMA
         [Fact]
-        public void IzvozMaterijala_NemaMaterijala_VracaPrazanCSV() {
+        public void IzvozMaterijala_NemaMaterijala_VracaFalse() {
             List<Materijal> lista = new List<Materijal>();
             
             var fakeRepo = A.Fake<IMaterijalRepository>();
@@ -1035,7 +1035,7 @@ namespace ZMGDesktop_Tests
         }
 
         [Fact]
-        public void IzvozMaterijala_SaMaterijalima_IspravanCSV() {
+        public void IzvozMaterijala_SaMaterijalima_VracaTrue() {
             var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala=46, JedinicaMjere= "kg", OpasnoPoZivot=false };
             var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
             var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
@@ -1053,6 +1053,30 @@ namespace ZMGDesktop_Tests
             // Assert
             Assert.True(rezultat);
         }
+
+        [Fact]
+        public void GeneracijaCSV_OdabranaLokacijaPohraneIKliknutOK_VracaTrue() {
+            var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala = 46, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
+
+            var lista = new List<Materijal> { materijal1, materijal2, materijal3 };
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+            string ocekivaniCSV = "Naziv,Kolicina,CijenaMaterijala,JedinicaMjere,OpasnoPoZivot\r\n" +
+                      "Materijal 1,10,46,kg,False\r\n" +
+                      "Materijal 2,5,4,kg,False\r\n" +
+                      "Materijal 3,8,16,kg,False\r\n";
+            // Act
+            var rezultat = fakeServis.GeneracijaCSV(lista);
+
+            // Assert
+            Assert.Equal(rezultat, ocekivaniCSV);
+        }
+
 
     }
 

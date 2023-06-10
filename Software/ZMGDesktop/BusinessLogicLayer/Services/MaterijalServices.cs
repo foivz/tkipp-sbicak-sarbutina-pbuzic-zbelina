@@ -79,26 +79,33 @@ namespace BusinessLogicLayer.Services
         }
 
         public bool IzvozMaterijala() {
-            var materijali = _materijalRepository.GetAll().ToList();
+            var materijali = DohvatiMaterijale();
+            if (materijali.Count > 0) {
+                using (var saveFileDialog = new SaveFileDialog()) {
+                    saveFileDialog.Filter = "CSV datoteke (*.csv)|*.csv";
+                    saveFileDialog.Title = "Odaberi mjesto za pohranu CSV datoteke";
+                    saveFileDialog.FileName = "Materijali.csv";
 
-            using (var saveFileDialog = new SaveFileDialog()) {
-                saveFileDialog.Filter = "CSV datoteke (*.csv)|*.csv";
-                saveFileDialog.Title = "Odaberi mjesto za pohranu CSV datoteke";
-                saveFileDialog.FileName = "Materijali.csv";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                        var filePath = saveFileDialog.FileName;
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
-                    var filePath = saveFileDialog.FileName;
+                        using (var writer = new StreamWriter(filePath))
+                        using (var csv = new CsvWriter(writer, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture))) {
+                            csv.WriteRecords(materijali);
+                        }
 
-                    using (var writer = new StreamWriter(filePath))
-                    using (var csv = new CsvWriter(writer, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture))) {
-                        csv.WriteRecords(materijali);
+                        MessageBox.Show("CSV datoteka je uspješno pohranjena.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return true;
                     }
-
-                    MessageBox.Show("CSV datoteka je uspješno pohranjena.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            else return false;
+            
+        }
+
+        public string GeneracijaCSV(List<Materijal> materijali) {
+            return string.Empty;
         }
 
 
