@@ -11,6 +11,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Print path
+        run: echo $GITHUB_WORKSPACE
+  
       - name: Checkout code
         uses: actions/checkout@v3.5.2
 
