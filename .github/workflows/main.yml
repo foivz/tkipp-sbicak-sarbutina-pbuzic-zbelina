@@ -24,6 +24,11 @@ jobs:
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.3.1
+      
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '17.6.2' 
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
