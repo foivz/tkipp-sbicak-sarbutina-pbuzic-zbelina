@@ -1056,19 +1056,14 @@ namespace ZMGDesktop_Tests
 
         [Fact]
         public void GeneracijaCSV_ListaMaterijalaJePrazna_VracaPrazanString() {
-            var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala = 46, JedinicaMjere = "kg", OpasnoPoZivot = false };
-            var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
-            var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
 
-            var lista = new List<Materijal> { materijal1, materijal2, materijal3 };
-
+            List<Materijal> lista = new List<Materijal>();
             var fakeRepo = A.Fake<IMaterijalRepository>();
             A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
 
             var fakeServis = new MaterijalServices(fakeRepo);
             
             // Act
-            lista = null;
             var rezultat = fakeServis.GeneracijaCSV(lista);
 
             // Assert
