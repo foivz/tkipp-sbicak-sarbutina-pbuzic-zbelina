@@ -11,9 +11,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Print path
-        run: echo $GITHUB_WORKSPACE
-  
       - name: Checkout code
         uses: actions/checkout@v3.5.2
 
@@ -27,10 +24,15 @@ jobs:
         run: cd Software/ZMGDesktop
 
       - name: Restore NuGet Packages
+        working-directory: Software/ZMGDesktop
+        run: nuget restore
+        
+      - name: Restore NuGet Packagesv2
+        working-directory: Software/ZMGDesktop/ZMGDesktop
         run: nuget restore
             
       - name: Build Solution
-      #  working-directory: Software/ZMGDesktop
+        working-directory: Software/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
 
       - name: Run Unit tests
