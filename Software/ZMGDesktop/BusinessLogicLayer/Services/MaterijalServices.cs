@@ -4,6 +4,7 @@ using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -81,31 +82,20 @@ namespace BusinessLogicLayer.Services
         public bool IzvozMaterijala() {
             var materijali = DohvatiMaterijale();
             if (materijali.Count > 0) {
-                using (var saveFileDialog = new SaveFileDialog()) {
-                    saveFileDialog.Filter = "CSV datoteke (*.csv)|*.csv";
-                    saveFileDialog.Title = "Odaberi mjesto za pohranu CSV datoteke";
-                    saveFileDialog.FileName = "Materijali.csv";
+                string generiraniString = GeneracijaCSV(materijali);
+                if (generiraniString != string.Empty) return true;
+                else return false;
+            } else return false;
 
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK) {
-                        var filePath = saveFileDialog.FileName;
-
-                        using (var writer = new StreamWriter(filePath))
-                        using (var csv = new CsvWriter(writer, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture))) {
-                            csv.WriteRecords(materijali);
-                        }
-
-                        MessageBox.Show("CSV datoteka je uspješno pohranjena.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            else return false;
-            
         }
 
         public string GeneracijaCSV(List<Materijal> materijali) {
-            return string.Empty;
+            using (var writer = new StringWriter())
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) {
+                csv.WriteRecords(materijali);
+                csv.Flush();
+                return writer.ToString();
+            }
         }
 
 
