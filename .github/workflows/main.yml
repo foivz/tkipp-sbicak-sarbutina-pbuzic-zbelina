@@ -1,4 +1,4 @@
-name: ZMGDesktop Workflow CIa
+name: ZMGDesktop Workflow CI
 
 on:
   push:
@@ -11,28 +11,69 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    
+      - name: Print path
+        run: Write-Host $env:GITHUB_WORKSPACE
+        shell: pwsh
+        
       - name: Checkout code
         uses: actions/checkout@v3.5.2
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
+        
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.302'
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3.1
+    #  - name: Setup MSBuild
+    #   uses: microsoft/setup-msbuild@v1.3.1
+        
+    #  - name: Setup .net
+    #    uses: EasyDesk/action-dotnet-build@v1.0.0
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
 
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
-        run: nuget restore ZMGDesktop.sln
-            
+        run: nuget restore
+
+      - name: Restore NuGet Packagesv2
+        working-directory: Software/ZMGDesktop/ZMGDesktop
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMGDesktop
+        
+      - name: Restore NuGet Packagesv3
+        working-directory: Software/ZMGDesktop/ZMG.IntegrationTests
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMG.IntegrationTests
+        
+      - name: Restore NuGet Packagesv4
+        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMGDesktop_Tests
+        
+      - name: Restore NuGet Packagesv5
+        working-directory: Software/ZMGDesktop/EntitiesLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/EntitiesLayer
+        
+      - name: Restore NuGet Packagesv6
+        working-directory: Software/ZMGDesktop/Email
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/Email
+        
+      - name: Restore NuGet Packagesv7
+        working-directory: Software/ZMGDesktop/BusinessLogicLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/BusinessLogicLayer
+        
+      - name: Restore NuGet Packagesv8
+        working-directory: Software/ZMGDesktop/DataAccessLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/DataAccessLayer
+        
       - name: Build Solution
         working-directory: Software/ZMGDesktop
-        run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
+        run: dotnet build --configuration Release ZMGDesktop.sln
 
       - name: Run Unit tests
-        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
+      #  working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
         run: dotnet test --configuration Release --filter ZMGDesktop_Tests.ZMGDesktop_Tests
 
       - name: Run Integration tests
