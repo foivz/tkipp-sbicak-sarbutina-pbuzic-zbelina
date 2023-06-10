@@ -35,6 +35,30 @@ jobs:
       - name: Restore NuGet Packagesv2
         working-directory: Software/ZMGDesktop/ZMGDesktop
         run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMGDesktop
+        
+      - name: Restore NuGet Packagesv3
+        working-directory: Software/ZMGDesktop/ZMG.IntegrationTests
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMG.IntegrationTests
+        
+      - name: Restore NuGet Packagesv4
+        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMGDesktop_Tests
+        
+      - name: Restore NuGet Packagesv5
+        working-directory: Software/ZMGDesktop/EntitiesLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/EntitiesLayer
+        
+      - name: Restore NuGet Packagesv6
+        working-directory: Software/ZMGDesktop/Email
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/Email
+        
+      - name: Restore NuGet Packagesv7
+        working-directory: Software/ZMGDesktop/BusinessLogicLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/BusinessLogicLayer
+        
+      - name: Restore NuGet Packagesv8
+        working-directory: Software/ZMGDesktop/DataAccessLayer
+        run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/DataAccessLayer
             
       - name: Build Solution
         working-directory: Software/ZMGDesktop
