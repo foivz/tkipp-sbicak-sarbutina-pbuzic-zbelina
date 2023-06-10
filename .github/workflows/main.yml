@@ -24,9 +24,9 @@ jobs:
         run: cd Software/ZMGDesktop/ZMGDesktop
 
       - name: Restore NuGet Packages
-        working-directory: Software/ZMGDesktop/ZMGDesktop
-        run: nuget restore
-
+        working-directory: $GITHUB_WORKSPACE
+        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln
+            
       - name: Build Solution
         working-directory: Software/ZMGDesktop/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
