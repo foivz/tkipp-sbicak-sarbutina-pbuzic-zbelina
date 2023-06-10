@@ -21,7 +21,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Navigate to root folder
-        run: cd $GITHUB_WORKSPACE/Software/ZMGDesktop
+        run: cd Software/ZMGDesktop
 
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
