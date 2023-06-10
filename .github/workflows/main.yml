@@ -22,13 +22,11 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
 
-      - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.3.1
-      
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '7.0.302' 
+    #  - name: Setup MSBuild
+    #   uses: microsoft/setup-msbuild@v1.3.1
+        
+      - name: .Net Build
+        uses: EasyDesk/action-dotnet-build@v1.0.0
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
@@ -36,7 +34,7 @@ jobs:
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
         run: nuget restore
-        
+
       - name: Restore NuGet Packagesv2
         working-directory: Software/ZMGDesktop/ZMGDesktop
         run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/ZMGDesktop
@@ -64,10 +62,10 @@ jobs:
       - name: Restore NuGet Packagesv8
         working-directory: Software/ZMGDesktop/DataAccessLayer
         run: nuget restore packages.config -PackagesDirectory Software/ZMGDesktop/DataAccessLayer
-            
+        
       - name: Build Solution
         working-directory: Software/ZMGDesktop
-        run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
+        run: dotnet build --configuration Release ZMGDesktop.sln
 
       - name: Run Unit tests
       #  working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
