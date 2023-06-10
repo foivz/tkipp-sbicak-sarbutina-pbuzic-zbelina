@@ -28,7 +28,7 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '17.6.2' 
+          dotnet-version: '6.0.311' 
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
