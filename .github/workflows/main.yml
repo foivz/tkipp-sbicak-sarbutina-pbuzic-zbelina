@@ -21,14 +21,14 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Navigate to root folder
-        run: cd Software/ZMGDesktop/ZMGDesktop
+        run: cd Software/ZMGDesktop
 
       - name: Restore NuGet Packages
-        working-directory: Software/ZMGDesktop/ZMGDesktop
-        run: nuget restore Software/ZMGDesktop/ZMGDesktop.sln
+        working-directory: Software/ZMGDesktop
+        run: nuget restore ZMGDesktop.sln
             
       - name: Build Solution
-        working-directory: Software/ZMGDesktop/ZMGDesktop
+        working-directory: Software/ZMGDesktop
         run: msbuild /p:platform="Any CPU" /p:configuration=Release ZMGDesktop.sln
 
       - name: Run Unit tests
