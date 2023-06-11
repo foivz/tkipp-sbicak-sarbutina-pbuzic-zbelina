@@ -93,6 +93,31 @@ namespace ZMGDesktop {
                 System.Diagnostics.Process.Start(path);
             }
         }
+
+        private void btnIzvoz_Click(object sender, EventArgs e) {
+            var generiraniCSV = matServis.IzvozMaterijala();
+            PohraniCSV(generiraniCSV);
+        }
+
+        private void PohraniCSV(string generiraniCSV) {
+            try {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "CSV datoteke (*.csv)|*.csv";
+                saveFileDialog.Title = "Odaberi mjesto za spremanje CSV datoteke";
+                saveFileDialog.FileName = "generirani_podaci.csv";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    string filePath = saveFileDialog.FileName;
+
+                    // Spremanje generiranog CSV-a na odabrano mjesto
+                    File.WriteAllText(filePath, generiraniCSV);
+
+                    MessageBox.Show("CSV datoteka je uspješno spremljena.");
+                }
+            } catch (Exception ex) {
+                MessageBox.Show("Došlo je do greške prilikom spremanja CSV datoteke: " + ex.Message);
+            }
+        }
     }
 }
 

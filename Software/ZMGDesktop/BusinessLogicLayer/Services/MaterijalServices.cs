@@ -1,8 +1,13 @@
-﻿using DataAccessLayer.Repositories;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -74,7 +79,23 @@ namespace BusinessLogicLayer.Services
             return uspjeh;
         }
 
+        public string IzvozMaterijala() {
+            var materijali = DohvatiMaterijale();
+            if (materijali.Count > 0) {
+                string generiraniString = GeneracijaCSV(materijali);
+                return generiraniString;    
+            } else return string.Empty;
 
+        }
+
+        public string GeneracijaCSV(List<Materijal> materijali) {
+            using (var writer = new StringWriter())
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture)) {
+                csv.WriteRecords(materijali);
+                csv.Flush();
+                return writer.ToString();
+            }
+        }
 
 
     }

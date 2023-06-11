@@ -4,6 +4,7 @@ using DataAccessLayer.Repositories;
 using EntitiesLayer.Entities;
 using FakeItEasy;
 using Microsoft.SqlServer.Server;
+using Org.BouncyCastle.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1014,6 +1015,61 @@ namespace ZMGDesktop_Tests
             Assert.Equivalent(uspjeh, rezInt);
         }
 
+        // TESTOVI ZA NOVU FUNKCIONALNOST IZVOZA PODATAKA O MATERIJALIMA
+        [Fact]
+        public void IzvozMaterijala_NemaMaterijala_VracaPrazanString() {
+            List<Materijal> lista = new List<Materijal>();
+            
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+
+            // Act
+            var rezultat = fakeServis.IzvozMaterijala();
+
+                // Assert
+           Assert.Empty(rezultat);
+            
+
+        }
+
+        [Fact]
+        public void IzvozMaterijala_IspravnaLista_VracaIspunjenString() {
+            var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala=46, JedinicaMjere= "kg", OpasnoPoZivot=false };
+            var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
+
+            var lista = new List<Materijal> { materijal1, materijal2, materijal3 };
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+
+            // Act
+            var rezultat = fakeServis.IzvozMaterijala();
+
+            // Assert
+            Assert.NotEmpty(rezultat);
+        }
+
+        [Fact]
+        public void GeneracijaCSV_ListaMaterijalaJePrazna_VracaPrazanString() {
+
+            List<Materijal> lista = new List<Materijal>();
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+            
+            // Act
+            var rezultat = fakeServis.GeneracijaCSV(lista);
+
+            // Assert
+            Assert.Empty(rezultat);
+        }
+
         [Fact]
         public void Pretrazi_PretraziKlijentaPoNazivu_VracaKlijenta()
         {
@@ -1048,6 +1104,32 @@ namespace ZMGDesktop_Tests
             };
             A.CallTo(() => fakeRepo.Pretrazi("")).Returns(klijenti.AsQueryable());
             var fakeServis = new KlijentServices(fakeRepo);
+        [Fact]
+        public void GeneracijaCSV_ListaJeIspravna_VracaGeneriraniString() {
+            var materijal1 = new Materijal { Naziv = "Materijal 1", Kolicina = 10, CijenaMaterijala = 46, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal2 = new Materijal { Naziv = "Materijal 2", Kolicina = 5, CijenaMaterijala = 4, JedinicaMjere = "kg", OpasnoPoZivot = false };
+            var materijal3 = new Materijal { Naziv = "Materijal 3", Kolicina = 8, CijenaMaterijala = 16, JedinicaMjere = "kg", OpasnoPoZivot = false };
+
+            var lista = new List<Materijal> { materijal1, materijal2, materijal3 };
+
+            var fakeRepo = A.Fake<IMaterijalRepository>();
+            A.CallTo(() => fakeRepo.GetAll()).Returns(lista.AsQueryable());
+
+            var fakeServis = new MaterijalServices(fakeRepo);
+            string ocekivaniCSV = "Materijal_ID,Naziv,CijenaMaterijala,JedinicaMjere,Kolicina,Opis,OpasnoPoZivot,QR_kod,Primka_ID,Usluga_ID,Primka_ID,Naziv_Materijal,Datum,Kolicina,Usluga_ID,Naziv,QR_kod,CijenaUsluge\r\n" +
+                       "0,Materijal 1,46,kg,10,,False,,,,0,,,,0,,,0\r\n" +
+                       "0,Materijal 2,4,kg,5,,False,,,,0,,,,0,,,0\r\n" +
+                       "0,Materijal 3,16,kg,8,,False,,,,0,,,,0,,,0\r\n";
+
+
+
+            // Act
+
+            var rezultat = fakeServis.GeneracijaCSV(lista);
+
+            // Assert
+            Assert.Equal(rezultat, ocekivaniCSV);
+        }
 
             //Act
             var pretrazeniKlijenti = fakeServis.Pretrazi("");
