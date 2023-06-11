@@ -21,16 +21,11 @@ jobs:
 
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.2.0
-        
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '7.0.302'
 
-    #  - name: Setup MSBuild
-    #   uses: microsoft/setup-msbuild@v1.3.1
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
         
-    #  - name: Setup .net
+    #  - name: .Net Build
     #    uses: EasyDesk/action-dotnet-build@v1.0.0
 
       - name: Navigate to root folder
@@ -70,10 +65,10 @@ jobs:
         
       - name: Build Solution
         working-directory: Software/ZMGDesktop
-        run: dotnet build --configuration Release ZMGDesktop.sln
+        run: msbuild /p:platform="Any CPU" /p:configuration=Release
 
       - name: Run Unit tests
-      #  working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
+        working-directory: Software/ZMGDesktop/ZMGDesktop_Tests
         run: dotnet test --configuration Release --filter ZMGDesktop_Tests.ZMGDesktop_Tests
 
       - name: Run Integration tests
