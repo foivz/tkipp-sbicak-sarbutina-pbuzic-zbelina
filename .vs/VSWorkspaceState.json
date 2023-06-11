@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Software",
-    "\\Software\\ZMGDesktop",
-    "\\Software\\ZMGDesktop\\BusinessLogicLayer\\LogikaZaRacune",
-    "\\Software\\ZMGDesktop\\ZMGTests"
+    ""
   ],
-  "SelectedNode": "\\Software\\ZMGDesktop\\ZMGDesktop.sln",
+  "SelectedNode": "\\ZMGDesktop.sln",
   "PreviewInSolutionExplorer": false
 }
