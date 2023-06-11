@@ -1013,9 +1013,6 @@ namespace ZMGDesktop_Tests
             // Assert
             Assert.Equivalent(uspjeh, rezInt);
         }
-
-
-
     }
 
     }
