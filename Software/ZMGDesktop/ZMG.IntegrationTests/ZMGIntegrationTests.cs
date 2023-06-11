@@ -884,5 +884,65 @@ namespace ZMG.IntegrationTests
             Assert.Throws<NotImplementedException>(() => act());
         }
 
+
+        [Fact]
+        public void Pretrazi_PretraziKlijentaPoNazivu_VracaKlijenta()
+        {
+            //Arrange
+            kreirajServis();
+            var klijenti = _klijentServices.DohvatiKlijente();
+            var klijent = klijenti.SingleOrDefault(k => k.Naziv == "Aggreko");
+
+            //Act
+            var pretrazeniKlijenti = _klijentServices.Pretrazi("Aggreko");
+
+            //Assert
+            Assert.NotNull(pretrazeniKlijenti);
+            Assert.Equal(1, pretrazeniKlijenti.Count);
+
+        }
+
+        [Fact]
+        public void Pretrazi_KaoParametarNemojProslijeditiNista_VracaPopisSvihKlijenata()
+        {
+            //Arrange
+            kreirajServis();
+            var klijenti = _klijentServices.DohvatiKlijente();
+
+            //Act
+            var pretrazeniKlijenti = _klijentServices.Pretrazi("");
+
+            //Assert
+            Assert.NotNull(pretrazeniKlijenti);
+            Assert.Equal(klijenti, pretrazeniKlijenti);
+        }
+
+        [Fact]
+        public void Pretrazi_KaoParametarProslijediStringSNazivomKojiNePostojiUBazi_Vrati0Klijenata()
+        {
+            //Arrange
+            kreirajServis();
+            var klijenti = _klijentServices.DohvatiKlijente();
+
+            //Act
+            var pretrazeniKlijenti = _klijentServices.Pretrazi("sakskkdaskksa");
+
+            //Assert
+            Assert.NotNull(pretrazeniKlijenti);
+            Assert.Equal(0, pretrazeniKlijenti.Count);
+        }
+
+        [Fact]
+        public void SortirajKlijentePoUkupnomBrojuRacuna_PostojeKlijentiUBazi_VratiSortiraneKlijentePoUkupnomBrojuRacuna()
+        {
+            //Arrange
+            kreirajServis();
+
+            //Act
+            var sortiraniKlijenti = _klijentServices.SortirajKlijentePoUkupnomBrojuRacuna();
+            //Assert
+            Assert.IsType<List<Klijent>>(sortiraniKlijenti);
+            Assert.True(sortiraniKlijenti[0].Naziv == "Aggreko" && sortiraniKlijenti[1].Naziv == "Zvonimir Belina" && sortiraniKlijenti[2].Naziv == "Sebastijan Bicak");
+        }
     }
 }

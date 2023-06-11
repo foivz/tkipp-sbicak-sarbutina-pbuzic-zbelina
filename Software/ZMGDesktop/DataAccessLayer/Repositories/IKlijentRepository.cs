@@ -22,5 +22,8 @@ namespace DataAccessLayer.Repositories
         bool provjeri(Klijent entity);
 
         void vecPostoji(Klijent entity, Klijent klijent);
+
+        IQueryable<Klijent> Pretrazi(string izraz);
+        IQueryable<Klijent> SortirajKlijentePoUkupnomBrojuRacuna();
     }
 }

@@ -1016,3 +1016,92 @@ namespace ZMGDesktop_Tests
     }
 
     }
+
+        [Fact]
+        public void Pretrazi_PretraziKlijentaPoNazivu_VracaKlijenta()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijenti = new List<Klijent>()
+            {
+                new Klijent { Naziv = "Preis", OIB = "82812572912", Adresa = "Lobor 35", IBAN = "HR6322120061696361472", BrojTelefona = "0916401323", Email = "email@gmail.com", Mjesto = "Lobor"},
+                new Klijent { Naziv = "Prgomet", OIB = "28125727125", Adresa = "Krapina 35", IBAN = "HR6327120061696361472", BrojTelefona = "0917285721", Email = "maxos@gmail.com", Mjesto = "Krapina"},
+            };
+            A.CallTo(() => fakeRepo.Pretrazi("Pr")).Returns(klijenti.AsQueryable());
+            var fakeServis = new KlijentServices(fakeRepo);
+
+            //Act
+            var pretrazeniKlijenti = fakeServis.Pretrazi("Pr");
+
+            //Assert
+            Assert.NotNull(pretrazeniKlijenti);
+            Assert.Equal(pretrazeniKlijenti, klijenti);
+        }
+
+        [Fact]
+        public void Pretrazi_KaoParametarNemojProslijeditiNista_VracaPopisSvihKlijenata()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijenti = new List<Klijent>()
+            {
+                new Klijent { Naziv = "Preis", OIB = "82812572912", Adresa = "Lobor 35", IBAN = "HR6322120061696361472", BrojTelefona = "0916401323", Email = "email@gmail.com", Mjesto = "Lobor"},
+                new Klijent {Naziv = "Prgomet", OIB = "28125727125", Adresa = "Krapina 35", IBAN = "HR6327120061696361472", BrojTelefona = "0917285721", Email = "maxos@gmail.com", Mjesto = "Krapina"},
+                new Klijent {Naziv = "Muzar", OIB = "72812959212", Adresa = "Durmanec", IBAN = "HR9291258212582716281", BrojTelefona = "09125821252", Email = "muzar@gmail.com", Mjesto = "Durmanec"}
+            };
+            A.CallTo(() => fakeRepo.Pretrazi("")).Returns(klijenti.AsQueryable());
+            var fakeServis = new KlijentServices(fakeRepo);
+
+            //Act
+            var pretrazeniKlijenti = fakeServis.Pretrazi("");
+
+            //Assert
+            Assert.NotNull(pretrazeniKlijenti);
+            Assert.Equal(klijenti, pretrazeniKlijenti);
+        }
+
+        [Fact]
+        public void Pretrazi_KaoParametarProslijediStringSNazivomKojiNePostojiUBazi_Vrati0Klijenata()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            List<Klijent> klijenti = new List<Klijent>();
+            A.CallTo(() => fakeRepo.Pretrazi("kszazsdsa")).Returns(klijenti.AsQueryable());
+            var fakeServis = new KlijentServices(fakeRepo);
+
+            //Act
+            var pretrazeniKlijenti = fakeServis.Pretrazi("kszazsdsa");
+
+            //Assert
+            Assert.Empty(klijenti);
+        }
+
+        [Fact]
+        public void SortirajKlijentePoUkupnomBrojuRacuna_PostojeKlijentiUBazi_VratiSortiraneKlijentePoUkupnomBrojuRacuna()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IKlijentRepository>();
+            var klijenti = new List<Klijent>()
+            {
+                new Klijent { Naziv = "Preis", OIB = "82812572912", Adresa = "Lobor 35", IBAN = "HR6322120061696361472", BrojTelefona = "0916401323", Email = "email@gmail.com", Mjesto = "Lobor"},
+                new Klijent {Naziv = "Prgomet", OIB = "28125727125", Adresa = "Krapina 35", IBAN = "HR6327120061696361472", BrojTelefona = "0917285721", Email = "maxos@gmail.com", Mjesto = "Krapina"},
+                new Klijent {Naziv = "Muzar", OIB = "72812959212", Adresa = "Durmanec", IBAN = "HR9291258212582716281", BrojTelefona = "09125821252", Email = "muzar@gmail.com", Mjesto = "Durmanec"}
+            };
+
+            var racun1 = new Racun() { Klijent = klijenti[0], Klijent_ID = klijenti[0].Klijent_ID, UkupnaCijena = 100 };
+            var racun2 = new Racun() { Klijent = klijenti[0], Klijent_ID = klijenti[0].Klijent_ID, UkupnaCijena = 200 };
+            var racun3 = new Racun() { Klijent = klijenti[1], Klijent_ID = klijenti[1].Klijent_ID, UkupnaCijena = 300 };
+            A.CallTo(() => fakeRepo.SortirajKlijentePoUkupnomBrojuRacuna()).Returns(klijenti.OrderBy(k => k.ukupniBrojRacuna).AsQueryable());
+            var fakeServis = new KlijentServices(fakeRepo);
+
+            //Act
+            var sortiraniKlijenti = fakeServis.SortirajKlijentePoUkupnomBrojuRacuna();
+
+            //Assert
+            Assert.True(sortiraniKlijenti[0].Naziv == "Preis");
+            Assert.True(sortiraniKlijenti[1].Naziv == "Prgomet");
+            Assert.True(sortiraniKlijenti[2].Naziv == "Muzar");
+
+        }
+    }
+}

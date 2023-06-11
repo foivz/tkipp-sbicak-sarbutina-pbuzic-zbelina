@@ -31,6 +31,22 @@ namespace DataAccessLayer.Repositories
             return query;
         }
 
+        public IQueryable<Klijent> SortirajKlijentePoUkupnomBrojuRacuna()
+        {
+            var query = from s in Entities
+                        orderby s.ukupniBrojRacuna descending
+                        select s;
+            return query;
+        }
+
+        public IQueryable<Klijent> Pretrazi(string izraz)
+        {
+            var query = from s in Entities
+                        where s.Naziv.Contains(izraz)
+                        select s;
+            return query;
+        }
+
         public override int Add(Klijent entity, bool saveChanges = true)
         {
             var klijent = new Klijent
