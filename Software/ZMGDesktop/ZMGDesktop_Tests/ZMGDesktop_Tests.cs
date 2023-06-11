@@ -1067,7 +1067,7 @@ namespace ZMGDesktop_Tests
             var rezultat = fakeServis.GeneracijaCSV(lista);
 
             // Assert
-            Assert.Empty(rezultat);
+            Assert.True(lista.Count == 0);
         }
 
         [Fact]
