@@ -30,9 +30,6 @@ jobs:
 
       - name: Navigate to root folder
         run: cd Software/ZMGDesktop
-        
-      - name: Clear NuGet package cache
-        run: dotnet nuget locals all --clear
 
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
