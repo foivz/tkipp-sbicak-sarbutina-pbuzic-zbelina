@@ -34,6 +34,10 @@ jobs:
       - name: Restore NuGet Packages
         working-directory: Software/ZMGDesktop
         run: nuget restore
+        
+      - name: Restore dotnet
+        working-directory: Software/ZMGDesktop
+        run: dotnet restore
 
       - name: Restore NuGet Packagesv2
         working-directory: Software/ZMGDesktop/ZMGDesktop
