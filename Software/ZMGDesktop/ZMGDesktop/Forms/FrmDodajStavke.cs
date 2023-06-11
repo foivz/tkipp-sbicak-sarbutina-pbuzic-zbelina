@@ -19,7 +19,7 @@ namespace ZMGDesktop
 {
     public partial class FrmDodajStavke : Form
     {
-        //objekti
+        //objektii
         Klijent klijent;
         Racun racun;
         Roba selektiranaRoba;
