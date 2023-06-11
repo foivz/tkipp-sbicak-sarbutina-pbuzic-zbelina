@@ -1013,9 +1013,6 @@ namespace ZMGDesktop_Tests
             // Assert
             Assert.Equivalent(uspjeh, rezInt);
         }
-    }
-
-    }
 
         [Fact]
         public void Pretrazi_PretraziKlijentaPoNazivu_VracaKlijenta()
@@ -1103,5 +1100,5 @@ namespace ZMGDesktop_Tests
             Assert.True(sortiraniKlijenti[2].Naziv == "Muzar");
 
         }
-    }
-}
+    }      
+ }
